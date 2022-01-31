@@ -3,7 +3,6 @@
 import { ApolloServer, gql } from 'apollo-server-micro'
 import Cors from 'micro-cors'
 
-const cors = Cors()
 const typeDefs = gql`
   type User {
     id: ID
@@ -23,6 +22,8 @@ const resolvers = {
     },
   },
 }
+
+const cors = Cors()
 
 const apolloServer = new ApolloServer({
   typeDefs,
