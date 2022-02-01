@@ -3,8 +3,8 @@ import { makeStyles } from '@mui/styles'
 import { Box, Container, Grid, IconButton, Typography } from '@mui/material'
 import KeyboardArrowDownRoundedIcon from '@mui/icons-material/KeyboardArrowDownRounded'
 import AnchorLink from 'react-anchor-link-smooth-scroll'
-import NavBar from '../components/navbar/NavBar'
-import ProjectContainer from '../components/project/ProjectContainer'
+import NavBar from 'components/navbar/NavBar'
+import ProjectContainer from 'components/project/ProjectContainer'
 
 const useStyles = makeStyles(() => ({
   mainTitle: {

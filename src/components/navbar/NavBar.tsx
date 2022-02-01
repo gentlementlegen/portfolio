@@ -2,6 +2,7 @@ import React from 'react'
 import { AppBar, Button, Toolbar, Typography } from '@mui/material'
 import Head from 'next/head'
 import { makeStyles } from '@mui/styles'
+import Link from 'next/link'
 
 const useStyles = makeStyles({
   navBarTitle: {
@@ -21,9 +22,13 @@ const NavBar = (): JSX.Element => {
         <Typography variant={'h6'} component={'div'} className={classes.navBarTitle}>
           Portfolio
         </Typography>
-        <Button color="inherit">Home</Button>
+        <Link href={'/'} passHref>
+          <Button color="inherit">Home</Button>
+        </Link>
         <Button color="inherit">About me</Button>
-        <Button color="inherit">Contact</Button>
+        <Link href={'/contact'} passHref>
+          <Button color="inherit">Contact</Button>
+        </Link>
       </Toolbar>
     </AppBar>
   )
