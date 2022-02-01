@@ -2,7 +2,7 @@ import React from 'react'
 import { Grid } from '@mui/material'
 import ProjectCard from './ProjectCard'
 import { makeStyles } from '@mui/styles'
-import Theme from '../../pages/theme'
+import Theme from 'theme'
 
 const useStyles = makeStyles<typeof Theme>((theme) => ({
   mainTitle: {
