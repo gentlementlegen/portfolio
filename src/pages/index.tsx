@@ -1,18 +1,19 @@
 import React from 'react'
 import { makeStyles } from '@mui/styles'
-import { Box, Card, CardActionArea, CardContent, Container, Grid, IconButton, Typography } from '@mui/material'
+import { Box, Container, Grid, IconButton, Typography } from '@mui/material'
 import KeyboardArrowDownRoundedIcon from '@mui/icons-material/KeyboardArrowDownRounded'
 import AnchorLink from 'react-anchor-link-smooth-scroll'
 import NavBar from '../components/navbar/NavBar'
+import ProjectContainer from '../components/project/ProjectContainer'
 
-const useStyles = makeStyles({
-  red: {
-    backgroundColor: 'red',
-  },
+const useStyles = makeStyles(() => ({
   mainTitle: {
     height: `calc(100vh - 112px)`,
+    position: 'sticky',
+    top: 64,
+    zIndex: -1,
   },
-})
+}))
 
 export default function Home() {
   const classes = useStyles()
@@ -31,24 +32,14 @@ export default function Home() {
             </Typography>
           </Grid>
         </Grid>
-        <Box display={'flex'} justifyContent={'center'}>
+        <Box display={'flex'} justifyContent={'center'} marginBottom={8}>
           <AnchorLink href={'#projects'}>
             <IconButton size={'large'}>
               <KeyboardArrowDownRoundedIcon />
             </IconButton>
           </AnchorLink>
         </Box>
-        <Grid container justifyContent={'center'} id={'projects'}>
-          <Grid item xs={4}>
-            <Card>
-              <CardActionArea>
-                <CardContent>
-                  <Typography>Project 1</Typography>
-                </CardContent>
-              </CardActionArea>
-            </Card>
-          </Grid>
-        </Grid>
+        <ProjectContainer />
       </Container>
     </div>
   )

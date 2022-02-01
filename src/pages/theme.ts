@@ -1,4 +1,4 @@
-import { createTheme } from '@mui/material'
+import { createTheme } from '@mui/material/styles'
 
 const theme = createTheme({
   typography: {
@@ -14,6 +14,20 @@ const theme = createTheme({
       'BlinkMacSystemFont',
       '"Segoe UI"',
     ].join(','),
+  },
+  palette: {
+    primary: {
+      light: '#222222',
+      main: '#000000',
+      dark: '#000000',
+      contrastText: '#fff',
+    },
+    secondary: {
+      light: '#ffffff',
+      main: '#ffffff',
+      dark: '#dddddd',
+      contrastText: '#000',
+    },
   },
 })
 

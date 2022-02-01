@@ -21,7 +21,7 @@ const NavBar = (): JSX.Element => {
         <Typography variant={'h6'} component={'div'} className={classes.navBarTitle}>
           Portfolio
         </Typography>
-        <Button color="inherit">Projects</Button>
+        <Button color="inherit">Home</Button>
         <Button color="inherit">About me</Button>
         <Button color="inherit">Contact</Button>
       </Toolbar>
