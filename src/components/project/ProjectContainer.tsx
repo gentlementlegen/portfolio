@@ -17,19 +17,19 @@ const ProjectContainer = (): JSX.Element => {
   return (
     <div className={classes.mainTitle}>
       <Grid container justifyContent={'center'} id={'projects'} spacing={4}>
-        <Grid item xs={4}>
+        <Grid item sm={4} xs={6}>
           <ProjectCard title={'project 1'} />
         </Grid>
-        <Grid item xs={4}>
+        <Grid item sm={4} xs={6}>
           <ProjectCard title={'project 1'} />
         </Grid>
-        <Grid item xs={4}>
+        <Grid item sm={4} xs={6}>
           <ProjectCard title={'project 1'} />
         </Grid>
-        <Grid item xs={4}>
+        <Grid item sm={4} xs={6}>
           <ProjectCard title={'project 1'} />
         </Grid>
-        <Grid item xs={4}>
+        <Grid item sm={4} xs={6}>
           <ProjectCard title={'project 1'} />
         </Grid>
       </Grid>

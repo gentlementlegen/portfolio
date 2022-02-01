@@ -25,7 +25,9 @@ const NavBar = (): JSX.Element => {
         <Link href={'/'} passHref>
           <Button color="inherit">Home</Button>
         </Link>
-        <Button color="inherit">About me</Button>
+        <Link href={'/about'} passHref>
+          <Button color="inherit">About</Button>
+        </Link>
         <Link href={'/contact'} passHref>
           <Button color="inherit">Contact</Button>
         </Link>

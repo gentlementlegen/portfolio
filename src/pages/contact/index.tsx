@@ -1,13 +1,8 @@
 import React from 'react'
-import NavBar from 'components/navbar/NavBar'
+import MainLayout from 'components/layout/MainLayout'
 
 const ContactPage = (): JSX.Element => {
-  return (
-    <div>
-      <NavBar />
-      Contact page
-    </div>
-  )
+  return <MainLayout>Contact page</MainLayout>
 }
 
 export default ContactPage

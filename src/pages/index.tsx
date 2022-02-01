@@ -3,8 +3,8 @@ import { makeStyles } from '@mui/styles'
 import { Box, Container, Grid, IconButton, Typography } from '@mui/material'
 import KeyboardArrowDownRoundedIcon from '@mui/icons-material/KeyboardArrowDownRounded'
 import AnchorLink from 'react-anchor-link-smooth-scroll'
-import NavBar from 'components/navbar/NavBar'
 import ProjectContainer from 'components/project/ProjectContainer'
+import MainLayout from 'components/layout/MainLayout'
 
 const useStyles = makeStyles(() => ({
   mainTitle: {
@@ -18,8 +18,7 @@ const useStyles = makeStyles(() => ({
 export default function Home() {
   const classes = useStyles()
   return (
-    <div>
-      <NavBar />
+    <MainLayout>
       <Container>
         <Grid container className={classes.mainTitle} alignItems={'center'}>
           <Grid item xs={12}>
@@ -41,6 +40,6 @@ export default function Home() {
         </Box>
         <ProjectContainer />
       </Container>
-    </div>
+    </MainLayout>
   )
 }
