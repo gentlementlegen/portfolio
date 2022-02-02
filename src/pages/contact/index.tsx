@@ -3,24 +3,13 @@ import MainLayout from 'components/layout/MainLayout'
 import { Button, Container, Grid, TextField, Typography } from '@mui/material'
 import { useForm } from 'react-hook-form'
 import { gql, useMutation } from '@apollo/client'
-import { makeStyles } from '@mui/styles'
-import Theme from 'theme'
+import theme from 'theme'
 
 const MUTATION = gql`
   mutation SendEmail($name: String!, $message: String!, $email: String!) {
     sendEmail(name: $name, message: $message, email: $email)
   }
 `
-
-const useStyles = makeStyles<typeof Theme>((theme) => ({
-  root: {
-    paddingTop: theme.spacing(12),
-    [theme.breakpoints.down('sm')]: {
-      paddingTop: theme.spacing(4),
-    },
-    paddingBottom: theme.spacing(4),
-  },
-}))
 
 const ContactPage = (): JSX.Element => {
   const {
@@ -29,7 +18,6 @@ const ContactPage = (): JSX.Element => {
     formState: { errors },
   } = useForm()
   const [sendEmail, { loading }] = useMutation(MUTATION)
-  const classes = useStyles()
 
   const submitForm = (form) => {
     sendEmail({ variables: form })
@@ -37,7 +25,16 @@ const ContactPage = (): JSX.Element => {
 
   return (
     <MainLayout>
-      <Container maxWidth={'sm'} className={classes.root}>
+      <Container
+        maxWidth={'sm'}
+        sx={{
+          paddingTop: theme.spacing(12),
+          [theme.breakpoints.down('sm')]: {
+            paddingTop: theme.spacing(4),
+          },
+          paddingBottom: theme.spacing(4),
+        }}
+      >
         <form onSubmit={handleSubmit(submitForm)}>
           <Grid container spacing={4} justifyContent={'center'}>
             <Grid item xs={12}>

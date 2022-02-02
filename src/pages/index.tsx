@@ -1,26 +1,16 @@
 import React from 'react'
-import { makeStyles } from '@mui/styles'
 import { Box, Container, Grid, IconButton, Typography } from '@mui/material'
 import KeyboardArrowDownRoundedIcon from '@mui/icons-material/KeyboardArrowDownRounded'
 import AnchorLink from 'react-anchor-link-smooth-scroll'
 import ProjectContainer from 'components/project/ProjectContainer'
 import MainLayout from 'components/layout/MainLayout'
-
-const useStyles = makeStyles(() => ({
-  mainTitle: {
-    height: `calc(100vh - 112px)`,
-    position: 'sticky',
-    top: 64,
-    zIndex: -1,
-  },
-}))
+import styles from 'styles/Home.module.css'
 
 export default function Home() {
-  const classes = useStyles()
   return (
     <MainLayout>
       <Container>
-        <Grid container className={classes.mainTitle} alignItems={'center'}>
+        <Grid container className={styles.mainGrid} alignItems={'center'}>
           <Grid item xs={12}>
             <Typography variant={'h1'} align={'center'} gutterBottom>
               Welcome to my portfolio

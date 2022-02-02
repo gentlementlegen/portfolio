@@ -1,22 +1,18 @@
 import React from 'react'
-import { Typography } from '@mui/material'
-import { makeStyles } from '@mui/styles'
-import Theme from 'theme'
+import { Box, Typography } from '@mui/material'
+import theme from 'theme'
 
-const useStyles = makeStyles<typeof Theme>((theme) => ({
-  root: {
-    padding: theme.spacing(2),
-  },
-}))
 const Footer = (): JSX.Element => {
-  const classes = useStyles()
-
   return (
-    <div className={classes.root}>
+    <Box
+      sx={{
+        padding: theme.spacing(2),
+      }}
+    >
       <Typography variant={'caption'} align={'center'} component={'p'}>
         Games are love, games are life | Copyright Fernand Veyrier, {new Date().getFullYear()}
       </Typography>
-    </div>
+    </Box>
   )
 }
 

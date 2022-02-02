@@ -1,5 +1,5 @@
 import React from 'react'
-import '../../styles/globals.css'
+import 'styles/globals.css'
 import { AppProps } from 'next/app'
 import { CssBaseline } from '@mui/material'
 import { ThemeProvider } from '@mui/material/styles'
