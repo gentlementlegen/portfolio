@@ -27,7 +27,7 @@ export default function Home() {
             </Typography>
             <Typography variant={'h5'} align={'center'}>
               I am <em>Fernand</em>, a dev lead in South Korea. Passionate about video-games, I currently work with
-              React.js, Node.js & GraphQl.
+              React.js, Node.js, Typescript & GraphQl.
             </Typography>
           </Grid>
         </Grid>

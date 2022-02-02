@@ -15,6 +15,10 @@ const MUTATION = gql`
 const useStyles = makeStyles<typeof Theme>((theme) => ({
   root: {
     paddingTop: theme.spacing(12),
+    [theme.breakpoints.down('sm')]: {
+      paddingTop: theme.spacing(4),
+    },
+    paddingBottom: theme.spacing(4),
   },
 }))
 
