@@ -51,7 +51,7 @@ const startServer = apolloServer.start()
 
 export default cors(async (req, res) => {
   if (req.method === 'OPTIONS') {
-    res.end()
+    res.status(200).end()
     return false
   }
 
