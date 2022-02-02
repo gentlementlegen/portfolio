@@ -10,10 +10,45 @@ import theme from 'theme'
 export default function Home() {
   return (
     <MainLayout>
-      <div className={styles.backgroundOverlay} />
-      <video autoPlay muted loop id="backgroundVideo" className={styles.backgroundVideo}>
+      <Box
+        sx={{
+          height: 'calc(100vh - 64px)',
+          top: 64,
+          [theme.breakpoints.down('sm')]: {
+            height: 'calc(100vh - 56px)',
+            top: 56,
+          },
+          width: '100%',
+          position: 'absolute',
+          zIndex: -2,
+          backgroundColor: 'black',
+          opacity: 0.7,
+        }}
+      />
+      <Box
+        component={'video'}
+        autoPlay
+        muted
+        loop
+        id="backgroundVideo"
+        sx={{
+          height: 'calc(100vh - 64px)',
+          top: 64,
+          [theme.breakpoints.down('sm')]: {
+            height: 'calc(100vh - 56px)',
+            top: 56,
+          },
+          width: '100%',
+          position: 'fixed',
+          zIndex: -3,
+          objectFit: 'cover',
+          filter: 'blur(4px)',
+          msFilter: 'blur(4px)',
+          webkitFilter: 'blur(4px)',
+        }}
+      >
         <source src="backgroundVideo.mp4" type="video/mp4" />
-      </video>
+      </Box>
       <Container className={styles.mainGrid}>
         <Grid container className={styles.mainGrid} alignItems={'center'}>
           <Grid item xs={12} sx={{ color: theme.palette.secondary.main, textShadow: '1px 1px 5px black' }}>
