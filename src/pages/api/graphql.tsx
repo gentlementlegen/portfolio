@@ -40,7 +40,7 @@ const resolvers = {
   },
 }
 
-const cors = Cors()
+const cors = Cors({ origin: process.env.VERCEL_URL })
 
 const apolloServer = new ApolloServer({
   typeDefs,
