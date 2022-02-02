@@ -2,23 +2,40 @@
 
 import { ApolloServer, gql } from 'apollo-server-micro'
 import Cors from 'micro-cors'
+import nodemailer from 'nodemailer'
 
 const typeDefs = gql`
-  type User {
-    id: ID
+  type Project {
+    id: String!
   }
-
   type Query {
-    getUser: User
+    projects: [Project!]!
+  }
+  type Mutation {
+    sendEmail(name: String!, email: String!, message: String!): String
   }
 `
 
 const resolvers = {
-  Query: {
-    getUser: () => {
-      return {
-        id: 'Foo',
-      }
+  Mutation: {
+    sendEmail: async (parent, args: { name: string; email: string; message: string }) => {
+      const { name, email, message } = args
+      const transporter = nodemailer.createTransport({
+        service: 'Gmail',
+        auth: {
+          user: process.env.EMAIL_ADDRESS,
+          pass: process.env.EMAIL_PASSWORD,
+        },
+      })
+
+      const info = await transporter.sendMail({
+        from: 'fernand-veyrier@website.com',
+        to: 'fernandveyrier96@gmail.com',
+        subject: `New message from ${name}`,
+        text: `${name} // ${email}\n\n${message}`,
+      })
+
+      return info.response
     },
   },
 }
