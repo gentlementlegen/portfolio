@@ -1,9 +1,10 @@
-import React from 'react'
+import React, { useState } from 'react'
 import MainLayout from 'components/layout/MainLayout'
 import { Button, Container, Grid, TextField, Typography } from '@mui/material'
 import { useForm } from 'react-hook-form'
 import { gql, useMutation } from '@apollo/client'
 import theme from 'theme'
+import Success from 'components/animated/Success'
 
 const MUTATION = gql`
   mutation SendEmail($name: String!, $message: String!, $email: String!) {
@@ -18,9 +19,10 @@ const ContactPage = (): JSX.Element => {
     formState: { errors },
   } = useForm()
   const [sendEmail, { loading }] = useMutation(MUTATION)
+  const [sent, setSent] = useState(false)
 
   const submitForm = (form) => {
-    sendEmail({ variables: form })
+    sendEmail({ variables: form }).then(() => setSent(true))
   }
 
   return (
@@ -45,6 +47,7 @@ const ContactPage = (): JSX.Element => {
                 name={'name'}
                 label={'Name'}
                 variant={'outlined'}
+                color={'secondary'}
                 error={Boolean(errors.name)}
                 helperText={errors.name?.message}
                 fullWidth
@@ -56,6 +59,7 @@ const ContactPage = (): JSX.Element => {
                 name={'email'}
                 label={'Email'}
                 variant={'outlined'}
+                color={'secondary'}
                 error={Boolean(errors.email)}
                 helperText={errors.email?.message}
                 fullWidth
@@ -67,6 +71,7 @@ const ContactPage = (): JSX.Element => {
                 name={'message'}
                 label={'Message'}
                 variant={'outlined'}
+                color={'secondary'}
                 multiline
                 minRows={5}
                 error={Boolean(errors.message)}
@@ -75,10 +80,13 @@ const ContactPage = (): JSX.Element => {
                 {...register('message', { required: 'This field is required' })}
               />
             </Grid>
-            <Grid item>
-              <Button type={'submit'} variant={'contained'} color={'primary'} disabled={loading}>
-                Submit
-              </Button>
+            <Grid item style={{ maxHeight: 68.5 }}>
+              {!sent && (
+                <Button type={'submit'} variant={'contained'} color={'primary'} disabled={loading}>
+                  Submit
+                </Button>
+              )}
+              {sent && <Success />}
             </Grid>
           </Grid>
         </form>
