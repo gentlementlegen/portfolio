@@ -1,6 +1,7 @@
 import React, { PropsWithChildren } from 'react'
 import styles from 'styles/Home.module.css'
-import { Box, BoxProps } from '@mui/material'
+// eslint-disable-next-line import/named
+import { Box, BoxProps } from '@mui/system'
 
 const MainLayout = (props: PropsWithChildren<BoxProps>): JSX.Element => {
   const { children, ...rest } = props
