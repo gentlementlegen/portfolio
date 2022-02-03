@@ -2,14 +2,17 @@ import React, { PropsWithChildren } from 'react'
 import NavBar from 'components/layout/NavBar'
 import Footer from 'components/layout/Footer'
 import styles from 'styles/Home.module.css'
+import { Box, BoxProps } from '@mui/material'
 
-const MainLayout = (props: PropsWithChildren<unknown>): JSX.Element => {
-  const { children } = props
+const MainLayout = (props: PropsWithChildren<BoxProps>): JSX.Element => {
+  const { children, ...rest } = props
 
   return (
     <>
       <NavBar />
-      <div className={styles.mainTitle}>{children}</div>
+      <Box className={styles.mainTitle} {...rest}>
+        {children}
+      </Box>
       <Footer />
     </>
   )

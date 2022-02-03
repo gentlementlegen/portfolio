@@ -26,14 +26,11 @@ const ContactPage = (): JSX.Element => {
   }
 
   return (
-    <MainLayout>
+    <MainLayout sx={{ display: 'flex', alignItems: 'center' }}>
       <Container
         maxWidth={'sm'}
         sx={{
-          paddingTop: theme.spacing(12),
-          [theme.breakpoints.down('sm')]: {
-            paddingTop: theme.spacing(4),
-          },
+          paddingTop: theme.spacing(4),
           paddingBottom: theme.spacing(4),
         }}
       >
