@@ -8,7 +8,7 @@ interface ProjectCardProps {
 const ProjectCard = (props: ProjectCardProps): JSX.Element => {
   const { title } = props
   return (
-    <Card>
+    <Card variant={'outlined'}>
       <CardActionArea>
         <CardMedia component={'img'} height={140} image={'/vercel.svg'} />
         <CardContent>

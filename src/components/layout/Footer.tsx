@@ -5,6 +5,7 @@ import theme from 'theme'
 const Footer = (): JSX.Element => {
   return (
     <Paper
+      square
       elevation={0}
       sx={{
         padding: theme.spacing(2),

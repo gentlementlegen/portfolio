@@ -1,6 +1,6 @@
 import { createTheme, responsiveFontSizes } from '@mui/material/styles'
 
-const theme = responsiveFontSizes(
+let theme = responsiveFontSizes(
   createTheme({
     typography: {
       fontFamily: [
@@ -17,20 +17,33 @@ const theme = responsiveFontSizes(
       ].join(','),
     },
     palette: {
+      mode: 'dark',
       primary: {
-        light: '#222222',
         main: '#000000',
-        dark: '#000000',
-        contrastText: '#fff',
       },
       secondary: {
-        light: '#ffffff',
         main: '#ffffff',
-        dark: '#dddddd',
-        contrastText: '#000',
+      },
+      background: {
+        default: '#1a1a1a',
+        paper: '#000000',
       },
     },
   }),
 )
+
+theme = createTheme(theme, {
+  components: {
+    MuiCssBaseline: {
+      styleOverrides: {
+        em: {
+          color: theme.palette.secondary.dark,
+          fontWeight: 'bold',
+          fontStyle: 'normal',
+        },
+      },
+    },
+  },
+})
 
 export default theme

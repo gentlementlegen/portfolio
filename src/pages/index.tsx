@@ -30,6 +30,7 @@ export default function Home() {
         autoPlay
         muted
         loop
+        preload="none"
         id="backgroundVideo"
         sx={{
           height: 'calc(100vh - 64px)',
@@ -69,7 +70,7 @@ export default function Home() {
           </IconButton>
         </AnchorLink>
       </Box>
-      <Paper variant={'elevation'} elevation={0}>
+      <Paper square>
         <Container>
           <ProjectContainer />
         </Container>

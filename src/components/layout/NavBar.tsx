@@ -6,7 +6,7 @@ import styles from 'styles/Home.module.css'
 
 const NavBar = (): JSX.Element => {
   return (
-    <AppBar position={'sticky'}>
+    <AppBar position={'sticky'} sx={{ backgroundImage: 'none' }}>
       <Head>
         <title>Fernand&apos;s Portfolio</title>
       </Head>

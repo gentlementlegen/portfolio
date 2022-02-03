@@ -14,9 +14,3 @@ a {
 * {
     box-sizing: border-box;
 }
-
-em {
-    color: grey;
-    font-weight: bold;
-    font-style: normal;
-}
