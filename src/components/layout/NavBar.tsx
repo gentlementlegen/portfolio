@@ -8,20 +8,20 @@ const NavBar = (): JSX.Element => {
   return (
     <AppBar position={'sticky'} sx={{ backgroundImage: 'none' }}>
       <Head>
-        <title>Fernand&apos;s Portfolio</title>
+        <title>Fernand Veyrier - Portfolio</title>
       </Head>
       <Toolbar>
         <Typography variant={'h6'} component={'div'} className={styles.navBarTitle}>
           Portfolio
         </Typography>
         <Link href={'/'} passHref>
-          <Button color="inherit">Home</Button>
+          <Button color={'inherit'}>Home</Button>
         </Link>
         {/*<Link href={'/about'} passHref>*/}
         {/*  <Button color="inherit">About</Button>*/}
         {/*</Link>*/}
         <Link href={'/contact'} passHref>
-          <Button color="inherit">Contact</Button>
+          <Button color={'inherit'}>Contact</Button>
         </Link>
       </Toolbar>
     </AppBar>
