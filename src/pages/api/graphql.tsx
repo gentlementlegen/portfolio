@@ -4,15 +4,20 @@ import { ApolloServer, gql } from 'apollo-server-micro'
 import Cors from 'micro-cors'
 import nodemailer from 'nodemailer'
 
+const projects: { id: number; title: string }[] = []
+
 const typeDefs = gql`
   type Project {
-    id: String!
+    id: Int!
+    title: String!
   }
   type Query {
     projects: [Project!]!
+    project(id: Int!): Project
   }
   type Mutation {
     sendEmail(name: String!, email: String!, message: String!): String
+    createProject(title: String!): Project
   }
 `
 
@@ -36,6 +41,19 @@ const resolvers = {
       })
 
       return info.response
+    },
+    createProject: (parent, args: { title: string }) => {
+      const { title } = args
+      const newProject = { id: projects.length + 1, title }
+      projects.push(newProject)
+      return newProject
+    },
+  },
+  Query: {
+    projects: () => projects,
+    project: (parent, args: { id: number }) => {
+      const { id } = args
+      return projects[id]
     },
   },
 }
