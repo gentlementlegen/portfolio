@@ -8,6 +8,10 @@ import { ApolloProvider } from '@apollo/client'
 import client from 'apolloClient'
 import NavBar from 'components/layout/NavBar'
 import Footer from 'components/layout/Footer'
+import ReactGA from 'react-ga4'
+
+ReactGA.initialize('G-MKCJ96LVC7')
+ReactGA.send('pageview')
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
