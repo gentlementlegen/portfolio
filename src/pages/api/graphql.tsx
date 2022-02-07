@@ -7,13 +7,17 @@ import nodemailer from 'nodemailer'
 const projects: { id: number; title: string }[] = []
 
 const typeDefs = gql`
+  type ProjectMetadata {
+    count: Int!
+  }
   type Project {
-    id: Int!
+    id: ID!
     title: String!
   }
   type Query {
-    projects: [Project!]!
-    project(id: Int!): Project
+    allProjects: [Project!]!
+    _allProjectsMeta: ProjectMetadata
+    Project(id: ID!): Project
   }
   type Mutation {
     sendEmail(name: String!, email: String!, message: String!): String
@@ -44,14 +48,15 @@ const resolvers = {
     },
     createProject: (parent, args: { title: string }) => {
       const { title } = args
-      const newProject = { id: projects.length + 1, title }
+      const newProject = { id: projects.length, title }
       projects.push(newProject)
       return newProject
     },
   },
   Query: {
-    projects: () => projects,
-    project: (parent, args: { id: number }) => {
+    allProjects: () => projects,
+    _allProjectsMeta: () => ({ count: projects.length }),
+    Project: (parent, args: { id: number }) => {
       const { id } = args
       return projects[id]
     },
