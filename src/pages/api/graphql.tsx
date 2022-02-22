@@ -3,6 +3,8 @@
 import { ApolloServer, gql } from 'apollo-server-micro'
 import Cors from 'micro-cors'
 import nodemailer from 'nodemailer'
+import dbConnect from 'lib/dbConnect'
+import Game from 'lib/models/Game'
 
 const projects: { id: number; title: string }[] = []
 
@@ -13,6 +15,7 @@ const typeDefs = gql`
   type Project {
     id: ID!
     title: String!
+    description: String!
   }
   type Query {
     allProjects: [Project!]!
@@ -54,7 +57,11 @@ const resolvers = {
     },
   },
   Query: {
-    allProjects: () => projects,
+    allProjects: async () => {
+      const games = await Game.find()
+      console.log(games)
+      return games
+    },
     _allProjectsMeta: () => ({ count: projects.length }),
     Project: (parent, args: { id: number }) => {
       const { id } = args
@@ -77,7 +84,7 @@ export default cors(async (req, res) => {
     res.status(200).end()
     return false
   }
-
+  await dbConnect()
   await startServer
   return apolloServer.createHandler({
     path: '/api/graphql',
