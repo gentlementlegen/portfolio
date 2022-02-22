@@ -4,8 +4,9 @@ import { ApolloServer, gql } from 'apollo-server-micro'
 import Cors from 'micro-cors'
 import nodemailer from 'nodemailer'
 import dbConnect from 'lib/dbConnect'
-import Game from 'lib/models/Game'
+import GameDocument from 'lib/models/Game'
 
+// For naming, refer to https://github.com/marmelab/react-admin/tree/master/packages/ra-data-graphql-simple#expected-graphql-schema
 const typeDefs = gql`
   type ProjectMetadata {
     count: Int!
@@ -15,6 +16,10 @@ const typeDefs = gql`
     title: String!
     description: String!
   }
+  input ProjectInput {
+    title: String
+    description: String
+  }
   type Query {
     allProjects: [Project!]!
     _allProjectsMeta: ProjectMetadata
@@ -23,6 +28,8 @@ const typeDefs = gql`
   type Mutation {
     sendEmail(name: String!, email: String!, message: String!): String
     createProject(title: String!, description: String!): Project
+    deleteProject(id: ID!): Project
+    updateProject(id: ID!, title: String!, description: String!): Project
   }
 `
 
@@ -47,21 +54,27 @@ const resolvers = {
 
       return info.response
     },
-    createProject: (parent, args: { title: string; description: string }) => {
-      console.log(args)
-      return Game.create(args)
+    createProject: async (parent, args: { title: string; description: string }) => {
+      return GameDocument.create(args)
+    },
+    deleteProject: async (parent, args: { id: string }) => {
+      return GameDocument.findByIdAndDelete(args.id)
+    },
+    updateProject: async (parent, args: { id: string; title: string; description: string }) => {
+      const { id, ...rest } = args
+      return GameDocument.findByIdAndUpdate(id, rest, { new: true })
     },
   },
   Query: {
     allProjects: async () => {
-      return Game.find()
+      return GameDocument.find()
     },
     _allProjectsMeta: async () => {
-      return { count: await Game.count() }
+      return { count: await GameDocument.count() }
     },
     Project: async (parent, args: { id: number }) => {
       const { id } = args
-      return Game.findById(id)
+      return GameDocument.findById(id)
     },
   },
 }

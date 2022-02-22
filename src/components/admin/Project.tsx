@@ -5,7 +5,7 @@ export const ProjectCreate = (props) => (
   <Create {...props}>
     <SimpleForm>
       <TextInput source="title" />
-      <TextInput source="description" multiline />
+      <TextInput source="description" multiline minRows={10} />
       {/*<DateInput label="Publication date" source="published_at" defaultValue={new Date()} />*/}
     </SimpleForm>
   </Create>
