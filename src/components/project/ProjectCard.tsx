@@ -1,20 +1,24 @@
 import React from 'react'
 import { Card, CardActionArea, CardContent, CardMedia, Typography } from '@mui/material'
+import Link from 'next/link'
+import { Game } from 'lib/models/Game'
 
 interface ProjectCardProps {
-  title: string
+  project: Game
 }
 
 const ProjectCard = (props: ProjectCardProps): JSX.Element => {
-  const { title } = props
+  const { project } = props
   return (
     <Card variant={'outlined'}>
-      <CardActionArea>
-        <CardMedia component={'img'} height={140} image={'/vercel.svg'} />
-        <CardContent>
-          <Typography>{title}</Typography>
-        </CardContent>
-      </CardActionArea>
+      <Link href={`/games/${project.id}`} passHref>
+        <CardActionArea>
+          <CardMedia component={'img'} height={140} image={'/vercel.svg'} />
+          <CardContent>
+            <Typography>{project.title}</Typography>
+          </CardContent>
+        </CardActionArea>
+      </Link>
     </Card>
   )
 }

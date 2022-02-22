@@ -1,7 +1,7 @@
 import React from 'react'
 import { Box, Grid } from '@mui/material'
-import ProjectCard from './ProjectCard'
 import { gql, useQuery } from '@apollo/client'
+import ProjectCard from 'components/project/ProjectCard'
 
 const QUERY = gql`
   query Projects {
@@ -24,7 +24,7 @@ const ProjectContainer = (): JSX.Element => {
       <Grid container justifyContent={'center'} id={'projects'} spacing={4}>
         {data?.allProjects?.map((project) => (
           <Grid item sm={4} xs={6} key={project.id}>
-            <ProjectCard title={project.title} />
+            <ProjectCard project={project} />
           </Grid>
         ))}
       </Grid>
