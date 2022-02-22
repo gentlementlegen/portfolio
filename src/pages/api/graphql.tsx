@@ -6,8 +6,6 @@ import nodemailer from 'nodemailer'
 import dbConnect from 'lib/dbConnect'
 import Game from 'lib/models/Game'
 
-const projects: { id: number; title: string }[] = []
-
 const typeDefs = gql`
   type ProjectMetadata {
     count: Int!
@@ -24,7 +22,7 @@ const typeDefs = gql`
   }
   type Mutation {
     sendEmail(name: String!, email: String!, message: String!): String
-    createProject(title: String!): Project
+    createProject(title: String!, description: String!): Project
   }
 `
 
@@ -49,23 +47,21 @@ const resolvers = {
 
       return info.response
     },
-    createProject: (parent, args: { title: string }) => {
-      const { title } = args
-      const newProject = { id: projects.length, title }
-      projects.push(newProject)
-      return newProject
+    createProject: (parent, args: { title: string; description: string }) => {
+      console.log(args)
+      return Game.create(args)
     },
   },
   Query: {
     allProjects: async () => {
-      const games = await Game.find()
-      console.log(games)
-      return games
+      return Game.find()
     },
-    _allProjectsMeta: () => ({ count: projects.length }),
-    Project: (parent, args: { id: number }) => {
+    _allProjectsMeta: async () => {
+      return { count: await Game.count() }
+    },
+    Project: async (parent, args: { id: number }) => {
       const { id } = args
-      return projects[id]
+      return Game.findById(id)
     },
   },
 }
