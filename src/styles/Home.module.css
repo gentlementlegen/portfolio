@@ -120,7 +120,7 @@
 }
 
 .mainGrid {
-    height: calc(100vh - 112px);
+    height: calc(100vh - 64px);
     position: sticky;
     top: 64px;
     z-index: -1;

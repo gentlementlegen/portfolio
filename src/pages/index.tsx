@@ -77,14 +77,23 @@ export default function Home(props: InferGetStaticPropsType<typeof getStaticProp
           </Grid>
         </Grid>
       </Container>
-      <Box display={'flex'} justifyContent={'center'} marginBottom={8}>
+      <Box
+        sx={{
+          display: 'flex',
+          justifyContent: 'center',
+          position: 'fixed',
+          left: '50%',
+          bottom: 8,
+          transform: 'translateX(-50%)',
+        }}
+      >
         <AnchorLink href={'#projects'}>
           <IconButton size={'large'} color={'secondary'}>
             <KeyboardArrowDownRoundedIcon />
           </IconButton>
         </AnchorLink>
       </Box>
-      <Paper square>
+      <Paper square sx={{ position: 'relative' }}>
         <Container>
           <ProjectContainer projects={projects} />
         </Container>

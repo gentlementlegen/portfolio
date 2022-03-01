@@ -9,6 +9,7 @@ const Footer = (): JSX.Element => {
       elevation={0}
       sx={{
         padding: theme.spacing(2),
+        position: 'relative',
       }}
     >
       <Typography variant={'caption'} align={'center'} component={'p'}>

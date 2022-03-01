@@ -1,7 +1,7 @@
 import React from 'react'
 import { Box, Grid } from '@mui/material'
-import ProjectCard from 'components/project/ProjectCard'
 import { Game } from 'lib/models/Game'
+import ProjectCard from 'components/project/ProjectCard'
 
 const ProjectContainer = (props: { projects: Game[] }): JSX.Element => {
   const { projects } = props
@@ -10,6 +10,8 @@ const ProjectContainer = (props: { projects: Game[] }): JSX.Element => {
     <Box
       sx={{
         minHeight: `calc(100vh - 112px)`,
+        display: 'flex',
+        paddingTop: 4,
       }}
     >
       <Grid container justifyContent={'center'} id={'projects'} spacing={4}>
