@@ -1,6 +1,6 @@
 import React from 'react'
 import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType, NextPage } from 'next'
-import { Typography } from '@mui/material'
+import { Container, Typography } from '@mui/material'
 import { Game } from 'lib/models/Game'
 import { resolvers } from 'pages/api/graphql'
 import dbConnect from 'lib/dbConnect'
@@ -31,10 +31,16 @@ export const getStaticProps: GetStaticProps<Game> = async ({ params }) => {
 const GamePage: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = (props) => {
   const { title, description } = props
   return (
-    <div>
-      <h1>{title}</h1>
+    <Container
+      sx={{
+        minHeight: `calc(100vh - 118px)`,
+      }}
+    >
+      <Typography component={'h1'} variant={'h2'} align={'center'}>
+        {title}
+      </Typography>
       <Typography>{description}</Typography>
-    </div>
+    </Container>
   )
 }
 
