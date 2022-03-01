@@ -9,8 +9,10 @@ import theme from 'theme'
 import { GetStaticProps, InferGetStaticPropsType } from 'next'
 import { Game } from 'lib/models/Game'
 import { resolvers } from 'pages/api/graphql'
+import dbConnect from 'lib/dbConnect'
 
 export const getStaticProps: GetStaticProps<{ projects: Game[] }> = async () => {
+  await dbConnect()
   const projects = await resolvers.Query.allProjects()
 
   return {
