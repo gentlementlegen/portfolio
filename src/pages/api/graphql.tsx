@@ -4,7 +4,7 @@ import { ApolloServer, gql } from 'apollo-server-micro'
 import Cors from 'micro-cors'
 import nodemailer from 'nodemailer'
 import dbConnect from 'lib/dbConnect'
-import GameDocument from 'lib/models/Game'
+import GameDocument, { Game } from 'lib/models/Game'
 
 // For naming, refer to https://github.com/marmelab/react-admin/tree/master/packages/ra-data-graphql-simple#expected-graphql-schema
 const typeDefs = gql`
@@ -33,7 +33,7 @@ const typeDefs = gql`
   }
 `
 
-const resolvers = {
+export const resolvers = {
   Mutation: {
     sendEmail: async (parent, args: { name: string; email: string; message: string }) => {
       const { name, email, message } = args
@@ -66,13 +66,13 @@ const resolvers = {
     },
   },
   Query: {
-    allProjects: async () => {
+    allProjects: async (): Promise<Game[]> => {
       return GameDocument.find()
     },
     _allProjectsMeta: async () => {
       return { count: await GameDocument.count() }
     },
-    Project: async (parent, args: { id: number }) => {
+    Project: async (parent, args: { id: string }) => {
       const { id } = args
       return GameDocument.findById(id)
     },

@@ -1,43 +1,29 @@
 import React from 'react'
 import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType, NextPage } from 'next'
-import { gql } from '@apollo/client'
-import client from 'apolloClient'
 import { Typography } from '@mui/material'
 import { Game } from 'lib/models/Game'
-
-const QUERY_PROJECT = gql`
-  query Project($id: ID!) {
-    project: Project(id: $id) {
-      id
-      title
-      description
-    }
-  }
-`
-
-const QUERY_PROJECTS = gql`
-  query AllProjects {
-    projects: allProjects {
-      id
-    }
-  }
-`
+import { resolvers } from 'pages/api/graphql'
+import dbConnect from 'lib/dbConnect'
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const { data } = await client.query({ query: QUERY_PROJECTS })
-
+  await dbConnect()
+  const projects = await resolvers.Query.allProjects()
   return {
-    paths: data.projects.map((o) => ({ params: { id: o.id } })),
+    paths: projects.map((o) => ({ params: { id: o.id } })),
     fallback: false,
   }
 }
 
 export const getStaticProps: GetStaticProps<Game> = async ({ params }) => {
-  const { data } = await client.query<{ project: Game }>({ query: QUERY_PROJECT, variables: { id: params.id } })
+  await dbConnect()
+  const project = await resolvers.Query.Project(undefined, { id: params.id as string })
 
   return {
     props: {
-      ...data.project,
+      category: project.category,
+      description: project.description,
+      id: project.id,
+      title: project.title,
     },
   }
 }

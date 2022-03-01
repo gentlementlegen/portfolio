@@ -6,8 +6,22 @@ import ProjectContainer from 'components/project/ProjectContainer'
 import MainLayout from 'components/layout/MainLayout'
 import styles from 'styles/Home.module.css'
 import theme from 'theme'
+import { GetStaticProps, InferGetStaticPropsType } from 'next'
+import { Game } from 'lib/models/Game'
+import { resolvers } from 'pages/api/graphql'
 
-export default function Home() {
+export const getStaticProps: GetStaticProps<{ projects: Game[] }> = async () => {
+  const projects = await resolvers.Query.allProjects()
+
+  return {
+    props: {
+      projects: projects.map((o) => ({ category: o.category, description: o.description, id: o.id, title: o.title })),
+    },
+  }
+}
+
+export default function Home(props: InferGetStaticPropsType<typeof getStaticProps>) {
+  const { projects } = props
   return (
     <MainLayout>
       <Box
@@ -72,7 +86,7 @@ export default function Home() {
       </Box>
       <Paper square>
         <Container>
-          <ProjectContainer />
+          <ProjectContainer projects={projects} />
         </Container>
       </Paper>
     </MainLayout>
