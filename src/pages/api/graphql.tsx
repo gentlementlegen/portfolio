@@ -11,10 +11,16 @@ const typeDefs = gql`
   type ProjectMetadata {
     count: Int!
   }
+  enum Category {
+    OTHER
+    GAME
+    PROJECT
+  }
   type Project {
     id: ID!
     title: String!
     description: String!
+    category: Category!
   }
   input ProjectInput {
     title: String
