@@ -33,9 +33,9 @@ const typeDefs = gql`
   }
   type Mutation {
     sendEmail(name: String!, email: String!, message: String!): String
-    createProject(title: String!, description: String!): Project
+    createProject(title: String!, description: String!, category: Category!): Project
     deleteProject(id: ID!): Project
-    updateProject(id: ID!, title: String!, description: String!): Project
+    updateProject(id: ID!, title: String!, description: String!, category: Category!): Project
   }
 `
 
@@ -60,13 +60,16 @@ export const resolvers = {
 
       return info.response
     },
-    createProject: async (parent, args: { title: string; description: string }) => {
+    createProject: async (parent, args: { title: string; description: string; category: Game['category'] }) => {
       return GameDocument.create(args)
     },
     deleteProject: async (parent, args: { id: string }) => {
       return GameDocument.findByIdAndDelete(args.id)
     },
-    updateProject: async (parent, args: { id: string; title: string; description: string }) => {
+    updateProject: async (
+      parent,
+      args: { id: string; title: string; description: string; category: Game['category'] },
+    ) => {
       const { id, ...rest } = args
       return GameDocument.findByIdAndUpdate(id, rest, { new: true })
     },

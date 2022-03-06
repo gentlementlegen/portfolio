@@ -3,13 +3,13 @@ import mongoose from 'mongoose'
 export interface Game {
   id: string
   title: string
-  category: number
+  category: 'OTHER' | 'GAME' | 'PROJECT'
   description: string
 }
 
-const GameSchema = new mongoose.Schema<Game>({
+const GameSchema = new mongoose.Schema({
   title: { type: String, required: true },
-  category: Number,
+  category: { type: String, enum: ['OTHER', 'GAME', 'PROJECT'], default: 'OTHER' },
   description: { type: String, required: true },
 })
 

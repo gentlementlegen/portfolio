@@ -1,7 +1,7 @@
 import React from 'react'
-import { Admin, EditGuesser, ListGuesser, Resource, ShowGuesser } from 'react-admin'
+import { Admin, ListGuesser, Resource, ShowGuesser } from 'react-admin'
 import buildGraphQLProvider from 'ra-data-graphql-simple'
-import { ProjectCreate } from 'components/admin/Project'
+import { ProjectCreate, ProjectEdit } from 'components/admin/Project'
 
 const AdminPage = (): JSX.Element => {
   const [dataProvider, setDataProvider] = React.useState(null)
@@ -17,7 +17,7 @@ const AdminPage = (): JSX.Element => {
 
   return (
     <Admin dataProvider={dataProvider}>
-      <Resource name="Project" list={ListGuesser} edit={EditGuesser} show={ShowGuesser} create={ProjectCreate} />
+      <Resource name="Project" list={ListGuesser} edit={ProjectEdit} show={ShowGuesser} create={ProjectCreate} />
     </Admin>
   )
 }
