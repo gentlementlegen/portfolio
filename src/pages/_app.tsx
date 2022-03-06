@@ -10,8 +10,10 @@ import NavBar from 'components/layout/NavBar'
 import Footer from 'components/layout/Footer'
 import ReactGA from 'react-ga4'
 
-ReactGA.initialize('G-MKCJ96LVC7')
-ReactGA.send('pageview')
+if (process.env.NODE_ENV === 'production') {
+  ReactGA.initialize('G-MKCJ96LVC7')
+  ReactGA.send('pageview')
+}
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
