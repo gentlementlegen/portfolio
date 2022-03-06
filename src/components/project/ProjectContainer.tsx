@@ -11,12 +11,13 @@ const ProjectContainer = (props: { projects: Game[] }): JSX.Element => {
       sx={{
         minHeight: `calc(100vh - 112px)`,
         display: 'flex',
-        paddingTop: 4,
+        paddingTop: 8,
+        paddingBottom: 8,
       }}
     >
-      <Grid container justifyContent={'center'} id={'projects'} spacing={4}>
+      <Grid container justifyContent={'center'} id={'projects'} spacing={2}>
         {projects?.map((project) => (
-          <Grid item sm={4} xs={6} key={project.id}>
+          <Grid item sm={3} xs={6} key={project.id}>
             <ProjectCard project={project} />
           </Grid>
         ))}

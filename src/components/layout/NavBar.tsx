@@ -8,7 +8,7 @@ const NavBar = (): JSX.Element => {
   return (
     <AppBar position={'sticky'} sx={{ backgroundImage: 'none' }}>
       <Head>
-        <title>Fernand Veyrier - Portfolio</title>
+        <title>Fernand Veyrier</title>
       </Head>
       <Toolbar>
         <Typography variant={'h6'} component={'div'} className={styles.navBarTitle}>

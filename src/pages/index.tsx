@@ -89,7 +89,7 @@ export default function Home(props: InferGetStaticPropsType<typeof getStaticProp
           transform: 'translateX(-50%)',
         }}
       >
-        <AnchorLink href={'#projects'}>
+        <AnchorLink href={'#projects'} offset={100}>
           <IconButton size={'large'} color={'secondary'}>
             <KeyboardArrowDownRoundedIcon />
           </IconButton>
