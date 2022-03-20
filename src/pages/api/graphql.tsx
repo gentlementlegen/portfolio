@@ -5,9 +5,11 @@ import Cors from 'micro-cors'
 import nodemailer from 'nodemailer'
 import dbConnect from 'lib/dbConnect'
 import GameDocument, { Game } from 'lib/models/Game'
+import { processRequest } from 'graphql-upload'
 
 // For naming, refer to https://github.com/marmelab/react-admin/tree/master/packages/ra-data-graphql-simple#expected-graphql-schema
 const typeDefs = gql`
+  scalar Upload
   type ProjectMetadata {
     count: Int!
   }
@@ -21,6 +23,7 @@ const typeDefs = gql`
     title: String!
     description: String!
     category: Category!
+    image: Upload
   }
   input ProjectInput {
     title: String
@@ -33,9 +36,9 @@ const typeDefs = gql`
   }
   type Mutation {
     sendEmail(name: String!, email: String!, message: String!): String
-    createProject(title: String!, description: String!, category: Category!): Project
+    createProject(title: String!, description: String!, category: Category!, image: Upload): Project
     deleteProject(id: ID!): Project
-    updateProject(id: ID!, title: String!, description: String!, category: Category!): Project
+    updateProject(id: ID!, title: String!, description: String!, category: Category!, image: Upload): Project
   }
 `
 
@@ -60,16 +63,21 @@ export const resolvers = {
 
       return info.response
     },
-    createProject: async (parent, args: { title: string; description: string; category: Game['category'] }) => {
-      return GameDocument.create(args)
+    createProject: async (
+      parent,
+      args: { title: string; description: string; category: Game['category']; image: File },
+    ) => {
+      const { ...rest } = args
+      return GameDocument.create(rest)
     },
     deleteProject: async (parent, args: { id: string }) => {
       return GameDocument.findByIdAndDelete(args.id)
     },
     updateProject: async (
       parent,
-      args: { id: string; title: string; description: string; category: Game['category'] },
+      args: { id: string; title: string; description: string; category: Game['category']; image: File },
     ) => {
+      console.log(args)
       const { id, ...rest } = args
       return GameDocument.findByIdAndUpdate(id, rest, { new: true })
     },
@@ -104,6 +112,10 @@ export default cors(async (req, res) => {
   }
   await dbConnect()
   await startServer
+  const contentType = req.headers['content-type']
+  if (contentType && contentType.startsWith('multipart/form-data')) {
+    req.filePayload = await processRequest(req, res)
+  }
   return apolloServer.createHandler({
     path: '/api/graphql',
   })(req, res)
