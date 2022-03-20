@@ -5,7 +5,7 @@ import Cors from 'micro-cors'
 import nodemailer from 'nodemailer'
 import dbConnect from 'lib/dbConnect'
 import GameDocument, { Game } from 'lib/models/Game'
-import { processRequest } from 'graphql-upload'
+import { FileUpload, processRequest } from 'graphql-upload'
 
 // For naming, refer to https://github.com/marmelab/react-admin/tree/master/packages/ra-data-graphql-simple#expected-graphql-schema
 const typeDefs = gql`
@@ -65,7 +65,7 @@ export const resolvers = {
     },
     createProject: async (
       parent,
-      args: { title: string; description: string; category: Game['category']; image: File },
+      args: { title: string; description: string; category: Game['category']; image: FileUpload },
     ) => {
       const { ...rest } = args
       return GameDocument.create(rest)
@@ -75,7 +75,7 @@ export const resolvers = {
     },
     updateProject: async (
       parent,
-      args: { id: string; title: string; description: string; category: Game['category']; image: File },
+      args: { id: string; title: string; description: string; category: Game['category']; image: FileUpload },
     ) => {
       console.log(args)
       const { id, ...rest } = args
