@@ -20,7 +20,7 @@
     "apollo-server-micro": "^3.6.2",
     "clsx": "^1.1.1",
     "cors": "^2.8.5",
-    "express": "^4.17.2",
+    "express": "4.17.3",
     "graphql": "^15.8.0",
     "micro": "^9.3.4",
     "micro-cors": "^0.1.1",
