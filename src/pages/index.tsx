@@ -17,7 +17,13 @@ export const getStaticProps: GetStaticProps<{ projects: Game[] }> = async () => 
 
   return {
     props: {
-      projects: projects.map((o) => ({ category: o.category, description: o.description, id: o.id, title: o.title })),
+      projects: projects.map((o) => ({
+        category: o.category,
+        description: o.description,
+        id: o.id,
+        title: o.title,
+        image: o.image,
+      })),
     },
   }
 }
