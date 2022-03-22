@@ -24,6 +24,7 @@ export const getStaticProps: GetStaticProps<Game> = async ({ params }) => {
       description: project.description,
       id: project.id,
       title: project.title,
+      image: null,
     },
   }
 }

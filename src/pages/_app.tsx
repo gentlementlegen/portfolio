@@ -6,25 +6,42 @@ import { ThemeProvider } from '@mui/material/styles'
 import theme from 'theme'
 import { ApolloProvider } from '@apollo/client'
 import client from 'apolloClient'
-import NavBar from 'components/layout/NavBar'
 import Footer from 'components/layout/Footer'
 import ReactGA from 'react-ga4'
+import NavBar from 'components/layout/NavBar'
+import Head from 'next/head'
 
 if (process.env.NODE_ENV === 'production') {
   ReactGA.initialize('G-MKCJ96LVC7')
   ReactGA.send('pageview')
 }
 
-function MyApp({ Component, pageProps }: AppProps) {
+function MyApp({ Component, pageProps }: AppProps & { Component: { hideNavBar: boolean } }) {
   return (
-    <ThemeProvider theme={theme}>
-      <ApolloProvider client={client}>
-        <CssBaseline />
-        <NavBar />
-        <Component {...pageProps} />
-        <Footer />
-      </ApolloProvider>
-    </ThemeProvider>
+    <>
+      <Head>
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+        <title>Fernand Veyrier</title>
+        <meta
+          name="description"
+          content="I am Fernand Veyrier, gameplay and fullstack programmer. This portfolio mostly focuses on video games and personal projects."
+        />
+        <meta property="og:title" content="Fernand Veyrier" key="title" />
+      </Head>
+      <meta
+        property="og:description"
+        content="I am Fernand Veyrier, gameplay and fullstack programmer. This portfolio mostly focuses on video games and personal projects."
+        key="description"
+      />
+      <ThemeProvider theme={theme}>
+        <ApolloProvider client={client}>
+          <CssBaseline />
+          {!Component.hideNavBar && <NavBar />}
+          <Component {...pageProps} />
+          <Footer />
+        </ApolloProvider>
+      </ThemeProvider>
+    </>
   )
 }
 
