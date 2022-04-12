@@ -30,7 +30,7 @@
     "micro": "9.3.4",
     "micro-cors": "0.1.1",
     "mongoose": "6.2.10",
-    "next": "12.1.0",
+    "next": "12.1.4",
     "nodemailer": "6.7.3",
     "ra-data-graphql-simple": "3.19.10",
     "ra-input-rich-text": "3.19.10",
@@ -52,7 +52,7 @@
     "@typescript-eslint/parser": "5.19.0",
     "eslint": "8.11.0",
     "eslint-config-airbnb-typescript": "16.2.0",
-    "eslint-config-next": "12.1.0",
+    "eslint-config-next": "12.1.4",
     "eslint-config-prettier": "8.5.0",
     "eslint-plugin-prettier": "4.0.0",
     "prettier": "2.6.2"
