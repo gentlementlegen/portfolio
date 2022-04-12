@@ -5,17 +5,14 @@ export interface Game {
   title: string
   category: 'OTHER' | 'GAME' | 'PROJECT'
   description: string
-  image: File
+  image: string
 }
 
 const GameSchema = new mongoose.Schema({
   title: { type: String, required: true },
   category: { type: String, enum: ['OTHER', 'GAME', 'PROJECT'], default: 'OTHER' },
   description: { type: String, required: true },
-  image: {
-    data: Buffer,
-    contentType: String,
-  },
+  image: { type: String },
 })
 
 export default mongoose.models.Game || mongoose.model<Game>('Game', GameSchema)
