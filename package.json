@@ -1,6 +1,7 @@
 {
   "name": "portfolio",
   "private": true,
+  "version": "1.0.0",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -29,7 +30,7 @@
     "mongoose": "6.2.10",
     "next": "12.1.0",
     "nodemailer": "6.7.3",
-    "ra-data-graphql-simple": "3.19.10",
+    "ra-data-graphql-simple": "3.19.11",
     "ra-input-rich-text": "3.19.10",
     "react": "17.0.2",
     "react-admin": "3.19.10",
