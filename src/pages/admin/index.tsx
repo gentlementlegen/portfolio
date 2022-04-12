@@ -1,7 +1,7 @@
 import React from 'react'
-import { Admin, ListGuesser, Resource, ShowGuesser } from 'react-admin'
+import { Admin, Resource, ShowGuesser } from 'react-admin'
 import buildGraphQLProvider from 'ra-data-graphql-simple'
-import { ProjectCreate, ProjectEdit } from 'components/admin/Project'
+import { ProjectCreate, ProjectEdit, ProjectList } from 'components/admin/Project'
 import client from 'apolloClient'
 
 const AdminPage = (): JSX.Element => {
@@ -16,7 +16,7 @@ const AdminPage = (): JSX.Element => {
 
   return (
     <Admin dataProvider={dataProvider}>
-      <Resource name="Project" list={ListGuesser} edit={ProjectEdit} show={ShowGuesser} create={ProjectCreate} />
+      <Resource name="Project" list={ProjectList} edit={ProjectEdit} show={ShowGuesser} create={ProjectCreate} />
     </Admin>
   )
 }

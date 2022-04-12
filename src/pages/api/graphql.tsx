@@ -3,7 +3,7 @@
 import { ApolloServer, gql } from 'apollo-server-micro'
 import Cors from 'micro-cors'
 import nodemailer from 'nodemailer'
-import dbConnect, { gfs } from 'lib/dbConnect'
+import dbConnect, { getGfs } from 'lib/dbConnect'
 import GameDocument, { Game } from 'lib/models/Game'
 import { FileUpload, processRequest } from 'graphql-upload'
 
@@ -18,12 +18,16 @@ const typeDefs = gql`
     GAME
     PROJECT
   }
+  type Image {
+    id: ID
+    src: String
+  }
   type Project {
     id: ID!
     title: String!
     description: String!
     category: Category!
-    image: Upload
+    image: Image
   }
   input ProjectInput {
     title: String
@@ -68,6 +72,7 @@ export const resolvers = {
       args: { title: string; description: string; category: Game['category']; image: { file: FileUpload } },
     ) => {
       const { image, ...rest } = args
+      const gfs = await getGfs()
       return new Promise((resolve, reject) => {
         image.file
           .createReadStream()
@@ -88,6 +93,7 @@ export const resolvers = {
       args: { id: string; title: string; description: string; category: Game['category']; image: { file: FileUpload } },
     ) => {
       const { id, image, ...rest } = args
+      const gfs = await getGfs()
       return new Promise((resolve, reject) => {
         image.file
           .createReadStream()
@@ -111,6 +117,14 @@ export const resolvers = {
     Project: async (parent, args: { id: string }) => {
       const { id } = args
       return GameDocument.findById(id)
+    },
+  },
+  Project: {
+    image: async (data: Game) => {
+      if (!data.image) return null
+      return {
+        src: `/api/image/${data.image}`,
+      }
     },
   },
 }
