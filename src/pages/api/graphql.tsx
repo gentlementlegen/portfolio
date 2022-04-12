@@ -3,7 +3,7 @@
 import { ApolloServer, gql } from 'apollo-server-micro'
 import Cors from 'micro-cors'
 import nodemailer from 'nodemailer'
-import dbConnect from 'lib/dbConnect'
+import dbConnect, { gfs } from 'lib/dbConnect'
 import GameDocument, { Game } from 'lib/models/Game'
 import { FileUpload, processRequest } from 'graphql-upload'
 
@@ -65,21 +65,40 @@ export const resolvers = {
     },
     createProject: async (
       parent,
-      args: { title: string; description: string; category: Game['category']; image: FileUpload },
+      args: { title: string; description: string; category: Game['category']; image: { file: FileUpload } },
     ) => {
-      const { ...rest } = args
-      return GameDocument.create(rest)
+      const { image, ...rest } = args
+      return new Promise((resolve, reject) => {
+        image.file
+          .createReadStream()
+          .pipe(gfs.openUploadStream(args.image.file.filename))
+          .on('error', () => {
+            reject('Failed to upload the file')
+          })
+          .on('finish', () => {
+            resolve(GameDocument.create(rest))
+          })
+      })
     },
     deleteProject: async (parent, args: { id: string }) => {
       return GameDocument.findByIdAndDelete(args.id)
     },
     updateProject: async (
       parent,
-      args: { id: string; title: string; description: string; category: Game['category']; image: FileUpload },
+      args: { id: string; title: string; description: string; category: Game['category']; image: { file: FileUpload } },
     ) => {
-      console.log(args)
-      const { id, ...rest } = args
-      return GameDocument.findByIdAndUpdate(id, rest, { new: true })
+      const { id, image, ...rest } = args
+      return new Promise((resolve, reject) => {
+        image.file
+          .createReadStream()
+          .pipe(gfs.openUploadStream(args.image.file.filename))
+          .on('error', () => {
+            reject('Failed to upload the file')
+          })
+          .on('finish', (document) => {
+            resolve(GameDocument.findByIdAndUpdate(id, { ...rest, image: document._id }, { new: true }))
+          })
+      })
     },
   },
   Query: {
