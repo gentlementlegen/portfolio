@@ -4,6 +4,7 @@ import { Container, Typography } from '@mui/material'
 import { Game } from 'lib/models/Game'
 import { resolvers } from 'pages/api/graphql'
 import dbConnect from 'lib/dbConnect'
+import Image from 'next/image'
 
 export const getStaticPaths: GetStaticPaths = async () => {
   await dbConnect()
@@ -16,7 +17,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 export const getStaticProps: GetStaticProps<Game> = async ({ params }) => {
   await dbConnect()
-  const project = await resolvers.Query.Project(undefined, { id: params.id as string })
+  const project: Game = await resolvers.Query.Project(undefined, { id: params.id as string })
 
   return {
     props: {
@@ -24,19 +25,20 @@ export const getStaticProps: GetStaticProps<Game> = async ({ params }) => {
       description: project.description,
       id: project.id,
       title: project.title,
-      image: null,
+      image: `/api/image/${project.image}`,
     },
   }
 }
 
 const GamePage: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = (props) => {
-  const { title, description } = props
+  const { title, description, image } = props
   return (
     <Container
       sx={{
         minHeight: `calc(100vh - 118px)`,
       }}
     >
+      {image && <Image src={image} width={800} height={600} alt={title} />}
       <Typography component={'h1'} variant={'h2'} align={'center'}>
         {title}
       </Typography>

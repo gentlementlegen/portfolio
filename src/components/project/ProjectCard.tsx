@@ -13,7 +13,7 @@ const ProjectCard = (props: ProjectCardProps): JSX.Element => {
     <Card variant={'outlined'}>
       <Link href={`/games/${project.id}`} passHref>
         <CardActionArea>
-          <CardMedia component={'img'} height={140} image={'/vercel.svg'} alt={'vercel'} />
+          {project.image && <CardMedia component={'img'} height={140} image={project.image} alt={project.title} />}
           <CardContent>
             <Typography>{project.title}</Typography>
           </CardContent>

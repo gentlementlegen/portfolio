@@ -18,13 +18,12 @@ export const getStaticProps: GetStaticProps<{ projects: Game[] }> = async () => 
   return {
     props: {
       projects: projects.map((o) => {
-        console.log(o.image)
         return {
           category: o.category,
           description: o.description,
           id: o.id,
           title: o.title,
-          image: null,
+          image: `/api/image/${o.image}`,
         }
       }),
     },
