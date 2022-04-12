@@ -41,7 +41,12 @@ class MyDocument extends Document {
   render(): JSX.Element {
     return (
       <Html lang={'en'}>
-        <Head />
+        <Head>
+          {/* Inject MUI styles first to match with the prepend: true configuration. */}
+          {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
+          {/* @ts-ignore */}
+          {this.props.emotionStyleTags}
+        </Head>
         <body>
           <Main />
           <NextScript />
