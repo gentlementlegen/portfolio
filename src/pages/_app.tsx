@@ -10,15 +10,22 @@ import Footer from 'components/layout/Footer'
 import ReactGA from 'react-ga4'
 import NavBar from 'components/layout/NavBar'
 import Head from 'next/head'
+import { EmotionCache } from '@emotion/cache'
+import { CacheProvider } from '@emotion/react'
+import createEmotionCache from 'createEmotionCache'
 
 if (process.env.NODE_ENV === 'production') {
   ReactGA.initialize('G-MKCJ96LVC7')
   ReactGA.send('pageview')
 }
 
-function MyApp({ Component, pageProps }: AppProps & { Component: { hideNavBar: boolean } }) {
+const clientSideEmotionCache = createEmotionCache()
+
+function MyApp(props: AppProps & { Component: { hideNavBar: boolean }; emotionCache: EmotionCache }) {
+  const { Component, emotionCache = clientSideEmotionCache, pageProps } = props
+
   return (
-    <>
+    <CacheProvider value={emotionCache}>
       <Head>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
         <title>Fernand Veyrier</title>
@@ -41,7 +48,7 @@ function MyApp({ Component, pageProps }: AppProps & { Component: { hideNavBar: b
           <Footer />
         </ApolloProvider>
       </ThemeProvider>
-    </>
+    </CacheProvider>
   )
 }
 
