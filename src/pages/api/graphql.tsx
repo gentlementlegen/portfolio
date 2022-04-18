@@ -6,6 +6,7 @@ import nodemailer from 'nodemailer'
 import dbConnect, { getGfs } from 'lib/dbConnect'
 import GameDocument, { Game } from 'lib/models/Game'
 import { FileUpload, processRequest } from 'graphql-upload'
+import mongoose from 'mongoose'
 
 // For naming, refer to https://github.com/marmelab/react-admin/tree/master/packages/ra-data-graphql-simple#expected-graphql-schema
 const typeDefs = gql`
@@ -94,17 +95,31 @@ export const resolvers = {
     ) => {
       const { id, image, ...rest } = args
       const gfs = await getGfs()
-      return new Promise((resolve, reject) => {
-        image.file
-          .createReadStream()
-          .pipe(gfs.openUploadStream(args.image.file.filename))
-          .on('error', () => {
-            reject('Failed to upload the file')
-          })
-          .on('finish', (document) => {
-            resolve(GameDocument.findByIdAndUpdate(id, { ...rest, image: document._id }, { new: true }))
-          })
-      })
+      const item = await GameDocument.findById(id)
+      if (!image) {
+        const document = await GameDocument.findByIdAndUpdate(id, { ...rest, image: null }, { new: true })
+        await gfs.delete(new mongoose.Types.ObjectId(item.image))
+        return document
+      } else {
+        return new Promise((resolve, reject) => {
+          image.file
+            .createReadStream()
+            .pipe(gfs.openUploadStream(args.image.file.filename))
+            .on('error', () => {
+              reject('Failed to upload the file')
+            })
+            .on('finish', async (document) => {
+              // Try to delete the previous image to avoid dangling images
+              try {
+                await gfs.delete(new mongoose.Types.ObjectId(item.image))
+              } catch (e) {
+                console.warn(`Could not delete file ${item}`, e)
+              }
+              const res = await GameDocument.findByIdAndUpdate(id, { ...rest, image: document._id }, { new: true })
+              resolve(res)
+            })
+        })
+      }
     },
   },
   Query: {
