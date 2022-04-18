@@ -138,6 +138,7 @@ export const resolvers = {
     image: async (data: Game) => {
       if (!data.image) return null
       return {
+        id: data.id,
         src: `/api/image/${data.image}`,
       }
     },
