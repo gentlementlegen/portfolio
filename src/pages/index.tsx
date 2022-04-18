@@ -7,7 +7,7 @@ import MainLayout from 'components/layout/MainLayout'
 import styles from 'styles/Home.module.css'
 import theme from 'theme'
 import { GetStaticProps, InferGetStaticPropsType } from 'next'
-import { Game } from 'lib/models/Game'
+import { Game, getGameObject } from 'lib/models/Game'
 import { resolvers } from 'pages/api/graphql'
 import dbConnect from 'lib/dbConnect'
 
@@ -17,15 +17,7 @@ export const getStaticProps: GetStaticProps<{ projects: Game[] }> = async () => 
 
   return {
     props: {
-      projects: projects.map((o) => {
-        return {
-          category: o.category,
-          description: o.description,
-          id: o.id,
-          title: o.title,
-          image: `/api/image/${o.image}`,
-        }
-      }),
+      projects: projects.map((o) => getGameObject(o)),
     },
   }
 }

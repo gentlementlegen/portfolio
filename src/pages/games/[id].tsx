@@ -1,7 +1,7 @@
 import React from 'react'
 import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType, NextPage } from 'next'
 import { Container, Typography } from '@mui/material'
-import { Game } from 'lib/models/Game'
+import { Game, getGameObject } from 'lib/models/Game'
 import { resolvers } from 'pages/api/graphql'
 import dbConnect from 'lib/dbConnect'
 import Image from 'next/image'
@@ -24,22 +24,8 @@ export const getStaticProps: GetStaticProps<{ project: Game; projects: Game[] }>
 
   return {
     props: {
-      project: {
-        category: project.category,
-        description: project.description,
-        id: project.id,
-        title: project.title,
-        image: `/api/image/${project.image}`,
-      },
-      projects: projects.map((o) => {
-        return {
-          category: o.category,
-          description: o.description,
-          id: o.id,
-          title: o.title,
-          image: `/api/image/${o.image}`,
-        }
-      }),
+      project: getGameObject(project),
+      projects: projects.map((o) => getGameObject(o)),
     },
   }
 }

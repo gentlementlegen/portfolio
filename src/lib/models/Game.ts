@@ -15,4 +15,12 @@ const GameSchema = new mongoose.Schema({
   image: { type: String },
 })
 
+export const getGameObject = (o) => ({
+  category: o.category,
+  description: o.description,
+  id: o.id,
+  title: o.title,
+  image: `/api/image/${o.image}`,
+})
+
 export default mongoose.models.Game || mongoose.model<Game>('Game', GameSchema)
