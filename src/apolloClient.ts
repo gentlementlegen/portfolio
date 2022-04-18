@@ -2,7 +2,7 @@ import { ApolloClient, InMemoryCache } from '@apollo/client'
 import { createUploadLink } from 'apollo-upload-client'
 
 const link = createUploadLink({
-  uri: process.env.NEXT_PUBLIC_API_URL,
+  uri: `${process.env.VERCEL_URL}/api/graphql`,
 })
 
 const client = new ApolloClient({
