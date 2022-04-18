@@ -144,7 +144,7 @@ export const resolvers = {
   },
 }
 
-const cors = Cors({ origin: process.env.VERCEL_URL })
+const cors = Cors({ origin: `https://${process.env.VERCEL_URL}` })
 
 const apolloServer = new ApolloServer({
   typeDefs,
