@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
-import { getGfs } from 'lib/dbConnect'
 import mongoose from 'mongoose'
+import { getGfs } from 'lib/dbConnect'
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   return getGfs()
