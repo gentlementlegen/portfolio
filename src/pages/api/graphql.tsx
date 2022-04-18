@@ -149,6 +149,8 @@ const cors = Cors({ origin: `https://${process.env.VERCEL_URL}` })
 const apolloServer = new ApolloServer({
   typeDefs,
   resolvers,
+  // required for admin
+  introspection: true,
 })
 
 const startServer = apolloServer.start()

@@ -8,6 +8,7 @@ const link = createUploadLink({
 const client = new ApolloClient({
   link,
   cache: new InMemoryCache(),
+  ssrMode: typeof window === 'undefined',
 })
 
 export default client
