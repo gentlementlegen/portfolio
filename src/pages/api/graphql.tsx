@@ -5,13 +5,14 @@ import Cors from 'micro-cors'
 import nodemailer from 'nodemailer'
 import dbConnect, { getGfs } from 'lib/dbConnect'
 import GameDocument, { Game } from 'lib/models/Game'
+import SkillDocument, { Skill } from 'lib/models/Skill'
 import { FileUpload, processRequest } from 'graphql-upload'
 import mongoose from 'mongoose'
 
 // For naming, refer to https://github.com/marmelab/react-admin/tree/master/packages/ra-data-graphql-simple#expected-graphql-schema
 const typeDefs = gql`
   scalar Upload
-  type ProjectMetadata {
+  type Metadata {
     count: Int!
   }
   enum Category {
@@ -30,20 +31,27 @@ const typeDefs = gql`
     category: Category!
     image: Image
   }
-  input ProjectInput {
-    title: String
-    description: String
+  type Skill {
+    id: ID!
+    name: String!
+    image: Image
   }
   type Query {
     allProjects: [Project!]!
-    _allProjectsMeta: ProjectMetadata
+    _allProjectsMeta: Metadata
     Project(id: ID!): Project
+    allSkills: [Skill!]!
+    _allSkillsMeta: Metadata
+    Skill(id: ID!): Skill
   }
   type Mutation {
     sendEmail(name: String!, email: String!, message: String!): String
     createProject(title: String!, description: String!, category: Category!, image: Upload): Project
     deleteProject(id: ID!): Project
     updateProject(id: ID!, title: String!, description: String!, category: Category!, image: Upload): Project
+    createSkill(name: String!, image: Upload): Skill
+    deleteSkill(id: ID!): Skill
+    updateSkill(id: ID!, name: String!, image: Upload): Skill
   }
 `
 
@@ -121,6 +129,61 @@ export const resolvers = {
         })
       }
     },
+
+    createSkill: async (parent, args: { name: string; image: { file: FileUpload } }) => {
+      const { image, ...rest } = args
+      const gfs = await getGfs()
+      if (!image) {
+        return SkillDocument.create(rest)
+      }
+      return new Promise((resolve, reject) => {
+        image.file
+          .createReadStream()
+          .pipe(gfs.openUploadStream(args.image.file.filename))
+          .on('error', () => {
+            reject('Failed to upload the file')
+          })
+          .on('finish', (document) => {
+            resolve(SkillDocument.create({ ...rest, image: document._id }))
+          })
+      })
+    },
+    deleteSkill: async (parent, args: { id: string }) => {
+      return SkillDocument.findByIdAndDelete(args.id)
+    },
+    updateSkill: async (parent, args: { id: string; name: string; image: { file: FileUpload } }) => {
+      const { id, image, ...rest } = args
+      const gfs = await getGfs()
+      const item = await SkillDocument.findById(id)
+      if (!image) {
+        const document = await SkillDocument.findByIdAndUpdate(id, { ...rest, image: null }, { new: true })
+        if (item.image) {
+          await gfs.delete(new mongoose.Types.ObjectId(item.image))
+        }
+        return document
+      } else {
+        return new Promise((resolve, reject) => {
+          image.file
+            .createReadStream()
+            .pipe(gfs.openUploadStream(args.image.file.filename))
+            .on('error', () => {
+              reject('Failed to upload the file')
+            })
+            .on('finish', async (document) => {
+              // Try to delete the previous image to avoid dangling images
+              try {
+                if (item.image) {
+                  await gfs.delete(new mongoose.Types.ObjectId(item.image))
+                }
+              } catch (e) {
+                console.warn(`Could not delete file ${item}`, e)
+              }
+              const res = await SkillDocument.findByIdAndUpdate(id, { ...rest, image: document._id }, { new: true })
+              resolve(res)
+            })
+        })
+      }
+    },
   },
   Query: {
     allProjects: async (): Promise<Game[]> => {
@@ -133,9 +196,28 @@ export const resolvers = {
       const { id } = args
       return GameDocument.findById(id)
     },
+    allSkills: async (): Promise<Skill[]> => {
+      return SkillDocument.find()
+    },
+    _allSkillsMeta: async () => {
+      return { count: await SkillDocument.count() }
+    },
+    Skill: async (parent, args: { id: string }) => {
+      const { id } = args
+      return SkillDocument.findById(id)
+    },
   },
   Project: {
     image: async (data: Game) => {
+      if (!data.image) return null
+      return {
+        id: data.id,
+        src: `/api/image/${data.image}`,
+      }
+    },
+  },
+  Skill: {
+    image: async (data: Skill) => {
       if (!data.image) return null
       return {
         id: data.id,

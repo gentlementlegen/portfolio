@@ -1,29 +1,33 @@
 import React from 'react'
-import { Box, Container, Grid, IconButton, Paper, Typography } from '@mui/material'
+import { Box, Container, Grid, IconButton, Paper, Typography, useTheme } from '@mui/material'
 import KeyboardArrowDownRoundedIcon from '@mui/icons-material/KeyboardArrowDownRounded'
 import AnchorLink from 'react-anchor-link-smooth-scroll'
 import ProjectContainer from 'components/project/ProjectContainer'
 import MainLayout from 'components/layout/MainLayout'
 import styles from 'styles/Home.module.css'
-import theme from 'theme'
 import { GetStaticProps, InferGetStaticPropsType } from 'next'
 import { Game, getGameObject } from 'lib/models/Game'
 import { resolvers } from 'pages/api/graphql'
 import dbConnect from 'lib/dbConnect'
+import SkillContainer from 'components/skills/SkillContainer'
+import { getSkillObject, Skill } from 'lib/models/Skill'
 
-export const getStaticProps: GetStaticProps<{ projects: Game[] }> = async () => {
+export const getStaticProps: GetStaticProps<{ projects: Game[]; skills: Skill[] }> = async () => {
   await dbConnect()
   const projects = await resolvers.Query.allProjects()
+  const skills = await resolvers.Query.allSkills()
 
   return {
     props: {
       projects: projects.map((o) => getGameObject(o)),
+      skills: skills.map((o) => getSkillObject(o)),
     },
   }
 }
 
 export default function Home(props: InferGetStaticPropsType<typeof getStaticProps>) {
-  const { projects } = props
+  const { projects, skills } = props
+  const theme = useTheme()
   return (
     <MainLayout>
       <Box
@@ -96,8 +100,9 @@ export default function Home(props: InferGetStaticPropsType<typeof getStaticProp
         </AnchorLink>
       </Box>
       <Paper square sx={{ position: 'relative' }}>
-        <Container>
+        <Container sx={{ paddingBottom: theme.spacing(6) }}>
           <ProjectContainer projects={projects} />
+          <SkillContainer skills={skills} />
         </Container>
       </Paper>
     </MainLayout>

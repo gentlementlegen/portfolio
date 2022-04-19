@@ -43,6 +43,13 @@ theme = createTheme(theme, {
         },
       },
     },
+    MuiTypography: {
+      styleOverrides: {
+        h2: {
+          marginBottom: theme.spacing(5),
+        },
+      },
+    },
   },
 })
 
