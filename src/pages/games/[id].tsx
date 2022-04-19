@@ -25,7 +25,7 @@ export const getStaticProps: GetStaticProps<{ project: Game; projects: Game[] }>
   return {
     props: {
       project: getGameObject(project),
-      projects: projects.map((o) => getGameObject(o)),
+      projects: projects.filter((o) => o.id !== project.id).map((o) => getGameObject(o)),
     },
   }
 }

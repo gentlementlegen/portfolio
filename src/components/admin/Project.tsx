@@ -22,7 +22,7 @@ const transform: (data) => Record<string, string> = (data) => {
 export const ProjectCreate = (props) => (
   <Create {...props} transform={transform}>
     <SimpleForm>
-      <TextInput source="title" />
+      <TextInput source="title" isRequired />
       <SelectInput
         source="category"
         choices={[
@@ -32,7 +32,7 @@ export const ProjectCreate = (props) => (
         ]}
         defaultValue={'OTHER'}
       />
-      <ImageInput source="image" accept="image/*">
+      <ImageInput source="image" accept="image/*" isRequired>
         <ImageField source="src" title="title" />
       </ImageInput>
       <TextInput source="description" multiline minRows={10} fullWidth />
