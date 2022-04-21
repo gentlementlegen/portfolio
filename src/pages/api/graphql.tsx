@@ -8,52 +8,13 @@ import GameDocument, { Game } from 'lib/models/Game'
 import SkillDocument, { Skill } from 'lib/models/Skill'
 import { FileUpload, processRequest } from 'graphql-upload'
 import mongoose from 'mongoose'
+import { rateLimitDirective } from 'graphql-rate-limit-directive'
+import { makeExecutableSchema } from '@graphql-tools/schema'
+import { ApolloServerPluginLandingPageGraphQLPlayground } from 'apollo-server-core'
+
+const { rateLimitDirectiveTypeDefs, rateLimitDirectiveTransformer } = rateLimitDirective()
 
 // For naming, refer to https://github.com/marmelab/react-admin/tree/master/packages/ra-data-graphql-simple#expected-graphql-schema
-const typeDefs = gql`
-  scalar Upload
-  type Metadata {
-    count: Int!
-  }
-  enum Category {
-    OTHER
-    GAME
-    PROJECT
-  }
-  type Image {
-    id: ID
-    src: String
-  }
-  type Project {
-    id: ID!
-    title: String!
-    description: String!
-    category: Category!
-    image: Image
-  }
-  type Skill {
-    id: ID!
-    name: String!
-    image: Image
-  }
-  type Query {
-    allProjects: [Project!]!
-    _allProjectsMeta: Metadata
-    Project(id: ID!): Project
-    allSkills: [Skill!]!
-    _allSkillsMeta: Metadata
-    Skill(id: ID!): Skill
-  }
-  type Mutation {
-    sendEmail(name: String!, email: String!, message: String!): String
-    createProject(title: String!, description: String!, category: Category!, image: Upload): Project
-    deleteProject(id: ID!): Project
-    updateProject(id: ID!, title: String!, description: String!, category: Category!, image: Upload): Project
-    createSkill(name: String!, image: Upload): Skill
-    deleteSkill(id: ID!): Skill
-    updateSkill(id: ID!, name: String!, image: Upload): Skill
-  }
-`
 
 export const resolvers = {
   Mutation: {
@@ -227,13 +188,66 @@ export const resolvers = {
   },
 }
 
+let schema = makeExecutableSchema({
+  typeDefs: [
+    rateLimitDirectiveTypeDefs,
+    gql`
+      scalar Upload
+      type Metadata {
+        count: Int!
+      }
+      enum Category {
+        OTHER
+        GAME
+        PROJECT
+      }
+      type Image {
+        id: ID
+        src: String
+      }
+      type Project {
+        id: ID!
+        title: String!
+        description: String!
+        category: Category!
+        image: Image
+      }
+      type Skill {
+        id: ID!
+        name: String!
+        image: Image
+      }
+      type Query @rateLimit(limit: 5, duration: 5) {
+        allProjects: [Project!]!
+        _allProjectsMeta: Metadata
+        Project(id: ID!): Project
+        allSkills: [Skill!]!
+        _allSkillsMeta: Metadata
+        Skill(id: ID!): Skill
+      }
+      type Mutation {
+        sendEmail(name: String!, email: String!, message: String!): String @rateLimit(limit: 1, duration: 30)
+        createProject(title: String!, description: String!, category: Category!, image: Upload): Project
+        deleteProject(id: ID!): Project
+        updateProject(id: ID!, title: String!, description: String!, category: Category!, image: Upload): Project
+        createSkill(name: String!, image: Upload): Skill
+        deleteSkill(id: ID!): Skill
+        updateSkill(id: ID!, name: String!, image: Upload): Skill
+      }
+    `,
+  ],
+  resolvers,
+})
+
+schema = rateLimitDirectiveTransformer(schema)
+
 const cors = Cors({ origin: `https://${process.env.VERCEL_URL}` })
 
 const apolloServer = new ApolloServer({
-  typeDefs,
-  resolvers,
+  schema,
   // required for admin
   introspection: true,
+  plugins: [ApolloServerPluginLandingPageGraphQLPlayground()],
 })
 
 const startServer = apolloServer.start()

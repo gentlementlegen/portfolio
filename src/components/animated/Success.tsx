@@ -4,7 +4,7 @@ import clsx from 'clsx'
 
 const Success = (): JSX.Element => {
   return (
-    <div style={{ transform: 'scale(0.4) translate(0%, -100%)' }}>
+    <div style={{ transform: 'scale(0.2) translate(-5px, 10px)' }}>
       <div className={style.check_mark}>
         <div className={clsx(style.saIcon, style.saSuccess, style.animate)}>
           <span className={clsx(style.saLine, style.saTip, style.animateSuccessTip)} />
