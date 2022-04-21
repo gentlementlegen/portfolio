@@ -38,7 +38,7 @@
     position: absolute;
     width: 60px;
     height: 120px;
-    background: #1a1a1a;
+    background: #363636;
     -webkit-transform: rotate(45deg);
     transform: rotate(45deg);
 }
@@ -82,7 +82,7 @@
 .saIcon.saSuccess .saFix {
     width: 5px;
     height: 90px;
-    background-color: #1a1a1a;
+    background-color: #363636;
     position: absolute;
     left: 28px;
     top: 8px;
@@ -97,15 +97,15 @@
 }
 
 .saIcon.saSuccess {
-    border-color: transparent \9;
+    /*border-color: transparent;*/
 }
 
 .saIcon.saSuccess .saLine.saTip {
-    -ms-transform: rotate(45deg) \9;
+    -ms-transform: rotate(45deg);
 }
 
 .saIcon.saSuccess .saLine.saLong {
-    -ms-transform: rotate(-45deg) \9;
+    -ms-transform: rotate(-45deg);
 }
 
 .animateSuccessTip {

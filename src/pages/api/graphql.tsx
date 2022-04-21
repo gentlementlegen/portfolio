@@ -226,7 +226,7 @@ let schema = makeExecutableSchema({
         Skill(id: ID!): Skill
       }
       type Mutation {
-        sendEmail(name: String!, email: String!, message: String!): String @rateLimit(limit: 1, duration: 5)
+        sendEmail(name: String!, email: String!, message: String!): String @rateLimit(limit: 1, duration: 30)
         createProject(title: String!, description: String!, category: Category!, image: Upload): Project
         deleteProject(id: ID!): Project
         updateProject(id: ID!, title: String!, description: String!, category: Category!, image: Upload): Project
