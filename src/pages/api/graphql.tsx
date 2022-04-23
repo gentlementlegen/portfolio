@@ -11,8 +11,17 @@ import mongoose from 'mongoose'
 import { rateLimitDirective } from 'graphql-rate-limit-directive'
 import { makeExecutableSchema } from '@graphql-tools/schema'
 import { ApolloServerPluginLandingPageGraphQLPlayground } from 'apollo-server-core'
+import sharp from 'sharp'
 
 const { rateLimitDirectiveTypeDefs, rateLimitDirectiveTransformer } = rateLimitDirective()
+
+const getBlurHash = async (image: { file: FileUpload }) => {
+  const blur = sharp().jpeg().resize(15, 15, { fit: 'contain' }).blur()
+  const stream = image.file.createReadStream()
+
+  const res = await stream.pipe(blur).toBuffer()
+  return res.toString('base64')
+}
 
 // For naming, refer to https://github.com/marmelab/react-admin/tree/master/packages/ra-data-graphql-simple#expected-graphql-schema
 
@@ -29,10 +38,10 @@ export const resolvers = {
       })
 
       const info = await transporter.sendMail({
-        from: 'fernand-veyrier@website.com',
-        to: 'fernandveyrier96@gmail.com',
+        from: process.env.EMAIL_ADDRESS,
+        to: process.env.EMAIL_ADDRESS,
         subject: `New message from ${name}`,
-        text: `${name} // ${email}\n\n${message}`,
+        text: `From: ${name}\nEmail: ${email}\n\nMessage: ${message}`,
       })
 
       return info.response
@@ -42,16 +51,21 @@ export const resolvers = {
       args: { title: string; description: string; category: Game['category']; image: { file: FileUpload } },
     ) => {
       const { image, ...rest } = args
+      const transformer = sharp().webp().resize(800, 600)
+      const stream = image.file.createReadStream()
       const gfs = await getGfs()
+
+      const blur = await getBlurHash(image)
+
       return new Promise((resolve, reject) => {
-        image.file
-          .createReadStream()
+        stream
+          .pipe(transformer)
           .pipe(gfs.openUploadStream(args.image.file.filename))
           .on('error', () => {
             reject('Failed to upload the file')
           })
           .on('finish', () => {
-            resolve(GameDocument.create(rest))
+            resolve(GameDocument.create({ ...rest, blur }))
           })
       })
     },

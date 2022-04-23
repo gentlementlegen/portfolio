@@ -32,7 +32,7 @@ export const getStaticProps: GetStaticProps<{ project: Game; projects: Game[] }>
 
 const GamePage: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = (props) => {
   const {
-    project: { title, description, image },
+    project: { title, description, image, blur },
     projects,
   } = props
   return (
@@ -59,7 +59,7 @@ const GamePage: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = (prop
             },
           })}
         >
-          <Image src={image} width={400} height={300} alt={title} />
+          <Image src={image} width={400} height={300} alt={title} placeholder={'blur'} blurDataURL={blur} />
         </Box>
       )}
       <Typography>{description}</Typography>
