@@ -18,7 +18,19 @@ const SkillContainer = (props: SkillContainerProps): JSX.Element => {
         {skills.map((o) => (
           <Grid key={o.id} item xs={6} sm={4} md={2}>
             <Stack position={'relative'} alignItems={'center'}>
-              <div>{o.image && <Image src={o.image} alt={o.name} width={70} height={50} objectFit={'contain'} />}</div>
+              <div>
+                {o.image && (
+                  <Image
+                    src={o.image}
+                    alt={o.name}
+                    width={70}
+                    height={50}
+                    objectFit={'contain'}
+                    placeholder={'blur'}
+                    blurDataURL={o.blur}
+                  />
+                )}
+              </div>
               <Typography>{o.name}</Typography>
             </Stack>
           </Grid>
