@@ -74,7 +74,7 @@ const ContactSection = (): JSX.Element => {
             underline={'hover'}
           >
             <AiFillRocket size={25} />
-            <Typography align={'center'}>RocketPunch</Typography>
+            <Typography align={'center'}>Rocket Punch</Typography>
           </Link>
         </Grid>
       </Grid>
