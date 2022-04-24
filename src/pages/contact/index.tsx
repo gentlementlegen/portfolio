@@ -37,10 +37,10 @@ const ContactPage = (): JSX.Element => {
     <MainLayout sx={{ display: 'flex', alignItems: 'center' }}>
       <Container
         maxWidth={'sm'}
-        sx={(theme) => ({
-          paddingTop: theme.spacing(4),
-          paddingBottom: theme.spacing(4),
-        })}
+        sx={{
+          paddingTop: 4,
+          paddingBottom: 4,
+        }}
       >
         <form onSubmit={handleSubmit(submitForm)}>
           <Grid container spacing={4} justifyContent={'center'}>

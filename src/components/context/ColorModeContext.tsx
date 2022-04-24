@@ -7,7 +7,7 @@ export const ColorModeContext = React.createContext({
 })
 
 export default function ToggleColorMode(props: PropsWithChildren<unknown>) {
-  const [mode, setMode] = React.useState<'light' | 'dark'>('light')
+  const [mode, setMode] = React.useState<'light' | 'dark'>('dark')
   const colorMode = React.useMemo(
     () => ({
       toggleColorMode: () => {

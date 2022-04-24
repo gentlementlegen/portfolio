@@ -23,13 +23,13 @@ const styles = {
 const ContactSection = (): JSX.Element => {
   return (
     <div>
-      <Grid container justifyContent={'center'}>
+      <Grid container justifyContent={'center'} spacing={4}>
         <Grid item xs={12}>
           <Typography variant={'h2'} align={'center'}>
             Where to find me
           </Typography>
         </Grid>
-        <Grid item xs={2} sx={styles.centered}>
+        <Grid item sm={2} xs={6} sx={styles.centered}>
           <Link
             target={'_blank'}
             rel={'noreferrer'}
@@ -41,7 +41,7 @@ const ContactSection = (): JSX.Element => {
             <Typography align={'center'}>Stack Overflow</Typography>
           </Link>
         </Grid>
-        <Grid item xs={2} sx={styles.centered}>
+        <Grid item sm={2} xs={6} sx={styles.centered}>
           <Link
             target={'_blank'}
             rel={'noreferrer'}
@@ -53,7 +53,7 @@ const ContactSection = (): JSX.Element => {
             <Typography align={'center'}>Github</Typography>
           </Link>
         </Grid>
-        <Grid item xs={2} sx={styles.centered}>
+        <Grid item sm={2} xs={6} sx={styles.centered}>
           <Link
             target={'_blank'}
             rel={'noreferrer'}
@@ -65,7 +65,7 @@ const ContactSection = (): JSX.Element => {
             <Typography align={'center'}>LinkedIn</Typography>
           </Link>
         </Grid>
-        <Grid item xs={2} sx={styles.centered}>
+        <Grid item sm={2} xs={6} sx={styles.centered}>
           <Link
             target={'_blank'}
             rel={'noreferrer'}

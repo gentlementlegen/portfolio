@@ -13,15 +13,19 @@ const Footer = (): JSX.Element => {
     <Paper
       square
       elevation={0}
-      sx={(theme) => ({
-        padding: theme.spacing(2),
+      sx={{
+        padding: 2,
         position: 'relative',
-      })}
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        columnGap: 1,
+      }}
     >
       <Typography variant={'caption'} align={'center'} component={'p'}>
         Games are love, games are life | Copyright Fernand Veyrier, {new Date().getFullYear()}
       </Typography>
-      <Switch color={'secondary'} onChange={handleSwitchChange} />
+      <Switch size={'small'} color={'secondary'} onChange={handleSwitchChange} />
     </Paper>
   )
 }
