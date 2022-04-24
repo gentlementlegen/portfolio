@@ -74,12 +74,12 @@ export default function Home(props: InferGetStaticPropsType<typeof getStaticProp
       <Container className={styles.mainGrid}>
         <Grid container className={styles.mainGrid} alignItems={'center'}>
           <Grid item xs={12} sx={{ color: theme.palette.secondary.main, textShadow: '1px 1px 5px black' }}>
-            <Typography variant={'h1'} component={'h2'} align={'center'} gutterBottom>
+            <Typography variant={'h1'} component={'h2'} align={'center'} gutterBottom color={'#ffffff'}>
               Welcome to my portfolio
             </Typography>
-            <Typography variant={'h5'} component={'h1'} align={'center'}>
-              I am <em>Fernand</em>, a dev lead in South Korea. Passionate about video-games, I currently work with
-              React.js, Node.js, Typescript & GraphQl.
+            <Typography variant={'h5'} component={'h1'} align={'center'} color={'#ffffff'}>
+              I am <em style={{ color: 'rgb(178, 178, 178)' }}>Fernand</em>, a dev lead in South Korea. Passionate about
+              video-games, I currently work with React.js, Node.js, Typescript & GraphQl.
             </Typography>
           </Grid>
         </Grid>
