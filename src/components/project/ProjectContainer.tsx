@@ -12,7 +12,6 @@ const ProjectContainer = (props: { projects: Game[] }): JSX.Element => {
         minHeight: `calc(100vh - 112px)`,
         display: 'flex',
         paddingTop: 8,
-        paddingBottom: 8,
       }}
     >
       <Grid container justifyContent={'center'} id={'projects'} spacing={2}>
