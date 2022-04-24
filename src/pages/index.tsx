@@ -7,10 +7,11 @@ import MainLayout from 'components/layout/MainLayout'
 import styles from 'styles/Home.module.css'
 import { GetStaticProps, InferGetStaticPropsType } from 'next'
 import { Game, getGameObject } from 'lib/models/Game'
-import { resolvers } from 'pages/api/graphql'
 import dbConnect from 'lib/dbConnect'
 import SkillContainer from 'components/skills/SkillContainer'
 import { getSkillObject, Skill } from 'lib/models/Skill'
+import resolvers from 'lib/schema/resolvers'
+import ContactSection from 'components/contact/ContactSection'
 
 export const getStaticProps: GetStaticProps<{ projects: Game[]; skills: Skill[] }> = async () => {
   await dbConnect()
@@ -100,9 +101,10 @@ export default function Home(props: InferGetStaticPropsType<typeof getStaticProp
         </AnchorLink>
       </Box>
       <Paper square sx={{ position: 'relative' }}>
-        <Container sx={{ paddingBottom: theme.spacing(6) }}>
+        <Container sx={{ paddingBottom: theme.spacing(6), '& > *': { paddingBottom: 12 } }}>
           <ProjectContainer projects={projects} />
           <SkillContainer skills={skills} />
+          <ContactSection />
         </Container>
       </Paper>
     </MainLayout>
