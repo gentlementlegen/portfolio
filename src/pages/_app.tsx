@@ -22,7 +22,7 @@ if (process.env.NODE_ENV === 'production') {
 const clientSideEmotionCache = createEmotionCache()
 
 function MyApp(props: AppProps & { Component: { hideNavBar: boolean }; emotionCache: EmotionCache }) {
-  const { Component, emotionCache = clientSideEmotionCache, pageProps } = props
+  const { Component, emotionCache = clientSideEmotionCache, pageProps, router } = props
   const theme = useTheme()
 
   return (
@@ -45,7 +45,7 @@ function MyApp(props: AppProps & { Component: { hideNavBar: boolean }; emotionCa
         <ApolloProvider client={client}>
           <CssBaseline />
           {!Component.hideNavBar && <NavBar />}
-          <Component {...pageProps} />
+          <Component {...pageProps} key={router.asPath} />
           <Footer />
         </ApolloProvider>
       </ThemeProvider>
