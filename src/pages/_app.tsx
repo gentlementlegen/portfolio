@@ -2,8 +2,7 @@ import React from 'react'
 import 'styles/globals.css'
 import { AppProps } from 'next/app'
 import { CssBaseline } from '@mui/material'
-import { ThemeProvider } from '@mui/material/styles'
-import theme from 'theme'
+import { ThemeProvider, useTheme } from '@mui/material/styles'
 import { ApolloProvider } from '@apollo/client'
 import client from 'apolloClient'
 import Footer from 'components/layout/Footer'
@@ -13,6 +12,7 @@ import Head from 'next/head'
 import { EmotionCache } from '@emotion/cache'
 import { CacheProvider } from '@emotion/react'
 import createEmotionCache from 'createEmotionCache'
+import ToggleColorMode from 'components/context/ColorModeContext'
 
 if (process.env.NODE_ENV === 'production') {
   ReactGA.initialize('G-MKCJ96LVC7')
@@ -22,7 +22,8 @@ if (process.env.NODE_ENV === 'production') {
 const clientSideEmotionCache = createEmotionCache()
 
 function MyApp(props: AppProps & { Component: { hideNavBar: boolean }; emotionCache: EmotionCache }) {
-  const { Component, emotionCache = clientSideEmotionCache, pageProps } = props
+  const { Component, emotionCache = clientSideEmotionCache, pageProps, router } = props
+  const theme = useTheme()
 
   return (
     <CacheProvider value={emotionCache}>
@@ -44,7 +45,7 @@ function MyApp(props: AppProps & { Component: { hideNavBar: boolean }; emotionCa
         <ApolloProvider client={client}>
           <CssBaseline />
           {!Component.hideNavBar && <NavBar />}
-          <Component {...pageProps} />
+          <Component {...pageProps} key={router.asPath} />
           <Footer />
         </ApolloProvider>
       </ThemeProvider>
@@ -52,4 +53,10 @@ function MyApp(props: AppProps & { Component: { hideNavBar: boolean }; emotionCa
   )
 }
 
-export default MyApp
+export default function MainApp(props: AppProps & { Component: { hideNavBar: boolean }; emotionCache: EmotionCache }) {
+  return (
+    <ToggleColorMode>
+      <MyApp {...props} />
+    </ToggleColorMode>
+  )
+}

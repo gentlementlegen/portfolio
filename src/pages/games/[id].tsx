@@ -2,11 +2,11 @@ import React from 'react'
 import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType, NextPage } from 'next'
 import { Container, Typography } from '@mui/material'
 import { Game, getGameObject } from 'lib/models/Game'
-import { resolvers } from 'pages/api/graphql'
 import dbConnect from 'lib/dbConnect'
 import Image from 'next/image'
 import { Box } from '@mui/system'
 import ProjectContainer from 'components/project/ProjectContainer'
+import resolvers from 'lib/schema/resolvers'
 
 export const getStaticPaths: GetStaticPaths = async () => {
   await dbConnect()

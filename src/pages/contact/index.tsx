@@ -3,7 +3,6 @@ import MainLayout from 'components/layout/MainLayout'
 import { Container, Grid, TextField, Typography } from '@mui/material'
 import { useForm } from 'react-hook-form'
 import { gql, useMutation } from '@apollo/client'
-import theme from 'theme'
 import Success from 'components/animated/Success'
 import { LoadingButton } from '@mui/lab'
 
@@ -39,8 +38,8 @@ const ContactPage = (): JSX.Element => {
       <Container
         maxWidth={'sm'}
         sx={{
-          paddingTop: theme.spacing(4),
-          paddingBottom: theme.spacing(4),
+          paddingTop: 4,
+          paddingBottom: 4,
         }}
       >
         <form onSubmit={handleSubmit(submitForm)}>
