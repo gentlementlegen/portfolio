@@ -5,4 +5,7 @@ module.exports = {
   generateRobotsTxt: true,
   // ...other options
   exclude: ['/admin'],
+  robotsTxtOptions: {
+    policies: [{ disallow: '/admin', userAgent: '*', allow: '/' }],
+  },
 }
