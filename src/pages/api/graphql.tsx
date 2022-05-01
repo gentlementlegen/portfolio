@@ -58,6 +58,7 @@ let schema = makeExecutableSchema({
         createSkill(name: String!, image: Upload): Skill
         deleteSkill(id: ID!): Skill
         updateSkill(id: ID!, name: String!, image: Upload): Skill
+        login(username: String!, password: String!): String
       }
     `,
   ],
