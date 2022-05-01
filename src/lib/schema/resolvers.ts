@@ -5,6 +5,8 @@ import sharp from 'sharp'
 import { getGfs } from 'lib/dbConnect'
 import mongoose from 'mongoose'
 import SkillDocument, { Skill } from 'lib/models/Skill'
+import UserDocument, { User } from 'lib/models/User'
+import { GraphQLError } from 'graphql'
 
 const getBlurHash = async (image: { file: FileUpload }) => {
   const blur = sharp().webp().blur().resize(15, 15, { fit: 'contain' })
@@ -16,6 +18,12 @@ const getBlurHash = async (image: { file: FileUpload }) => {
 
 const resolvers = {
   Mutation: {
+    async login(parent, args: { username: string; password: string }) {
+      const { username, password } = args
+      const user = await UserDocument.findOne<User>({ username, password })
+      if (!user) throw new GraphQLError('Could not login')
+      return `successfully logged in as ${user.username}`
+    },
     sendEmail: async (parent, args: { name: string; email: string; message: string }) => {
       const { name, email, message } = args
       const transporter = nodemailer.createTransport({
