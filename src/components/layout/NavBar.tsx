@@ -3,6 +3,7 @@ import { AppBar, Button, Link as MuiLink, Toolbar, Typography } from '@mui/mater
 import Head from 'next/head'
 import Link from 'next/link'
 import styles from 'styles/Home.module.css'
+import AnchorLink from 'react-anchor-link-smooth-scroll'
 
 const NavBar = (): JSX.Element => {
   return (
@@ -18,15 +19,15 @@ const NavBar = (): JSX.Element => {
             </Typography>
           </MuiLink>
         </Link>
-        <Link href={'/'} passHref>
+        <AnchorLink href={'#home'} offset={100}>
           <Button color={'inherit'}>Home</Button>
-        </Link>
-        {/*<Link href={'/about'} passHref>*/}
-        {/*  <Button color="inherit">About</Button>*/}
-        {/*</Link>*/}
-        <Link href={'/contact'} passHref>
+        </AnchorLink>
+        <AnchorLink href={'#about'} offset={100}>
+          <Button color={'inherit'}>About</Button>
+        </AnchorLink>
+        <AnchorLink href={'#contact'} offset={100}>
           <Button color={'inherit'}>Contact</Button>
-        </Link>
+        </AnchorLink>
       </Toolbar>
     </AppBar>
   )

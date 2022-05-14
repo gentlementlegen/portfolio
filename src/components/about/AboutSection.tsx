@@ -8,7 +8,7 @@ const Span = styled('span')(({ theme }) => ({
 
 const AboutSection = (): JSX.Element => {
   return (
-    <Container maxWidth={'md'}>
+    <Container maxWidth={'md'} id={'about'}>
       <Typography variant={'h2'} align={'center'}>
         About
       </Typography>
