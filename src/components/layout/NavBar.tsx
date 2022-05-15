@@ -46,7 +46,7 @@ const CustomSwitch = styled((props: SwitchProps) => (
       },
     },
     '&.Mui-focusVisible .MuiSwitch-thumb': {
-      color: '#33cf4d',
+      color: '#a6a6a6',
       border: '6px solid #fff',
     },
     '&.Mui-disabled .MuiSwitch-thumb': {
@@ -60,6 +60,7 @@ const CustomSwitch = styled((props: SwitchProps) => (
     boxSizing: 'border-box',
     width: 22,
     height: 22,
+    backgroundColor: theme.palette.mode === 'dark' ? '#151515' : '',
     '&:before': {
       content: "''",
       position: 'absolute',
