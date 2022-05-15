@@ -59,7 +59,7 @@ const ContactForm = (): JSX.Element => {
               error={Boolean(errors.name)}
               helperText={errors.name?.message}
               fullWidth
-              {...register('name', { required: 'This field is required' })}
+              {...register('name', { required: t('required') })}
             />
           </Grid>
           <Grid item xs={12}>
@@ -71,7 +71,7 @@ const ContactForm = (): JSX.Element => {
               error={Boolean(errors.email)}
               helperText={errors.email?.message}
               fullWidth
-              {...register('email', { required: 'This field is required' })}
+              {...register('email', { required: t('required') })}
             />
           </Grid>
           <Grid item xs={12}>
@@ -85,7 +85,7 @@ const ContactForm = (): JSX.Element => {
               error={Boolean(errors.message)}
               helperText={errors.message?.message}
               fullWidth
-              {...register('message', { required: 'This field is required' })}
+              {...register('message', { required: t('required') })}
             />
           </Grid>
           <Grid item style={{ maxHeight: 68.5 }}>
