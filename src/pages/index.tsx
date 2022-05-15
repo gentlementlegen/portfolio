@@ -13,6 +13,7 @@ import { getSkillObject, Skill } from 'lib/models/Skill'
 import resolvers from 'lib/schema/resolvers'
 import ContactSection from 'components/contact/ContactSection'
 import AboutSection from 'components/about/AboutSection'
+import ContactForm from 'components/contact/ContactForm'
 
 export const getStaticProps: GetStaticProps<{ projects: Game[]; skills: Skill[] }> = async () => {
   await dbConnect()
@@ -33,6 +34,7 @@ export default function Home(props: InferGetStaticPropsType<typeof getStaticProp
   return (
     <MainLayout>
       <Box
+        id={'home'}
         sx={{
           height: 'calc(100vh - 64px)',
           top: 64,
@@ -104,9 +106,10 @@ export default function Home(props: InferGetStaticPropsType<typeof getStaticProp
       <Paper square sx={{ position: 'relative' }}>
         <Container sx={{ paddingBottom: theme.spacing(6), '& > *': { paddingBottom: 12 } }}>
           <ProjectContainer projects={projects} />
-          <AboutSection />
           <SkillContainer skills={skills} />
+          <AboutSection />
           <ContactSection />
+          <ContactForm />
         </Container>
       </Paper>
     </MainLayout>
