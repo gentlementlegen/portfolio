@@ -2,6 +2,7 @@ import React from 'react'
 import { Box, Grid, Stack, Typography } from '@mui/material'
 import { Skill } from 'lib/models/Skill'
 import Image from 'next/image'
+import { useTranslation } from 'next-i18next'
 
 interface SkillContainerProps {
   skills: Skill[]
@@ -9,10 +10,12 @@ interface SkillContainerProps {
 
 const SkillContainer = (props: SkillContainerProps): JSX.Element => {
   const { skills } = props
+  const { t } = useTranslation('common')
+
   return (
     <Box>
       <Typography variant={'h2'} align={'center'} gutterBottom>
-        My skills
+        {t('skills')}
       </Typography>
       <Grid container spacing={2} justifyContent={'center'}>
         {skills.map((o) => (

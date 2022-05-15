@@ -14,14 +14,17 @@ import resolvers from 'lib/schema/resolvers'
 import ContactSection from 'components/contact/ContactSection'
 import AboutSection from 'components/about/AboutSection'
 import ContactForm from 'components/contact/ContactForm'
+import { Trans, useTranslation } from 'next-i18next'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
-export const getStaticProps: GetStaticProps<{ projects: Game[]; skills: Skill[] }> = async () => {
+export const getStaticProps: GetStaticProps<{ projects: Game[]; skills: Skill[] }> = async ({ locale }) => {
   await dbConnect()
   const projects = await resolvers.Query.allProjects()
   const skills = await resolvers.Query.allSkills()
 
   return {
     props: {
+      ...(await serverSideTranslations(locale, ['common'])),
       projects: projects.map((o) => getGameObject(o)),
       skills: skills.map((o) => getSkillObject(o)),
     },
@@ -30,7 +33,9 @@ export const getStaticProps: GetStaticProps<{ projects: Game[]; skills: Skill[] 
 
 export default function Home(props: InferGetStaticPropsType<typeof getStaticProps>) {
   const { projects, skills } = props
+  const { t } = useTranslation('common')
   const theme = useTheme()
+
   return (
     <MainLayout>
       <Box
@@ -78,11 +83,13 @@ export default function Home(props: InferGetStaticPropsType<typeof getStaticProp
         <Grid container className={styles.mainGrid} alignItems={'center'}>
           <Grid item xs={12} sx={{ color: theme.palette.secondary.main, textShadow: '1px 1px 5px black' }}>
             <Typography variant={'h1'} component={'h2'} align={'center'} gutterBottom color={'#ffffff'}>
-              Welcome to my portfolio
+              {t('h1')}
             </Typography>
             <Typography variant={'h5'} component={'h1'} align={'center'} color={'#ffffff'}>
-              I am <em style={{ color: 'rgb(178, 178, 178)' }}>Fernand</em>, a dev lead in South Korea. Passionate about
-              video-games, I currently work with React.js, Node.js, Typescript & GraphQl.
+              <Trans i18nKey={'h2'}>
+                I am <em style={{ color: 'rgb(178, 178, 178)' }}>Fernand</em>, a dev lead in South Korea. Passionate
+                about video-games, I currently work with React.js, Node.js, Typescript & GraphQl.
+              </Trans>
             </Typography>
           </Grid>
         </Grid>

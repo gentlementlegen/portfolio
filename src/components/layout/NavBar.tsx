@@ -6,6 +6,7 @@ import styles from 'styles/Home.module.css'
 import AnchorLink, { AnchorLinkProps } from 'react-anchor-link-smooth-scroll'
 import { ColorModeContext } from 'components/context/ColorModeContext'
 import { useRouter } from 'next/router'
+import { useTranslation } from 'next-i18next'
 
 const LinkElement = ({ children, href, offset }: PropsWithChildren<AnchorLinkProps>) => {
   const { route } = useRouter()
@@ -46,7 +47,7 @@ const CustomSwitch = styled((props: SwitchProps) => (
       },
     },
     '&.Mui-focusVisible .MuiSwitch-thumb': {
-      color: '#33cf4d',
+      color: '#a6a6a6',
       border: '6px solid #fff',
     },
     '&.Mui-disabled .MuiSwitch-thumb': {
@@ -60,6 +61,7 @@ const CustomSwitch = styled((props: SwitchProps) => (
     boxSizing: 'border-box',
     width: 22,
     height: 22,
+    backgroundColor: theme.palette.mode === 'dark' ? '#151515' : '',
     '&:before': {
       content: "''",
       position: 'absolute',
@@ -86,6 +88,7 @@ const CustomSwitch = styled((props: SwitchProps) => (
 
 const NavBar = (): JSX.Element => {
   const { toggleColorMode } = React.useContext(ColorModeContext)
+  const { t } = useTranslation('common')
 
   const handleSwitchChange = () => {
     toggleColorMode()
@@ -105,13 +108,13 @@ const NavBar = (): JSX.Element => {
           </MuiLink>
         </Link>
         <LinkElement href={'#home'} offset={100}>
-          <Button color={'inherit'}>Home</Button>
+          <Button color={'inherit'}>{t('home')}</Button>
         </LinkElement>
         <LinkElement href={'#about'} offset={100}>
-          <Button color={'inherit'}>About</Button>
+          <Button color={'inherit'}>{t('about')}</Button>
         </LinkElement>
         <LinkElement href={'#contact'} offset={100}>
-          <Button color={'inherit'}>Contact</Button>
+          <Button color={'inherit'}>{t('contact')}</Button>
         </LinkElement>
         <CustomSwitch size={'small'} color={'secondary'} onChange={handleSwitchChange} />
       </Toolbar>

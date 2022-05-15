@@ -3,6 +3,7 @@ import { Grid, styled, Typography } from '@mui/material'
 import { BsGithub, BsLinkedin, BsStackOverflow } from 'react-icons/bs'
 import MuiLink from '@mui/material/Link'
 import { AiFillRocket } from 'react-icons/ai'
+import { useTranslation } from 'next-i18next'
 
 const Link = styled(MuiLink)(
   ({ theme }) => `
@@ -21,12 +22,14 @@ const styles = {
 }
 
 const ContactSection = (): JSX.Element => {
+  const { t } = useTranslation('common')
+
   return (
     <div>
       <Grid container justifyContent={'center'} spacing={4}>
         <Grid item xs={12}>
           <Typography variant={'h2'} align={'center'}>
-            Where to find me
+            {t('find me')}
           </Typography>
         </Grid>
         <Grid item sm={2} xs={6} sx={styles.centered}>

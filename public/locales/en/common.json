@@ -1,0 +1,18 @@
+{
+  "h1": "Welcome to my portfolio",
+  "h2": "I am <1>Fernand</1>, a dev lead in South Korea. Passionate about video-games, I currently work with React.js, Node.js, Typescript & GraphQl.",
+  "skills": "My skills",
+  "about": "about",
+  "contact": "contact",
+  "home": "home",
+  "message": "Message",
+  "submit": "Submit",
+  "name": "Name",
+  "email": "Email",
+  "share": "You want to share a beer with me? Here you go",
+  "find me": "Where to find me",
+  "required": "This field is required",
+  "desc part 1": "Fullstack dev lead programmer in Seoul, South Korea, I'm passionate about video games and everything related to it. I spend most of my time playing and learning new things ! I love to be involved in video game events such as Game Jams and Ludum Dares.",
+  "desc part 2": "I have many other hobbies, like heavy metal music or traveling around the world. I've always thought these are the two best things to encounter new people, and enrich your own culture.",
+  "desc part 3": "I created this portfolio to share some of my work and show you my passion !"
+}
