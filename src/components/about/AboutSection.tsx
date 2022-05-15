@@ -1,5 +1,6 @@
 import React from 'react'
 import { Container, styled, Typography } from '@mui/material'
+import { useTranslation } from 'next-i18next'
 
 const Span = styled('span')(({ theme }) => ({
   marginBottom: theme.spacing(2),
@@ -7,10 +8,12 @@ const Span = styled('span')(({ theme }) => ({
 }))
 
 const AboutSection = (): JSX.Element => {
+  const { t } = useTranslation('common')
+
   return (
     <Container maxWidth={'md'} id={'about'}>
       <Typography variant={'h2'} align={'center'}>
-        About
+        {t('about')}
       </Typography>
       <Typography>
         <Span>

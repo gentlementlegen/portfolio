@@ -4,6 +4,7 @@ import { LoadingButton } from '@mui/lab'
 import Success from 'components/animated/Success'
 import { useForm } from 'react-hook-form'
 import { gql, useMutation } from '@apollo/client'
+import { useTranslation } from 'next-i18next'
 
 const MUTATION = gql`
   mutation SendEmail($name: String!, $message: String!, $email: String!) {
@@ -20,6 +21,7 @@ const ContactForm = (): JSX.Element => {
   } = useForm()
   const [sendEmail, { loading }] = useMutation(MUTATION)
   const [sent, setSent] = useState(false)
+  const { t } = useTranslation('common')
 
   const submitForm = (form) => {
     sendEmail({ variables: form })
@@ -45,13 +47,13 @@ const ContactForm = (): JSX.Element => {
         <Grid container spacing={4} justifyContent={'center'}>
           <Grid item xs={12}>
             <Typography variant={'h3'} align={'center'}>
-              You want to share a beer with me? Here you go 🍻
+              {t('share')} 🍻
             </Typography>
           </Grid>
           <Grid item xs={12}>
             <TextField
               name={'name'}
-              label={'Name'}
+              label={t('name')}
               variant={'outlined'}
               color={'secondary'}
               error={Boolean(errors.name)}
@@ -63,7 +65,7 @@ const ContactForm = (): JSX.Element => {
           <Grid item xs={12}>
             <TextField
               name={'email'}
-              label={'Email'}
+              label={t('email')}
               variant={'outlined'}
               color={'secondary'}
               error={Boolean(errors.email)}
@@ -75,7 +77,7 @@ const ContactForm = (): JSX.Element => {
           <Grid item xs={12}>
             <TextField
               name={'message'}
-              label={'Message'}
+              label={t('message')}
               variant={'outlined'}
               color={'secondary'}
               multiline
@@ -96,7 +98,7 @@ const ContactForm = (): JSX.Element => {
               disabled={sent}
               loadingIndicator={sent ? <Success /> : undefined}
             >
-              Submit
+              {t('submit')}
             </LoadingButton>
           </Grid>
         </Grid>
