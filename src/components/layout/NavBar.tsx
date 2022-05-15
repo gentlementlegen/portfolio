@@ -42,7 +42,7 @@ const CustomSwitch = styled((props: SwitchProps) => (
         opacity: 0.5,
       },
       '& .MuiSwitch-thumb:before': {
-        backgroundImage: 'url(/moon.svg)',
+        backgroundImage: 'url(/sun.svg)',
       },
     },
     '&.Mui-focusVisible .MuiSwitch-thumb': {
@@ -70,7 +70,7 @@ const CustomSwitch = styled((props: SwitchProps) => (
       padding: 4,
       backgroundRepeat: 'no-repeat',
       backgroundPosition: 'center',
-      backgroundImage: 'url(/sun.svg)',
+      backgroundImage: 'url(/moon.svg)',
       backgroundOrigin: 'content-box',
     },
   },
