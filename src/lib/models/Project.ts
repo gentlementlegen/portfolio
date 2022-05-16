@@ -28,7 +28,7 @@ export const getProjectObject = (o) => ({
   blur: o.blur
     ? `data:image/webp;base64,${o.blur}`
     : 'data:image/webp;base64,UklGRiQAAABXRUJQVlA4IBgAAABQAQCdASoBAAEAAUAmJaQABYwAAM0AAAA=',
-  slug: o.slug ?? null,
+  slug: o.slug ?? o.id,
 })
 
 export default mongoose.models.Project || mongoose.model<Project>('Project', ProjectSchema)

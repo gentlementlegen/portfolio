@@ -12,14 +12,14 @@ export const getStaticPaths: GetStaticPaths = async () => {
   await dbConnect()
   const projects = await resolvers.Query.allProjects()
   return {
-    paths: projects.map((o) => ({ params: { id: o.id } })),
+    paths: projects.map((o) => ({ params: { id: o.slug ?? o.id } })),
     fallback: false,
   }
 }
 
 export const getStaticProps: GetStaticProps<{ project: Project; projects: Project[] }> = async ({ params }) => {
   await dbConnect()
-  const project: Project = await resolvers.Query.Project(undefined, { id: params.id as string })
+  const project: Project = await resolvers.Query.ProjectBySlug(undefined, { slug: params.id as string })
   const projects: Project[] = await resolvers.Query.allProjects()
 
   return {

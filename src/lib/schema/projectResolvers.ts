@@ -4,6 +4,7 @@ import mongoose from 'mongoose'
 import getBlurHash from 'lib/schema/utils'
 import ProjectDocument, { Project } from 'lib/models/Project'
 import sharp from 'sharp'
+import slugify from 'slugify'
 
 export const ProjectMutations = {
   createProject: async (
@@ -14,6 +15,7 @@ export const ProjectMutations = {
     const transformer = sharp().webp().resize(800, 600)
     const stream = image.file.createReadStream()
     const gfs = await getGfs()
+    const slug = slugify(args.title, { lower: true, strict: true })
 
     const blur = await getBlurHash(image)
 
@@ -25,7 +27,7 @@ export const ProjectMutations = {
           reject('Failed to upload the file')
         })
         .on('finish', () => {
-          resolve(ProjectDocument.create({ ...rest, blur }))
+          resolve(ProjectDocument.create({ ...rest, slug, blur }))
         })
     })
   },
@@ -46,11 +48,14 @@ export const ProjectMutations = {
     const gfs = await getGfs()
     const item = await ProjectDocument.findById(id)
     const blur = await getBlurHash(image)
+    const slug = slugify(args.title, { lower: true, strict: true })
+
     if (!image) {
       const document = await ProjectDocument.findByIdAndUpdate(
         id,
         {
           ...rest,
+          slug,
           image: null,
           blue: null,
         },
@@ -79,6 +84,7 @@ export const ProjectMutations = {
                 ...rest,
                 image: document._id,
                 blur,
+                slug,
               },
               { new: true },
             )
@@ -99,6 +105,10 @@ export const ProjectQueries = {
   Project: async (parent, args: { id: string }) => {
     const { id } = args
     return ProjectDocument.findById(id)
+  },
+  ProjectBySlug: async (parent, args: { slug: string }) => {
+    const { slug } = args
+    return ProjectDocument.findOne({ slug })
   },
 }
 

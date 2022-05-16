@@ -12,7 +12,7 @@ const ProjectCard = (props: ProjectCardProps): JSX.Element => {
   const { project } = props
   return (
     <Card variant={'outlined'}>
-      <Link href={`/projects/${project.id}`} passHref>
+      <Link href={`/projects/${project.slug}`} passHref>
         <CardActionArea>
           {project.image && (
             <CardMedia style={{ minHeight: 0, position: 'relative', height: 150, width: '100%' }}>
