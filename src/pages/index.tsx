@@ -6,7 +6,7 @@ import ProjectContainer from 'components/project/ProjectContainer'
 import MainLayout from 'components/layout/MainLayout'
 import styles from 'styles/Home.module.css'
 import { GetStaticProps, InferGetStaticPropsType } from 'next'
-import { Game, getGameObject } from 'lib/models/Game'
+import { getProjectObject, Project } from 'lib/models/Project'
 import dbConnect from 'lib/dbConnect'
 import SkillContainer from 'components/skills/SkillContainer'
 import { getSkillObject, Skill } from 'lib/models/Skill'
@@ -17,7 +17,7 @@ import ContactForm from 'components/contact/ContactForm'
 import { Trans, useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
-export const getStaticProps: GetStaticProps<{ projects: Game[]; skills: Skill[] }> = async ({ locale }) => {
+export const getStaticProps: GetStaticProps<{ projects: Project[]; skills: Skill[] }> = async ({ locale }) => {
   await dbConnect()
   const projects = await resolvers.Query.allProjects()
   const skills = await resolvers.Query.allSkills()
@@ -25,7 +25,7 @@ export const getStaticProps: GetStaticProps<{ projects: Game[]; skills: Skill[] 
   return {
     props: {
       ...(await serverSideTranslations(locale, ['common'])),
-      projects: projects.map((o) => getGameObject(o)),
+      projects: projects.map((o) => getProjectObject(o)),
       skills: skills.map((o) => getSkillObject(o)),
     },
   }

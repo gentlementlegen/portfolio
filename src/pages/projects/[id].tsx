@@ -1,7 +1,7 @@
 import React from 'react'
 import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType, NextPage } from 'next'
 import { Container, Typography } from '@mui/material'
-import { Game, getGameObject } from 'lib/models/Game'
+import { getProjectObject, Project } from 'lib/models/Project'
 import dbConnect from 'lib/dbConnect'
 import Image from 'next/image'
 import { Box } from '@mui/system'
@@ -17,15 +17,15 @@ export const getStaticPaths: GetStaticPaths = async () => {
   }
 }
 
-export const getStaticProps: GetStaticProps<{ project: Game; projects: Game[] }> = async ({ params }) => {
+export const getStaticProps: GetStaticProps<{ project: Project; projects: Project[] }> = async ({ params }) => {
   await dbConnect()
-  const project: Game = await resolvers.Query.Project(undefined, { id: params.id as string })
-  const projects: Game[] = await resolvers.Query.allProjects()
+  const project: Project = await resolvers.Query.Project(undefined, { id: params.id as string })
+  const projects: Project[] = await resolvers.Query.allProjects()
 
   return {
     props: {
-      project: getGameObject(project),
-      projects: projects.filter((o) => o.id !== project.id).map((o) => getGameObject(o)),
+      project: getProjectObject(project),
+      projects: projects.filter((o) => o.id !== project.id).map((o) => getProjectObject(o)),
     },
   }
 }

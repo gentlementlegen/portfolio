@@ -1,9 +1,9 @@
 import React from 'react'
 import { Box, Grid } from '@mui/material'
-import { Game } from 'lib/models/Game'
+import { Project } from 'lib/models/Project'
 import ProjectCard from 'components/project/ProjectCard'
 
-const ProjectContainer = (props: { projects: Game[] }): JSX.Element => {
+const ProjectContainer = (props: { projects: Project[] }): JSX.Element => {
   const { projects } = props
 
   return (

@@ -1,5 +1,5 @@
 import nodemailer from 'nodemailer'
-import GameDocument, { Game } from 'lib/models/Game'
+import ProjectDocument, { Project } from 'lib/models/Project'
 import { FileUpload } from 'graphql-upload'
 import sharp from 'sharp'
 import { getGfs } from 'lib/dbConnect'
@@ -45,7 +45,7 @@ const resolvers = {
     },
     createProject: async (
       parent,
-      args: { title: string; description: string; category: Game['category']; image: { file: FileUpload } },
+      args: { title: string; description: string; category: Project['category']; image: { file: FileUpload } },
     ) => {
       const { image, ...rest } = args
       const transformer = sharp().webp().resize(800, 600)
@@ -62,23 +62,37 @@ const resolvers = {
             reject('Failed to upload the file')
           })
           .on('finish', () => {
-            resolve(GameDocument.create({ ...rest, blur }))
+            resolve(ProjectDocument.create({ ...rest, blur }))
           })
       })
     },
     deleteProject: async (parent, args: { id: string }) => {
-      return GameDocument.findByIdAndDelete(args.id)
+      return ProjectDocument.findByIdAndDelete(args.id)
     },
     updateProject: async (
       parent,
-      args: { id: string; title: string; description: string; category: Game['category']; image: { file: FileUpload } },
+      args: {
+        id: string
+        title: string
+        description: string
+        category: Project['category']
+        image: { file: FileUpload }
+      },
     ) => {
       const { id, image, ...rest } = args
       const gfs = await getGfs()
-      const item = await GameDocument.findById(id)
+      const item = await ProjectDocument.findById(id)
       const blur = await getBlurHash(image)
       if (!image) {
-        const document = await GameDocument.findByIdAndUpdate(id, { ...rest, image: null, blue: null }, { new: true })
+        const document = await ProjectDocument.findByIdAndUpdate(
+          id,
+          {
+            ...rest,
+            image: null,
+            blue: null,
+          },
+          { new: true },
+        )
         await gfs.delete(new mongoose.Types.ObjectId(item.image))
         return document
       } else {
@@ -96,7 +110,7 @@ const resolvers = {
               } catch (e) {
                 console.warn(`Could not delete file ${item}`, e)
               }
-              const res = await GameDocument.findByIdAndUpdate(
+              const res = await ProjectDocument.findByIdAndUpdate(
                 id,
                 {
                   ...rest,
@@ -178,15 +192,15 @@ const resolvers = {
     },
   },
   Query: {
-    allProjects: async (): Promise<Game[]> => {
-      return GameDocument.find()
+    allProjects: async (): Promise<Project[]> => {
+      return ProjectDocument.find()
     },
     _allProjectsMeta: async () => {
-      return { count: await GameDocument.count() }
+      return { count: await ProjectDocument.count() }
     },
     Project: async (parent, args: { id: string }) => {
       const { id } = args
-      return GameDocument.findById(id)
+      return ProjectDocument.findById(id)
     },
     allSkills: async (): Promise<Skill[]> => {
       return SkillDocument.find()
@@ -200,7 +214,7 @@ const resolvers = {
     },
   },
   Project: {
-    image: async (data: Game) => {
+    image: async (data: Project) => {
       if (!data.image) return null
       return {
         id: data.id,

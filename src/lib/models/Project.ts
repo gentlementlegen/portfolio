@@ -1,6 +1,6 @@
 import mongoose from 'mongoose'
 
-export interface Game {
+export interface Project {
   id: string
   title: string
   category: 'OTHER' | 'GAME' | 'PROJECT'
@@ -9,7 +9,7 @@ export interface Game {
   blur: string
 }
 
-const GameSchema = new mongoose.Schema({
+const ProjectSchema = new mongoose.Schema({
   title: { type: String, required: true },
   category: { type: String, enum: ['OTHER', 'GAME', 'PROJECT'], default: 'OTHER' },
   description: { type: String, required: true },
@@ -17,7 +17,7 @@ const GameSchema = new mongoose.Schema({
   blur: { type: String },
 })
 
-export const getGameObject = (o) => ({
+export const getProjectObject = (o) => ({
   category: o.category,
   description: o.description,
   id: o.id,
@@ -28,4 +28,4 @@ export const getGameObject = (o) => ({
     : 'data:image/webp;base64,UklGRiQAAABXRUJQVlA4IBgAAABQAQCdASoBAAEAAUAmJaQABYwAAM0AAAA=',
 })
 
-export default mongoose.models.Game || mongoose.model<Game>('Game', GameSchema)
+export default mongoose.models.Project || mongoose.model<Project>('Project', ProjectSchema)
