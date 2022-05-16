@@ -7,6 +7,7 @@ export interface Project {
   description: string
   image: string
   blur: string
+  slug: string
 }
 
 const ProjectSchema = new mongoose.Schema({
@@ -15,6 +16,7 @@ const ProjectSchema = new mongoose.Schema({
   description: { type: String, required: true },
   image: { type: String },
   blur: { type: String },
+  slug: { type: String, unique: true },
 })
 
 export const getProjectObject = (o) => ({
@@ -26,6 +28,7 @@ export const getProjectObject = (o) => ({
   blur: o.blur
     ? `data:image/webp;base64,${o.blur}`
     : 'data:image/webp;base64,UklGRiQAAABXRUJQVlA4IBgAAABQAQCdASoBAAEAAUAmJaQABYwAAM0AAAA=',
+  slug: o.slug ?? null,
 })
 
 export default mongoose.models.Project || mongoose.model<Project>('Project', ProjectSchema)

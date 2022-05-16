@@ -4,17 +4,10 @@ import { FileUpload } from 'graphql-upload'
 import sharp from 'sharp'
 import { getGfs } from 'lib/dbConnect'
 import mongoose from 'mongoose'
-import SkillDocument, { Skill } from 'lib/models/Skill'
 import UserDocument, { User } from 'lib/models/User'
 import { GraphQLError } from 'graphql'
-
-const getBlurHash = async (image: { file: FileUpload }) => {
-  const blur = sharp().webp().blur().resize(15, 15, { fit: 'contain' })
-  const stream = image.file.createReadStream()
-
-  const res = await stream.pipe(blur).toBuffer()
-  return res.toString('base64')
-}
+import getBlurHash from 'lib/schema/utils'
+import { SkillMutations, SkillQueries, SkillResolvers } from 'lib/schema/skillResolvers'
 
 const resolvers = {
   Mutation: {
@@ -119,77 +112,12 @@ const resolvers = {
                 },
                 { new: true },
               )
-              console.log(res)
               resolve(res)
             })
         })
       }
     },
-
-    createSkill: async (parent, args: { name: string; image: { file: FileUpload } }) => {
-      const { image, ...rest } = args
-      const gfs = await getGfs()
-      if (!image) {
-        return SkillDocument.create(rest)
-      }
-      const blur = await getBlurHash(image)
-      return new Promise((resolve, reject) => {
-        image.file
-          .createReadStream()
-          .pipe(gfs.openUploadStream(args.image.file.filename))
-          .on('error', () => {
-            reject('Failed to upload the file')
-          })
-          .on('finish', (document) => {
-            resolve(SkillDocument.create({ ...rest, image: document._id, blur }))
-          })
-      })
-    },
-    deleteSkill: async (parent, args: { id: string }) => {
-      return SkillDocument.findByIdAndDelete(args.id)
-    },
-    updateSkill: async (parent, args: { id: string; name: string; image: { file: FileUpload } }) => {
-      const { id, image, ...rest } = args
-      const gfs = await getGfs()
-      const item = await SkillDocument.findById(id)
-      if (!image) {
-        const document = await SkillDocument.findByIdAndUpdate(id, { ...rest, image: null, blur: null }, { new: true })
-        if (item.image) {
-          await gfs.delete(new mongoose.Types.ObjectId(item.image))
-        }
-        return document
-      } else {
-        const blur = await getBlurHash(image)
-        return new Promise((resolve, reject) => {
-          image.file
-            .createReadStream()
-            .pipe(gfs.openUploadStream(args.image.file.filename))
-            .on('error', () => {
-              reject('Failed to upload the file')
-            })
-            .on('finish', async (document) => {
-              // Try to delete the previous image to avoid dangling images
-              try {
-                if (item.image) {
-                  await gfs.delete(new mongoose.Types.ObjectId(item.image))
-                }
-              } catch (e) {
-                console.warn(`Could not delete file ${item}`, e)
-              }
-              const res = await SkillDocument.findByIdAndUpdate(
-                id,
-                {
-                  ...rest,
-                  image: document._id,
-                  blur,
-                },
-                { new: true },
-              )
-              resolve(res)
-            })
-        })
-      }
-    },
+    ...SkillMutations,
   },
   Query: {
     allProjects: async (): Promise<Project[]> => {
@@ -202,16 +130,7 @@ const resolvers = {
       const { id } = args
       return ProjectDocument.findById(id)
     },
-    allSkills: async (): Promise<Skill[]> => {
-      return SkillDocument.find()
-    },
-    _allSkillsMeta: async () => {
-      return { count: await SkillDocument.count() }
-    },
-    Skill: async (parent, args: { id: string }) => {
-      const { id } = args
-      return SkillDocument.findById(id)
-    },
+    ...SkillQueries,
   },
   Project: {
     image: async (data: Project) => {
@@ -222,15 +141,7 @@ const resolvers = {
       }
     },
   },
-  Skill: {
-    image: async (data: Skill) => {
-      if (!data.image) return null
-      return {
-        id: data.id,
-        src: `/api/image/${data.image}`,
-      }
-    },
-  },
+  ...SkillResolvers,
 }
 
 export default resolvers
