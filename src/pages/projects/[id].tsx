@@ -1,31 +1,39 @@
 import React from 'react'
 import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType, NextPage } from 'next'
 import { Container, Typography } from '@mui/material'
-import { Game, getGameObject } from 'lib/models/Game'
+import { getProjectObject, Project } from 'lib/models/Project'
 import dbConnect from 'lib/dbConnect'
 import Image from 'next/image'
 import { Box } from '@mui/system'
 import ProjectContainer from 'components/project/ProjectContainer'
 import resolvers from 'lib/schema/resolvers'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { ParsedUrlQuery } from 'querystring'
 
 export const getStaticPaths: GetStaticPaths = async () => {
   await dbConnect()
   const projects = await resolvers.Query.allProjects()
+  const paths = projects.reduce<{ params: ParsedUrlQuery; locale?: string }[]>((acc, curr) => {
+    const params = { id: curr.slug ?? curr.id }
+    return [...acc, { params, locale: 'en' }, { params, locale: 'ko' }, { params, locale: 'fr' }]
+  }, [])
+
   return {
-    paths: projects.map((o) => ({ params: { id: o.id } })),
+    paths,
     fallback: false,
   }
 }
 
-export const getStaticProps: GetStaticProps<{ project: Game; projects: Game[] }> = async ({ params }) => {
+export const getStaticProps: GetStaticProps<{ project: Project; projects: Project[] }> = async ({ params, locale }) => {
   await dbConnect()
-  const project: Game = await resolvers.Query.Project(undefined, { id: params.id as string })
-  const projects: Game[] = await resolvers.Query.allProjects()
+  const project: Project = await resolvers.Query.ProjectBySlug(undefined, { slug: params.id as string })
+  const projects: Project[] = await resolvers.Query.allProjects()
 
   return {
     props: {
-      project: getGameObject(project),
-      projects: projects.filter((o) => o.id !== project.id).map((o) => getGameObject(o)),
+      ...(await serverSideTranslations(locale, ['common'])),
+      project: getProjectObject(project),
+      projects: projects.filter((o) => o.id !== project.id).map((o) => getProjectObject(o)),
     },
   }
 }

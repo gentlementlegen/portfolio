@@ -46,6 +46,7 @@ let schema = makeExecutableSchema({
         allProjects: [Project!]!
         _allProjectsMeta: Metadata
         Project(id: ID!): Project
+        ProjectBySlug(slug: String!): Project
         allSkills: [Skill!]!
         _allSkillsMeta: Metadata
         Skill(id: ID!): Skill

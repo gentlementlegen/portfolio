@@ -46,7 +46,9 @@ function MyApp(props: AppProps & { Component: { hideMainLayout: boolean }; emoti
         <ApolloProvider client={client}>
           <CssBaseline />
           {!Component.hideMainLayout && <NavBar />}
-          <Component {...pageProps} key={router.asPath} />
+          <main>
+            <Component {...pageProps} key={router.asPath} />
+          </main>
           {!Component.hideMainLayout && <Footer />}
         </ApolloProvider>
       </ThemeProvider>
