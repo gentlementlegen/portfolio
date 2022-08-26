@@ -1,6 +1,6 @@
 import React from 'react'
 import style from 'components/animated/Success.module.css'
-import clsx from 'clsx'
+import { clsx } from 'clsx'
 
 const Success = (): JSX.Element => {
   return (
