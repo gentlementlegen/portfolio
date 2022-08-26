@@ -3,7 +3,7 @@
 .env
 /public/sitemap*
 /public/robots.txt
-src/generated
+src/generated/schema.graphql
 
 # dependencies
 /node_modules
