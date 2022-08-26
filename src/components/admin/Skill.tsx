@@ -30,7 +30,7 @@ export const SkillCreate = (props) => (
 
 export const SkillList = (props) => (
   <List {...props}>
-    <Datagrid basePath="/Skill">
+    <Datagrid>
       <TextField source="id" />
       <TextField source="name" />
       <ImageField source="image.src" label="Image" />

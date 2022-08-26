@@ -43,7 +43,7 @@ export const ProjectCreate = (props) => (
 
 export const ProjectList = (props) => (
   <List {...props}>
-    <Datagrid basePath="/Project">
+    <Datagrid>
       <TextField source="id" />
       <TextField source="title" />
       <SelectField
