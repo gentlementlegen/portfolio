@@ -1,0 +1,15 @@
+overwrite: true
+schema: http://${NEXT_PUBLIC_VERCEL_URL}/api/graphql
+generates:
+  src/generated/graphql.ts:
+    plugins:
+      - "typescript"
+      - "typescript-operations"
+      - "typescript-react-apollo"
+  src/generated/schema.graphql:
+    plugins:
+      - "schema-ast"
+config:
+  namingConvention:
+    typeNames: change-case-all#pascalCase
+    transformUnderscore: true

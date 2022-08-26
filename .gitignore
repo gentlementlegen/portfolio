@@ -3,6 +3,7 @@
 .env
 /public/sitemap*
 /public/robots.txt
+src/generated
 
 # dependencies
 /node_modules
