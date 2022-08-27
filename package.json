@@ -12,10 +12,10 @@
   },
   "dependencies": {
     "@apollo/client": "3.6.9",
-    "@emotion/cache": "11.9.3",
-    "@emotion/react": "11.9.3",
+    "@emotion/cache": "11.10.3",
+    "@emotion/react": "11.10.0",
     "@emotion/server": "11.10.0",
-    "@emotion/styled": "11.9.3",
+    "@emotion/styled": "11.10.0",
     "@graphql-codegen/cli": "2.11.8",
     "@graphql-codegen/typescript": "2.7.3",
     "@graphql-codegen/typescript-operations": "2.5.3",
