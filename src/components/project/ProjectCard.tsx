@@ -1,18 +1,18 @@
 import React from 'react'
 import { Card, CardActionArea, CardContent, CardMedia, Typography } from '@mui/material'
 import Link from 'next/link'
-import { Game } from 'lib/models/Game'
+import { Project } from 'lib/models/Project'
 import Image from 'next/image'
 
 interface ProjectCardProps {
-  project: Game
+  project: Project
 }
 
 const ProjectCard = (props: ProjectCardProps): JSX.Element => {
   const { project } = props
   return (
     <Card variant={'outlined'}>
-      <Link href={`/games/${project.id}`} passHref>
+      <Link href={`/projects/${project.slug}`} passHref>
         <CardActionArea>
           {project.image && (
             <CardMedia style={{ minHeight: 0, position: 'relative', height: 150, width: '100%' }}>

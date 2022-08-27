@@ -4,6 +4,7 @@ import buildGraphQLProvider from 'ra-data-graphql-simple'
 import { ProjectCreate, ProjectEdit, ProjectList } from 'components/admin/Project'
 import client from 'apolloClient'
 import { SkillCreate, SkillEdit, SkillList } from 'components/admin/Skill'
+import authProvider from 'components/admin/authProvider'
 
 const AdminPage = (): JSX.Element => {
   const [dataProvider, setDataProvider] = React.useState(null)
@@ -16,13 +17,13 @@ const AdminPage = (): JSX.Element => {
   }
 
   return (
-    <Admin dataProvider={dataProvider}>
+    <Admin dataProvider={dataProvider} authProvider={authProvider}>
       <Resource name="Project" list={ProjectList} edit={ProjectEdit} show={ShowGuesser} create={ProjectCreate} />
       <Resource name="Skill" list={SkillList} edit={SkillEdit} show={ShowGuesser} create={SkillCreate} />
     </Admin>
   )
 }
 
-AdminPage.hideNavBar = true
+AdminPage.hideMainLayout = true
 
 export default AdminPage

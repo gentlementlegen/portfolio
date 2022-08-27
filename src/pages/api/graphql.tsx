@@ -46,6 +46,7 @@ let schema = makeExecutableSchema({
         allProjects: [Project!]!
         _allProjectsMeta: Metadata
         Project(id: ID!): Project
+        ProjectBySlug(slug: String!): Project
         allSkills: [Skill!]!
         _allSkillsMeta: Metadata
         Skill(id: ID!): Skill
@@ -58,6 +59,7 @@ let schema = makeExecutableSchema({
         createSkill(name: String!, image: Upload): Skill
         deleteSkill(id: ID!): Skill
         updateSkill(id: ID!, name: String!, image: Upload): Skill
+        login(username: String!, password: String!): String
       }
     `,
   ],

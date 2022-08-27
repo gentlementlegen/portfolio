@@ -58,6 +58,11 @@ const makeTheme = (mode: 'light' | 'dark') => {
             fontWeight: 'bold',
             fontStyle: 'normal',
           },
+          h2: {
+            '&::first-letter': {
+              textTransform: 'capitalize',
+            },
+          },
         },
       },
       MuiTypography: {

@@ -13,6 +13,7 @@ import { EmotionCache } from '@emotion/cache'
 import { CacheProvider } from '@emotion/react'
 import createEmotionCache from 'createEmotionCache'
 import ToggleColorMode from 'components/context/ColorModeContext'
+import { appWithTranslation } from 'next-i18next'
 
 if (process.env.NODE_ENV === 'production') {
   ReactGA.initialize('G-MKCJ96LVC7')
@@ -21,7 +22,7 @@ if (process.env.NODE_ENV === 'production') {
 
 const clientSideEmotionCache = createEmotionCache()
 
-function MyApp(props: AppProps & { Component: { hideNavBar: boolean }; emotionCache: EmotionCache }) {
+function MyApp(props: AppProps & { Component: { hideMainLayout: boolean }; emotionCache: EmotionCache }) {
   const { Component, emotionCache = clientSideEmotionCache, pageProps, router } = props
   const theme = useTheme()
 
@@ -44,19 +45,23 @@ function MyApp(props: AppProps & { Component: { hideNavBar: boolean }; emotionCa
       <ThemeProvider theme={theme}>
         <ApolloProvider client={client}>
           <CssBaseline />
-          {!Component.hideNavBar && <NavBar />}
-          <Component {...pageProps} key={router.asPath} />
-          <Footer />
+          {!Component.hideMainLayout && <NavBar />}
+          <main>
+            <Component {...pageProps} key={router.asPath} />
+          </main>
+          {!Component.hideMainLayout && <Footer />}
         </ApolloProvider>
       </ThemeProvider>
     </CacheProvider>
   )
 }
 
-export default function MainApp(props: AppProps & { Component: { hideNavBar: boolean }; emotionCache: EmotionCache }) {
+const MainApp = (props: AppProps & { Component: { hideMainLayout: boolean }; emotionCache: EmotionCache }) => {
   return (
     <ToggleColorMode>
       <MyApp {...props} />
     </ToggleColorMode>
   )
 }
+
+export default appWithTranslation(MainApp)
