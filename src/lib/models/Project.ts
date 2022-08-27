@@ -1,4 +1,4 @@
-import mongoose from 'mongoose'
+import mongoose, { Model } from 'mongoose'
 
 export interface Project {
   id: string
@@ -31,4 +31,4 @@ export const getProjectObject = (o) => ({
   slug: o.slug ?? o.id,
 })
 
-export default mongoose.models.Project || mongoose.model<Project>('Project', ProjectSchema)
+export default (mongoose.models.Project as Model<Project>) || mongoose.model<Project>('Project', ProjectSchema)
