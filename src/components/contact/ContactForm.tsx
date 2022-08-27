@@ -5,8 +5,9 @@ import Success from 'components/animated/Success'
 import { useForm } from 'react-hook-form'
 import { gql, useMutation } from '@apollo/client'
 import { useTranslation } from 'next-i18next'
+import { MutationSendEmailArgs } from 'generated/graphql'
 
-const MUTATION = gql`
+const MUTATION_SEND_EMAIL = gql`
   mutation SendEmail($name: String!, $message: String!, $email: String!) {
     sendEmail(name: $name, message: $message, email: $email)
   }
@@ -18,12 +19,12 @@ const ContactForm = (): JSX.Element => {
     register,
     setError,
     formState: { errors },
-  } = useForm()
-  const [sendEmail, { loading }] = useMutation(MUTATION)
+  } = useForm<MutationSendEmailArgs>()
+  const [sendEmail, { loading }] = useMutation<{ sendEmail: string }, MutationSendEmailArgs>(MUTATION_SEND_EMAIL)
   const [sent, setSent] = useState(false)
   const { t } = useTranslation('common')
 
-  const submitForm = (form) => {
+  const submitForm = (form: MutationSendEmailArgs) => {
     sendEmail({ variables: form })
       .then(() => setSent(true))
       .catch((e) =>
