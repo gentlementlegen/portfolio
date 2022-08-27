@@ -20,7 +20,7 @@
     "@graphql-codegen/typescript": "2.7.3",
     "@graphql-codegen/typescript-operations": "2.5.3",
     "@graphql-codegen/typescript-react-apollo": "3.3.3",
-    "@graphql-tools/schema": "8.5.0",
+    "@graphql-tools/schema": "8.5.1",
     "@mui/icons-material": "5.10.2",
     "@mui/lab": "5.0.0-alpha.96",
     "@mui/material": "5.10.2",
