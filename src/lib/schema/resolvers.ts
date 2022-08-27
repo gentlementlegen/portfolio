@@ -1,5 +1,5 @@
 import nodemailer from 'nodemailer'
-import UserDocument, { User } from 'lib/models/User'
+import UserDocument from 'lib/models/User'
 import { GraphQLError } from 'graphql'
 import { SkillMutations, SkillQueries, SkillResolvers } from 'lib/schema/skillResolvers'
 import { ProjectMutations, ProjectQueries, ProjectResolvers } from 'lib/schema/projectResolvers'
@@ -8,7 +8,7 @@ const resolvers = {
   Mutation: {
     async login(parent, args: { username: string; password: string }) {
       const { username, password } = args
-      const user = await UserDocument.findOne<User>({ username, password })
+      const user = await UserDocument.findOne({ username, password })
       if (!user) throw new GraphQLError('Could not login')
       return `successfully logged in as ${user.username}`
     },
