@@ -1,5 +1,20 @@
-import React, { PropsWithChildren } from 'react'
-import { AppBar, Button, Link as MuiLink, styled, Switch, SwitchProps, Toolbar, Typography } from '@mui/material'
+import React, { PropsWithChildren, useState } from 'react'
+import {
+  AppBar,
+  Box,
+  Button,
+  Hidden,
+  IconButton,
+  Link as MuiLink,
+  List,
+  ListItem,
+  styled,
+  SwipeableDrawer,
+  Switch,
+  SwitchProps,
+  Toolbar,
+  Typography,
+} from '@mui/material'
 import Head from 'next/head'
 import Link from 'next/link'
 import styles from 'styles/Home.module.css'
@@ -7,6 +22,7 @@ import AnchorLink, { AnchorLinkProps } from 'react-anchor-link-smooth-scroll'
 import { ColorModeContext } from 'components/context/ColorModeContext'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
+import { Menu } from '@mui/icons-material'
 
 const LinkElement = ({ children, href, offset }: PropsWithChildren<AnchorLinkProps>) => {
   const { route } = useRouter()
@@ -43,7 +59,7 @@ const CustomSwitch = styled((props: SwitchProps) => (
         opacity: 0.5,
       },
       '& .MuiSwitch-thumb:before': {
-        backgroundImage: 'url(/sun.svg)',
+        backgroundImage: `url('data:image/svg+xml;utf8,<svg width="16" height="16" viewBox="0 0 1000 1000" xmlns="http://www.w3.org/2000/svg"><path d="M500,188C328,188,188,328,188,500C188,672,328,813,500,813C672,813,813,672,813,500C813,328,672,188,500,188zM500,688C397,688,313,603,313,500C313,397,397,313,500,313C603,313,688,397,688,500C688,603,603,688,500,688zM438,0H563V125H438zM438,875H563V1000H438zM875,438H1000V563H875zM0,438H125V563H0zM721,809L809,721L898,809L809,898zM102,191L191,102L279,191L191,279zM102,809L191,721L279,809L191,898zM721,191L809,102L898,191L809,279z"/></svg>')`,
       },
     },
     '&.Mui-focusVisible .MuiSwitch-thumb': {
@@ -72,7 +88,7 @@ const CustomSwitch = styled((props: SwitchProps) => (
       padding: 4,
       backgroundRepeat: 'no-repeat',
       backgroundPosition: 'center',
-      backgroundImage: 'url(/moon.svg)',
+      backgroundImage: `url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="white"><path d="m275.4,500.7c-135,0-244.7-109.8-244.7-244.7 1.06581e-14-134.9 109.8-244.7 244.7-244.7 8.2,0 16.4,0.4 24.6,1.2 7.2,0.7 13.5,5.2 16.5,11.7s2.4,14.2-1.6,20.2c-23,33.8-35.2,73.3-35.2,114.2 0,105 78.7,192.2 183.2,202.6 7.2,0.7 13.5,5.2 16.5,11.7 3.1,6.5 2.4,14.2-1.6,20.2-45.8,67.4-121.4,107.6-202.4,107.6zm-12.5-448c-106.5,6.5-191.2,95.2-191.2,203.3 1.42109e-14,112.3 91.4,203.7 203.7,203.7 56.4,0 109.6-23.4 147.8-63.7-46.2-11.7-88.1-36.8-120.8-72.6-41.1-45.2-63.8-103.6-63.8-164.6 0.1-37.1 8.4-73.2 24.3-106.1z"/></svg>')`,
       backgroundOrigin: 'content-box',
     },
   },
@@ -89,9 +105,22 @@ const CustomSwitch = styled((props: SwitchProps) => (
 const NavBar = (): JSX.Element => {
   const { toggleColorMode } = React.useContext(ColorModeContext)
   const { t } = useTranslation('common')
+  const [openDrawer, setOpenDrawer] = useState(false)
 
   const handleSwitchChange = () => {
     toggleColorMode()
+  }
+
+  const toggleDrawer = (open: boolean) => (event: React.KeyboardEvent | React.MouseEvent) => {
+    if (
+      event &&
+      event.type === 'keydown' &&
+      ((event as React.KeyboardEvent).key === 'Tab' || (event as React.KeyboardEvent).key === 'Shift')
+    ) {
+      return
+    }
+
+    setOpenDrawer(open)
   }
 
   return (
@@ -100,23 +129,55 @@ const NavBar = (): JSX.Element => {
         <title>Fernand Veyrier</title>
       </Head>
       <Toolbar>
+        <Hidden smUp>
+          <IconButton sx={{ marginRight: 1 }} size="small" onClick={toggleDrawer(true)}>
+            <Menu />
+          </IconButton>
+          <SwipeableDrawer open={openDrawer} onClose={toggleDrawer(false)} onOpen={toggleDrawer(true)}>
+            <Box onClick={toggleDrawer(false)} onKeyDown={toggleDrawer(false)}>
+              <List>
+                <ListItem>
+                  <LinkElement href={'#home'} offset={100}>
+                    <Button color={'inherit'}>{t('home')}</Button>
+                  </LinkElement>
+                </ListItem>
+                <ListItem>
+                  <LinkElement href={'#about'} offset={100}>
+                    <Button color={'inherit'}>{t('about')}</Button>
+                  </LinkElement>
+                </ListItem>
+                <ListItem>
+                  <LinkElement href={'#contact'} offset={100}>
+                    <Button color={'inherit'}>{t('contact')}</Button>
+                  </LinkElement>
+                </ListItem>
+              </List>
+            </Box>
+          </SwipeableDrawer>
+        </Hidden>
         <Link href={'/'} passHref>
-          <MuiLink className={styles.navBarTitle} color={'secondary'} underline={'none'}>
-            <Typography variant={'h6'} component={'div'} className={styles.navBarTitle}>
-              Fernand Veyrier
-            </Typography>
-          </MuiLink>
+          <Typography
+            variant={'h6'}
+            component={MuiLink}
+            className={styles.navBarTitle}
+            color={'secondary'}
+            underline={'none'}
+          >
+            Fernand Veyrier
+          </Typography>
         </Link>
-        <LinkElement href={'#home'} offset={100}>
-          <Button color={'inherit'}>{t('home')}</Button>
-        </LinkElement>
-        <LinkElement href={'#about'} offset={100}>
-          <Button color={'inherit'}>{t('about')}</Button>
-        </LinkElement>
-        <LinkElement href={'#contact'} offset={100}>
-          <Button color={'inherit'}>{t('contact')}</Button>
-        </LinkElement>
-        <CustomSwitch size={'small'} color={'secondary'} onChange={handleSwitchChange} />
+        <Hidden smDown>
+          <LinkElement href={'#home'} offset={100}>
+            <Button color={'inherit'}>{t('home')}</Button>
+          </LinkElement>
+          <LinkElement href={'#about'} offset={100}>
+            <Button color={'inherit'}>{t('about')}</Button>
+          </LinkElement>
+          <LinkElement href={'#contact'} offset={100}>
+            <Button color={'inherit'}>{t('contact')}</Button>
+          </LinkElement>
+        </Hidden>
+        <CustomSwitch sx={{ marginLeft: 1 }} size={'small'} color={'secondary'} onChange={handleSwitchChange} />
       </Toolbar>
     </AppBar>
   )
