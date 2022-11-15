@@ -61,7 +61,7 @@ const ContactSection = (): JSX.Element => {
             target={'_blank'}
             rel={'noreferrer'}
             color={'inherit'}
-            href={'https://www.linkedin.com/in/fernand-veyrier-26372596/'}
+            href={'https://www.linkedin.com/in/fernand-veyrier/'}
             underline={'hover'}
           >
             <BsLinkedin size={25} />
