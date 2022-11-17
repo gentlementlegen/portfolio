@@ -1,5 +1,5 @@
 overwrite: true
-schema: http://${API_URL}/api/graphql
+schema: ${NEXT_PUBLIC_BACKEND_URL}
 generates:
   src/generated/graphql.ts:
     plugins:

@@ -1,8 +1,8 @@
 import React from 'react'
 import { Box, Grid, Stack, Typography } from '@mui/material'
-import { Skill } from 'lib/models/Skill'
 import Image from 'next/image'
 import { useTranslation } from 'next-i18next'
+import { Skill } from 'generated/graphql'
 
 interface SkillContainerProps {
   skills: Skill[]
@@ -24,13 +24,13 @@ const SkillContainer = (props: SkillContainerProps): JSX.Element => {
               <div>
                 {o.image && (
                   <Image
-                    src={o.image}
+                    src={o.image.url}
                     alt={o.name}
                     width={70}
                     height={50}
                     objectFit={'contain'}
                     placeholder={'blur'}
-                    blurDataURL={o.blur}
+                    blurDataURL={o.image.url}
                   />
                 )}
               </div>
