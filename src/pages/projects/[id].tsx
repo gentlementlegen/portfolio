@@ -48,9 +48,6 @@ const QUERY_PROJECTS = gql`
 export const getStaticPaths: GetStaticPaths = async () => {
   const { data } = await apolloClient.query<{ projects: Project[] }, QueryProjectsArgs>({
     query: QUERY_PROJECTS,
-    variables: {
-      first: 1,
-    },
   })
   const paths = data?.projects.reduce<{ params: ParsedUrlQuery; locale?: string }[]>((acc, curr) => {
     const params = { id: curr.slug ?? curr.id }

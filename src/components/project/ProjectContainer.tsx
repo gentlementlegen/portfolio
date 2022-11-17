@@ -9,9 +9,8 @@ const ProjectContainer = (props: { projects: Project[] }): JSX.Element => {
   return (
     <Box
       sx={{
-        minHeight: `calc(100vh - 112px)`,
-        display: 'flex',
         paddingTop: 8,
+        width: '100%',
       }}
     >
       <Grid container justifyContent={'center'} id={'projects'} spacing={2}>
