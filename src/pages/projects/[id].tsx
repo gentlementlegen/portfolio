@@ -1,19 +1,53 @@
 import React from 'react'
 import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType, NextPage } from 'next'
 import { Container, Typography } from '@mui/material'
-import { getProjectObject, Project } from 'lib/models/Project'
-import dbConnect from 'lib/dbConnect'
 import Image from 'next/image'
 import { Box } from '@mui/system'
 import ProjectContainer from 'components/project/ProjectContainer'
-import resolvers from 'lib/schema/resolvers'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { ParsedUrlQuery } from 'querystring'
+import { gql } from '@apollo/client'
+import apolloClient from 'apolloClient'
+import { Project, QueryProjectArgs } from 'generated/graphql'
+
+const QUERY_PROJECT = gql`
+  query Project($where: ProjectWhereUniqueInput!) {
+    project(where: $where) {
+      id
+      title
+      slug
+      description {
+        html
+      }
+      image {
+        id
+        url
+      }
+    }
+    projects {
+      id
+      title
+      slug
+      image {
+        id
+        url
+      }
+    }
+  }
+`
+
+const QUERY_PROJECTS = gql`
+  query Projects {
+    projects {
+      id
+      slug
+    }
+  }
+`
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  await dbConnect()
-  const projects = await resolvers.Query.allProjects()
-  const paths = projects.reduce<{ params: ParsedUrlQuery; locale?: string }[]>((acc, curr) => {
+  const { data } = await apolloClient.query<{ projects: Project[] }>({ query: QUERY_PROJECTS })
+  const paths = data?.projects.reduce<{ params: ParsedUrlQuery; locale?: string }[]>((acc, curr) => {
     const params = { id: curr.slug ?? curr.id }
     return [...acc, { params, locale: 'en' }, { params, locale: 'ko' }, { params, locale: 'fr' }]
   }, [])
@@ -25,22 +59,23 @@ export const getStaticPaths: GetStaticPaths = async () => {
 }
 
 export const getStaticProps: GetStaticProps<{ project: Project; projects: Project[] }> = async ({ params, locale }) => {
-  await dbConnect()
-  const project: Project = await resolvers.Query.ProjectBySlug(undefined, { slug: params.id as string })
-  const projects: Project[] = await resolvers.Query.allProjects()
+  const { data } = await apolloClient.query<{ projects: Project[]; project: Project }, QueryProjectArgs>({
+    query: QUERY_PROJECT,
+    variables: { where: { slug: params.id as string } },
+  })
 
   return {
     props: {
       ...(await serverSideTranslations(locale, ['common'])),
-      project: getProjectObject(project),
-      projects: projects.filter((o) => o.id !== project.id).map((o) => getProjectObject(o)),
+      project: data.project,
+      projects: data.projects.filter((o) => o.id !== params.id),
     },
   }
 }
 
 const GamePage: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = (props) => {
   const {
-    project: { title, description, image, blur },
+    project: { title, description, image },
     projects,
   } = props
   return (
@@ -67,10 +102,10 @@ const GamePage: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = (prop
             },
           })}
         >
-          <Image src={image} width={400} height={300} alt={title} placeholder={'blur'} blurDataURL={blur} />
+          <Image src={image.url} width={400} height={300} alt={title} placeholder={'blur'} blurDataURL={image.url} />
         </Box>
       )}
-      <Typography>{description}</Typography>
+      <Box dangerouslySetInnerHTML={{ __html: description.html }} />
       <Typography variant={'h3'} sx={(theme) => ({ marginTop: theme.spacing(12) })}>
         All recent work
       </Typography>

@@ -10,6 +10,7 @@
     "plugin:prettier/recommended",
     "plugin:@typescript-eslint/recommended"
   ],
+  "ignorePatterns": ["src/generated/*"],
   "parserOptions": {
     "project": "tsconfig.json"
   },
