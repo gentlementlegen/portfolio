@@ -37,8 +37,8 @@ const QUERY_PROJECT = gql`
 `
 
 const QUERY_PROJECTS = gql`
-  query Projects {
-    projects {
+  query Projects($first: Int) {
+    projects(first: $first) {
       id
       slug
     }
@@ -48,6 +48,9 @@ const QUERY_PROJECTS = gql`
 export const getStaticPaths: GetStaticPaths = async () => {
   const { data } = await apolloClient.query<{ projects: Project[] }, QueryProjectsArgs>({
     query: QUERY_PROJECTS,
+    variables: {
+      first: 1,
+    },
   })
   const paths = data?.projects.reduce<{ params: ParsedUrlQuery; locale?: string }[]>((acc, curr) => {
     const params = { id: curr.slug ?? curr.id }
@@ -56,7 +59,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
   return {
     paths,
-    fallback: false,
+    fallback: 'blocking',
   }
 }
 
