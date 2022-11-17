@@ -21,7 +21,7 @@ import { Project, Skill } from 'generated/graphql'
 
 const QUERY_PROJECTS = gql`
   query ProjectsAndSkills {
-    projects {
+    projects(first: 100) {
       id
       title
       slug

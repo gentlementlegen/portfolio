@@ -26,7 +26,7 @@ const QUERY_PROJECT = gql`
         url
       }
     }
-    projects {
+    projects(first: 100) {
       id
       title
       slug
