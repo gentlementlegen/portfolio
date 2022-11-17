@@ -8,7 +8,7 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { ParsedUrlQuery } from 'querystring'
 import { gql } from '@apollo/client'
 import apolloClient from 'apolloClient'
-import { Project, QueryProjectArgs } from 'generated/graphql'
+import { Project, QueryProjectArgs, QueryProjectsArgs } from 'generated/graphql'
 
 const QUERY_PROJECT = gql`
   query Project($where: ProjectWhereUniqueInput!) {
@@ -46,7 +46,12 @@ const QUERY_PROJECTS = gql`
 `
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const { data } = await apolloClient.query<{ projects: Project[] }>({ query: QUERY_PROJECTS })
+  const { data } = await apolloClient.query<{ projects: Project[] }, QueryProjectsArgs>({
+    query: QUERY_PROJECTS,
+    variables: {
+      first: 1,
+    },
+  })
   const paths = data?.projects.reduce<{ params: ParsedUrlQuery; locale?: string }[]>((acc, curr) => {
     const params = { id: curr.slug ?? curr.id }
     return [...acc, { params, locale: 'en' }, { params, locale: 'ko' }, { params, locale: 'fr' }]
@@ -73,7 +78,7 @@ export const getStaticProps: GetStaticProps<{ project: Project; projects: Projec
   }
 }
 
-const GamePage: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = (props) => {
+const ProjectPage: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = (props) => {
   const {
     project: { title, description, image },
     projects,
@@ -114,4 +119,4 @@ const GamePage: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = (prop
   )
 }
 
-export default GamePage
+export default ProjectPage
