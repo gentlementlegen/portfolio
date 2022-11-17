@@ -4,4 +4,7 @@ module.exports = {
   reactStrictMode: true,
   i18n,
   images: { domains: ['media.graphassets.com'] },
+  typescript: {
+    ignoreBuildErrors: true,
+  },
 }
