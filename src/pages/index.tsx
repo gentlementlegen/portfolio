@@ -6,11 +6,7 @@ import ProjectContainer from 'components/project/ProjectContainer'
 import MainLayout from 'components/layout/MainLayout'
 import styles from 'styles/Home.module.css'
 import { GetStaticProps, InferGetStaticPropsType } from 'next'
-import { getProjectObject, Project } from 'lib/models/Project'
-import dbConnect from 'lib/dbConnect'
 import SkillContainer from 'components/skills/SkillContainer'
-import { getSkillObject, Skill } from 'lib/models/Skill'
-import resolvers from 'lib/schema/resolvers'
 import ContactSection from 'components/contact/ContactSection'
 import AboutSection from 'components/about/AboutSection'
 import ContactForm from 'components/contact/ContactForm'
@@ -18,17 +14,39 @@ import { Trans, useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { SxProps } from '@mui/system'
 import { Theme } from '@mui/material/styles'
+import apolloClient from 'apolloClient'
+import { gql } from '@apollo/client'
+import { Project, Skill } from 'generated/graphql'
+
+const QUERY_PROJECTS = gql`
+  query ProjectsAndSkills {
+    projects(first: 100) {
+      id
+      title
+      slug
+      image {
+        id
+        url
+      }
+    }
+    skills {
+      id
+      name
+      image {
+        id
+        url
+      }
+    }
+  }
+`
 
 export const getStaticProps: GetStaticProps<{ projects: Project[]; skills: Skill[] }> = async ({ locale }) => {
-  await dbConnect()
-  const projects = await resolvers.Query.allProjects()
-  const skills = await resolvers.Query.allSkills()
+  const { data } = await apolloClient.query<{ projects: Project[]; skills: Skill[] }>({ query: QUERY_PROJECTS })
 
   return {
     props: {
       ...(await serverSideTranslations(locale, ['common'])),
-      projects: projects.map((o) => getProjectObject(o)),
-      skills: skills.map((o) => getSkillObject(o)),
+      ...data,
     },
   }
 }

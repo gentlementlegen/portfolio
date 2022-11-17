@@ -1,8 +1,8 @@
 import React from 'react'
 import { Card, CardActionArea, CardContent, CardMedia, Typography } from '@mui/material'
 import Link from 'next/link'
-import { Project } from 'lib/models/Project'
 import Image from 'next/image'
+import { Project } from 'generated/graphql'
 
 interface ProjectCardProps {
   project: Project
@@ -17,12 +17,12 @@ const ProjectCard = (props: ProjectCardProps): JSX.Element => {
           {project.image && (
             <CardMedia style={{ minHeight: 0, position: 'relative', height: 150, width: '100%' }}>
               <Image
-                src={project.image}
+                src={project.image.url}
                 alt={project.title}
                 layout={'fill'}
                 objectFit={'cover'}
                 placeholder={'blur'}
-                blurDataURL={project.blur}
+                blurDataURL={project.image.url}
               />
             </CardMedia>
           )}
