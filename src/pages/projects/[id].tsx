@@ -9,6 +9,7 @@ import { ParsedUrlQuery } from 'querystring'
 import { gql } from '@apollo/client'
 import apolloClient from 'apolloClient'
 import { Project, QueryProjectArgs, QueryProjectsArgs } from 'generated/graphql'
+import Head from 'next/head'
 
 const QUERY_PROJECT = gql`
   query Project($where: ProjectWhereUniqueInput!) {
@@ -18,6 +19,7 @@ const QUERY_PROJECT = gql`
       slug
       description {
         html
+        text
       }
       image {
         id
@@ -94,6 +96,10 @@ const ProjectPage: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = (p
         marginBottom: theme.spacing(10),
       })}
     >
+      <Head>
+        <title>{title}</title>
+        <meta name="description" content={description.text} />
+      </Head>
       <Typography component={'h1'} variant={'h2'} align={'center'} gutterBottom>
         {title}
       </Typography>
