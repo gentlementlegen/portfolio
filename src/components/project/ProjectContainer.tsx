@@ -1,7 +1,7 @@
 import React from 'react'
 import { Box, Grid } from '@mui/material'
-import { Project } from 'lib/models/Project'
 import ProjectCard from 'components/project/ProjectCard'
+import { Project } from 'generated/graphql'
 
 const ProjectContainer = (props: { projects: Project[] }): JSX.Element => {
   const { projects } = props
