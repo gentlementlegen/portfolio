@@ -27,7 +27,24 @@ const ContactForm = (): JSX.Element => {
   const { t } = useTranslation('common')
 
   const submitForm = (form: MutationCreateMessageArgs) => {
-    sendEmail({ variables: form })
+    const {
+      data: { message, ...rest },
+    } = form
+    sendEmail({
+      variables: {
+        data: {
+          ...rest,
+          message: {
+            type: 'paragraph',
+            children: [
+              {
+                text: message,
+              },
+            ],
+          },
+        },
+      },
+    })
       .then(() => setSent(true))
       .catch((e) =>
         setError('data.message', {
