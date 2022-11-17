@@ -6,7 +6,6 @@ import ProjectContainer from 'components/project/ProjectContainer'
 import MainLayout from 'components/layout/MainLayout'
 import styles from 'styles/Home.module.css'
 import { GetStaticProps, InferGetStaticPropsType } from 'next'
-import dbConnect from 'lib/dbConnect'
 import SkillContainer from 'components/skills/SkillContainer'
 import ContactSection from 'components/contact/ContactSection'
 import AboutSection from 'components/about/AboutSection'
@@ -42,8 +41,6 @@ const QUERY_PROJECTS = gql`
 `
 
 export const getStaticProps: GetStaticProps<{ projects: Project[]; skills: Skill[] }> = async ({ locale }) => {
-  await dbConnect()
-
   const { data } = await apolloClient.query<{ projects: Project[]; skills: Skill[] }>({ query: QUERY_PROJECTS })
 
   return {
