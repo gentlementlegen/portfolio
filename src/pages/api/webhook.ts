@@ -14,7 +14,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     from: process.env.EMAIL_ADDRESS,
     to: process.env.EMAIL_ADDRESS,
     subject: `New message from ${name}`,
-    text: `From: ${name}\nEmail: ${email}\n\nMessage: ${message}`,
+    text: `From: ${name}\nEmail: ${email}\n\nMessage: ${JSON.stringify(message)}`,
   })
   res.status(info.accepted ? 200 : 500).json(info.response)
 }
