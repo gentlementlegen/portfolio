@@ -28,7 +28,7 @@ const SkillContainer = (props: SkillContainerProps): JSX.Element => {
                     alt={o.name}
                     width={70}
                     height={50}
-                    objectFit={'contain'}
+                    style={{ objectFit: 'contain' }}
                     placeholder={'blur'}
                     blurDataURL={o.image.url}
                   />

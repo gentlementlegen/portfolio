@@ -19,8 +19,8 @@ const ProjectCard = (props: ProjectCardProps): JSX.Element => {
               <Image
                 src={project.image.url}
                 alt={project.title}
-                layout={'fill'}
-                objectFit={'cover'}
+                fill
+                style={{ objectFit: 'cover' }}
                 placeholder={'blur'}
                 blurDataURL={project.image.url}
               />
