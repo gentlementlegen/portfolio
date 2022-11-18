@@ -2,7 +2,7 @@ import { NextApiRequest, NextApiResponse } from 'next'
 import nodemailer from 'nodemailer'
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  const { name, email, message } = req.body
+  const { name, email, message } = req.body.data
   const transporter = nodemailer.createTransport({
     service: 'Gmail',
     auth: {
