@@ -1,8 +1,7 @@
 import React from 'react'
 import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType, NextPage } from 'next'
-import { Container, Typography } from '@mui/material'
+import { Box, Container, Typography } from '@mui/material'
 import Image from 'next/image'
-import { Box } from '@mui/system'
 import ProjectContainer from 'components/project/ProjectContainer'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { ParsedUrlQuery } from 'querystring'
@@ -21,6 +20,7 @@ const QUERY_PROJECT = gql`
         html
         text
       }
+      blur
       image {
         id
         url
@@ -34,6 +34,7 @@ const QUERY_PROJECT = gql`
         id
         url
       }
+      blur
     }
   }
 `
@@ -82,7 +83,7 @@ export const getStaticProps: GetStaticProps<{ project: Project; projects: Projec
 
 const ProjectPage: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = (props) => {
   const {
-    project: { title, description, image },
+    project: { title, description, image, blur },
     projects,
   } = props
   return (
@@ -97,8 +98,9 @@ const ProjectPage: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = (p
       })}
     >
       <Head>
-        <title>{title}</title>
-        <meta name="description" content={description.text} />
+        <title key={'title'}>{title}</title>
+        <meta property="og:title" content={title} key="ogtitle" />
+        <meta key={'description'} name="description" content={description.text} />
       </Head>
       <Typography component={'h1'} variant={'h2'} align={'center'} gutterBottom>
         {title}
@@ -113,10 +115,23 @@ const ProjectPage: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = (p
             },
           })}
         >
-          <Image src={image.url} width={400} height={300} alt={title} placeholder={'blur'} blurDataURL={image.url} />
+          <Image
+            src={image.url}
+            width={400}
+            height={300}
+            alt={title}
+            placeholder={'blur'}
+            blurDataURL={blur}
+            style={{
+              maxWidth: '100%',
+            }}
+          />
         </Box>
       )}
-      <Box dangerouslySetInnerHTML={{ __html: description.html }} />
+      <Box
+        sx={{ '& a': { color: 'link.main', textDecoration: 'underline' } }}
+        dangerouslySetInnerHTML={{ __html: description.html }}
+      />
       <Typography variant={'h3'} sx={(theme) => ({ marginTop: theme.spacing(12) })}>
         All recent work
       </Typography>
