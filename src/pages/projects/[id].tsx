@@ -21,6 +21,7 @@ const QUERY_PROJECT = gql`
         html
         text
       }
+      blur
       image {
         id
         url
@@ -34,6 +35,7 @@ const QUERY_PROJECT = gql`
         id
         url
       }
+      blur
     }
   }
 `
@@ -82,7 +84,7 @@ export const getStaticProps: GetStaticProps<{ project: Project; projects: Projec
 
 const ProjectPage: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = (props) => {
   const {
-    project: { title, description, image },
+    project: { title, description, image, blur },
     projects,
   } = props
   return (
@@ -113,7 +115,7 @@ const ProjectPage: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = (p
             },
           })}
         >
-          <Image src={image.url} width={400} height={300} alt={title} placeholder={'blur'} blurDataURL={image.url} />
+          <Image src={image.url} width={400} height={300} alt={title} placeholder={'blur'} blurDataURL={blur} />
         </Box>
       )}
       <Box dangerouslySetInnerHTML={{ __html: description.html }} />

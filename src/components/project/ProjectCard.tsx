@@ -22,7 +22,8 @@ const ProjectCard = (props: ProjectCardProps): JSX.Element => {
                 fill
                 style={{ objectFit: 'cover' }}
                 placeholder={'blur'}
-                blurDataURL={project.image.url}
+                blurDataURL={project.blur}
+                sizes={'(max-width: 768px) 100vw,(max-width: 1200px) 25vw'}
               />
             </CardMedia>
           )}
