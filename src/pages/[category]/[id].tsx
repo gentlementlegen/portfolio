@@ -9,6 +9,7 @@ import { gql } from '@apollo/client'
 import apolloClient from 'apolloClient'
 import { Project, QueryProjectArgs, QueryProjectsArgs } from 'generated/graphql'
 import Head from 'next/head'
+import Link from 'next/link'
 
 const QUERY_PROJECT = gql`
   query Project($where: ProjectWhereUniqueInput!) {
@@ -102,7 +103,9 @@ const ProjectPage: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = (p
       </Head>
       <Stack direction={'row'} spacing={1} sx={{ mb: 2 }}>
         {categories?.map((category) => (
-          <Chip key={category} label={category} color={'link'} />
+          <Link key={category} href={`/${category.toLocaleLowerCase()}`} passHref>
+            <Chip label={category} color={'link'} component="a" clickable />
+          </Link>
         ))}
       </Stack>
       <Typography component={'h1'} variant={'h2'} align={'center'} gutterBottom>
