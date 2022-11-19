@@ -29,13 +29,14 @@ function MyApp(props: AppProps & { Component: { hideMainLayout: boolean }; emoti
   return (
     <CacheProvider value={emotionCache}>
       <Head>
+        <title key={'title'}>Fernand Veyrier</title>
+        <meta property="og:title" content="Fernand Veyrier" key="ogtitle" />
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
-        <title>Fernand Veyrier</title>
         <meta
+          key={'description'}
           name="description"
           content="I am Fernand Veyrier, gameplay and fullstack programmer. This portfolio mostly focuses on video games and personal projects."
         />
-        <meta property="og:title" content="Fernand Veyrier" key="title" />
       </Head>
       <meta
         property="og:description"

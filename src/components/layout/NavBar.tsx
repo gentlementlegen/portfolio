@@ -14,7 +14,6 @@ import {
   Toolbar,
   Typography,
 } from '@mui/material'
-import Head from 'next/head'
 import Link from 'next/link'
 import styles from 'styles/Home.module.css'
 import AnchorLink, { AnchorLinkProps } from 'react-anchor-link-smooth-scroll'
@@ -124,9 +123,6 @@ const NavBar = (): JSX.Element => {
 
   return (
     <AppBar position={'sticky'} sx={{ backgroundImage: 'none' }}>
-      <Head>
-        <title>Fernand Veyrier</title>
-      </Head>
       <Toolbar>
         <Hidden smUp>
           <IconButton sx={{ marginRight: 1 }} size="small" onClick={toggleDrawer(true)}>

@@ -99,8 +99,9 @@ const ProjectPage: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = (p
       })}
     >
       <Head>
-        <title>{title}</title>
-        <meta name="description" content={description.text} />
+        <title key={'title'}>{title}</title>
+        <meta property="og:title" content={title} key="ogtitle" />
+        <meta key={'description'} name="description" content={description.text} />
       </Head>
       <Typography component={'h1'} variant={'h2'} align={'center'} gutterBottom>
         {title}
