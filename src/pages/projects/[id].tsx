@@ -128,7 +128,10 @@ const ProjectPage: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = (p
           />
         </Box>
       )}
-      <Box dangerouslySetInnerHTML={{ __html: description.html }} />
+      <Box
+        sx={{ '& a': { color: 'link.main', textDecoration: 'underline' } }}
+        dangerouslySetInnerHTML={{ __html: description.html }}
+      />
       <Typography variant={'h3'} sx={(theme) => ({ marginTop: theme.spacing(12) })}>
         All recent work
       </Typography>
