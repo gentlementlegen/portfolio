@@ -37,12 +37,12 @@ function MyApp(props: AppProps & { Component: { hideMainLayout: boolean }; emoti
           name="description"
           content="I am Fernand Veyrier, gameplay and fullstack programmer. This portfolio mostly focuses on video games and personal projects."
         />
+        <meta
+          property={'og:description'}
+          content="I am Fernand Veyrier, gameplay and fullstack programmer. This portfolio mostly focuses on video games and personal projects."
+          key="ogdescription"
+        />
       </Head>
-      <meta
-        property="og:description"
-        content="I am Fernand Veyrier, gameplay and fullstack programmer. This portfolio mostly focuses on video games and personal projects."
-        key="description"
-      />
       <ThemeProvider theme={theme}>
         <ApolloProvider client={client}>
           <CssBaseline />
