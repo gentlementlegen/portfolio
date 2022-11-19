@@ -9,6 +9,12 @@ declare module '@mui/material/styles' {
   }
 }
 
+declare module '@mui/material/Chip' {
+  interface ChipPropsColorOverrides {
+    link: true
+  }
+}
+
 const makeTheme = (mode: 'light' | 'dark') => {
   let theme = responsiveFontSizes(
     createTheme({
@@ -43,6 +49,9 @@ const makeTheme = (mode: 'light' | 'dark') => {
               },
               link: {
                 main: '#00d6b4',
+                dark: '#00d6b4',
+                light: '#00d6b4',
+                contrastText: '#ffffff',
               },
             }
           : {
@@ -59,6 +68,9 @@ const makeTheme = (mode: 'light' | 'dark') => {
               },
               link: {
                 main: '#00d6b4',
+                dark: '#00d6b4',
+                light: '#00d6b4',
+                contrastText: '#ffffff',
               },
             },
     }),

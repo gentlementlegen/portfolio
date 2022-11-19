@@ -1,6 +1,6 @@
 import React from 'react'
 import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType, NextPage } from 'next'
-import { Box, Container, Typography } from '@mui/material'
+import { Box, Chip, Container, Stack, Typography } from '@mui/material'
 import Image from 'next/image'
 import ProjectContainer from 'components/project/ProjectContainer'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
@@ -16,6 +16,7 @@ const QUERY_PROJECT = gql`
       id
       title
       slug
+      category
       description {
         html
         text
@@ -83,19 +84,19 @@ export const getStaticProps: GetStaticProps<{ project: Project; projects: Projec
 
 const ProjectPage: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = (props) => {
   const {
-    project: { title, description, image, blur },
+    project: { title, description, image, blur, category },
     projects,
   } = props
+
   return (
     <Container
-      sx={(theme) => ({
+      sx={{
         minHeight: `calc(100vh - 118px)`,
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-        marginTop: theme.spacing(10),
-        marginBottom: theme.spacing(10),
-      })}
+        my: { xs: 4, sm: 10 },
+      }}
     >
       <Head>
         <title key={'title'}>{title}</title>
@@ -103,6 +104,11 @@ const ProjectPage: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = (p
         <meta key={'description'} name="description" content={description.text} />
         <meta property={'og:description'} content={description.text} key="ogdescription" />
       </Head>
+      <Stack direction={'row'} spacing={1} sx={{ mb: 2 }}>
+        {category?.map((c) => (
+          <Chip key={c} label={c} color={'link'} />
+        ))}
+      </Stack>
       <Typography component={'h1'} variant={'h2'} align={'center'} gutterBottom>
         {title}
       </Typography>
