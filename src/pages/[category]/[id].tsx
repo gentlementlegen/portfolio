@@ -1,6 +1,6 @@
 import React from 'react'
 import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType, NextPage } from 'next'
-import { Box, Container, Typography } from '@mui/material'
+import { Box, Chip, Container, Stack, Typography } from '@mui/material'
 import Image from 'next/image'
 import ProjectContainer from 'components/project/ProjectContainer'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
@@ -9,32 +9,30 @@ import { gql } from '@apollo/client'
 import apolloClient from 'apolloClient'
 import { Project, QueryProjectArgs, QueryProjectsArgs } from 'generated/graphql'
 import Head from 'next/head'
+import Link from 'next/link'
 
 const QUERY_PROJECT = gql`
   query Project($where: ProjectWhereUniqueInput!) {
     project(where: $where) {
-      id
-      title
-      slug
+      ...project
       description {
         html
         text
       }
-      blur
-      image {
-        id
-        url
-      }
     }
     projects(first: 100) {
+      ...project
+    }
+  }
+  fragment project on Project {
+    id
+    title
+    slug
+    categories
+    blur
+    image {
       id
-      title
-      slug
-      image {
-        id
-        url
-      }
-      blur
+      url
     }
   }
 `
@@ -56,7 +54,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
     },
   })
   const paths = data?.projects.reduce<{ params: ParsedUrlQuery; locale?: string }[]>((acc, curr) => {
-    const params = { id: curr.slug ?? curr.id }
+    const params = { id: curr.slug ?? curr.id, category: curr.categories?.length ? curr.categories[0] : 'others' }
     return [...acc, { params, locale: 'en' }, { params, locale: 'ko' }, { params, locale: 'fr' }]
   }, [])
 
@@ -83,19 +81,19 @@ export const getStaticProps: GetStaticProps<{ project: Project; projects: Projec
 
 const ProjectPage: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = (props) => {
   const {
-    project: { title, description, image, blur },
+    project: { title, description, image, blur, categories },
     projects,
   } = props
+
   return (
     <Container
-      sx={(theme) => ({
+      sx={{
         minHeight: `calc(100vh - 118px)`,
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-        marginTop: theme.spacing(10),
-        marginBottom: theme.spacing(10),
-      })}
+        my: { xs: 4, sm: 10 },
+      }}
     >
       <Head>
         <title key={'title'}>{title}</title>
@@ -103,6 +101,13 @@ const ProjectPage: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = (p
         <meta key={'description'} name="description" content={description.text} />
         <meta property={'og:description'} content={description.text} key="ogdescription" />
       </Head>
+      <Stack direction={'row'} spacing={1} sx={{ mb: 2 }}>
+        {categories?.map((category) => (
+          <Link key={category} href={`/${category.toLocaleLowerCase()}`} passHref>
+            <Chip label={category} color={'link'} component="a" clickable />
+          </Link>
+        ))}
+      </Stack>
       <Typography component={'h1'} variant={'h2'} align={'center'} gutterBottom>
         {title}
       </Typography>
