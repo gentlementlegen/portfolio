@@ -28,6 +28,7 @@ const QUERY_PROJECTS = gql`
         id
         url
       }
+      blur
     }
     skills {
       id
@@ -36,6 +37,7 @@ const QUERY_PROJECTS = gql`
         id
         url
       }
+      blur
     }
   }
 `

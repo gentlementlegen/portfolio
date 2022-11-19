@@ -11,7 +11,7 @@ interface ProjectCardProps {
 const ProjectCard = (props: ProjectCardProps): JSX.Element => {
   const { project } = props
   return (
-    <Card variant={'outlined'}>
+    <Card variant={'outlined'} sx={{ height: '100%' }}>
       <Link href={`/projects/${project.slug}`} passHref>
         <CardActionArea>
           {project.image && (
@@ -19,10 +19,11 @@ const ProjectCard = (props: ProjectCardProps): JSX.Element => {
               <Image
                 src={project.image.url}
                 alt={project.title}
-                layout={'fill'}
-                objectFit={'cover'}
+                fill
+                style={{ objectFit: 'cover' }}
                 placeholder={'blur'}
-                blurDataURL={project.image.url}
+                blurDataURL={project.blur}
+                sizes={'(max-width: 768px) 100vw,(max-width: 1200px) 25vw'}
               />
             </CardMedia>
           )}

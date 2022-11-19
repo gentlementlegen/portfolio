@@ -1,5 +1,14 @@
 import { createTheme, responsiveFontSizes } from '@mui/material/styles'
 
+declare module '@mui/material/styles' {
+  interface Palette {
+    link: Palette['primary']
+  }
+  interface PaletteOptions {
+    link: PaletteOptions['primary']
+  }
+}
+
 const makeTheme = (mode: 'light' | 'dark') => {
   let theme = responsiveFontSizes(
     createTheme({
@@ -32,6 +41,9 @@ const makeTheme = (mode: 'light' | 'dark') => {
                 default: '#fafafa',
                 paper: '#ffffff',
               },
+              link: {
+                main: '#00d6b4',
+              },
             }
           : {
               mode: 'dark',
@@ -44,6 +56,9 @@ const makeTheme = (mode: 'light' | 'dark') => {
               background: {
                 default: '#1a1a1a',
                 paper: '#000000',
+              },
+              link: {
+                main: '#00d6b4',
               },
             },
     }),
@@ -62,6 +77,13 @@ const makeTheme = (mode: 'light' | 'dark') => {
             '&::first-letter': {
               textTransform: 'capitalize',
             },
+          },
+          a: {
+            color: 'inherit',
+            textDecoration: 'none',
+          },
+          '*::selection': {
+            background: theme.palette.link.main,
           },
         },
       },
