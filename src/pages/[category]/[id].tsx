@@ -13,29 +13,25 @@ import Head from 'next/head'
 const QUERY_PROJECT = gql`
   query Project($where: ProjectWhereUniqueInput!) {
     project(where: $where) {
-      id
-      title
-      slug
-      category
+      ...project
       description {
         html
         text
       }
-      blur
-      image {
-        id
-        url
-      }
     }
     projects(first: 100) {
+      ...project
+    }
+  }
+  fragment project on Project {
+    id
+    title
+    slug
+    categories
+    blur
+    image {
       id
-      title
-      slug
-      image {
-        id
-        url
-      }
-      blur
+      url
     }
   }
 `
@@ -57,7 +53,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
     },
   })
   const paths = data?.projects.reduce<{ params: ParsedUrlQuery; locale?: string }[]>((acc, curr) => {
-    const params = { id: curr.slug ?? curr.id }
+    const params = { id: curr.slug ?? curr.id, category: curr.categories?.length ? curr.categories[0] : 'others' }
     return [...acc, { params, locale: 'en' }, { params, locale: 'ko' }, { params, locale: 'fr' }]
   }, [])
 
@@ -84,7 +80,7 @@ export const getStaticProps: GetStaticProps<{ project: Project; projects: Projec
 
 const ProjectPage: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = (props) => {
   const {
-    project: { title, description, image, blur, category },
+    project: { title, description, image, blur, categories },
     projects,
   } = props
 
@@ -105,8 +101,8 @@ const ProjectPage: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = (p
         <meta property={'og:description'} content={description.text} key="ogdescription" />
       </Head>
       <Stack direction={'row'} spacing={1} sx={{ mb: 2 }}>
-        {category?.map((c) => (
-          <Chip key={c} label={c} color={'link'} />
+        {categories?.map((category) => (
+          <Chip key={category} label={category} color={'link'} />
         ))}
       </Stack>
       <Typography component={'h1'} variant={'h2'} align={'center'} gutterBottom>

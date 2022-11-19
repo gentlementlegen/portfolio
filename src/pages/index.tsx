@@ -24,6 +24,7 @@ const QUERY_PROJECTS = gql`
       id
       title
       slug
+      categories
       image {
         id
         url
