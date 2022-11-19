@@ -1,8 +1,7 @@
 import React from 'react'
 import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType, NextPage } from 'next'
-import { Container, Typography } from '@mui/material'
+import { Box, Container, Typography } from '@mui/material'
 import Image from 'next/image'
-import { Box } from '@mui/system'
 import ProjectContainer from 'components/project/ProjectContainer'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { ParsedUrlQuery } from 'querystring'
@@ -116,7 +115,17 @@ const ProjectPage: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = (p
             },
           })}
         >
-          <Image src={image.url} width={400} height={300} alt={title} placeholder={'blur'} blurDataURL={blur} />
+          <Image
+            src={image.url}
+            width={400}
+            height={300}
+            alt={title}
+            placeholder={'blur'}
+            blurDataURL={blur}
+            style={{
+              maxWidth: '100%',
+            }}
+          />
         </Box>
       )}
       <Box dangerouslySetInnerHTML={{ __html: description.html }} />
