@@ -36,9 +36,9 @@
     "react-icons": "4.7.1"
   },
   "devDependencies": {
-    "@graphql-codegen/cli": "2.15.0",
-    "@graphql-codegen/typescript": "2.8.3",
-    "@graphql-codegen/typescript-operations": "2.5.8",
+    "@graphql-codegen/cli": "2.16.1",
+    "@graphql-codegen/typescript": "2.8.5",
+    "@graphql-codegen/typescript-operations": "2.5.10",
     "@graphql-codegen/typescript-react-apollo": "3.3.7",
     "@graphql-tools/schema": "9.0.12",
     "@types/apollo-upload-client": "17.0.2",
