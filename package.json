@@ -3,8 +3,8 @@
   "private": true,
   "version": "1.0.0",
   "scripts": {
-    "predev": "npm run generate",
-    "prebuild": "npm run generate",
+    "predev": "yarn run generate",
+    "prebuild": "yarn run generate",
     "dev": "next dev",
     "build": "next build",
     "postbuild": "next-sitemap",
