@@ -1,6 +1,8 @@
 import React from 'react'
 import { Container, styled, Typography } from '@mui/material'
 import { useTranslation } from 'next-i18next'
+import { motion } from 'framer-motion'
+import { cardVariant } from 'components/animations/cardsReveal'
 
 const Span = styled('span')(({ theme }) => ({
   marginBottom: theme.spacing(2),
@@ -15,7 +17,13 @@ const AboutSection = (): JSX.Element => {
       <Typography variant={'h2'} align={'center'}>
         {t('about')}
       </Typography>
-      <Typography>
+      <Typography
+        component={motion.div}
+        variants={cardVariant}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true }}
+      >
         <Span>{t('desc part 1')}</Span>
         <Span>{t('desc part 2')}</Span>
         <Span>{t('desc part 3')}</Span>
