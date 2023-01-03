@@ -1,5 +1,5 @@
 import React from 'react'
-import { Box, Container, Grid, IconButton, Paper, Typography, useTheme } from '@mui/material'
+import { Box, Container, Grid, IconButton, Paper, Typography } from '@mui/material'
 import KeyboardArrowDownRoundedIcon from '@mui/icons-material/KeyboardArrowDownRounded'
 import AnchorLink from 'react-anchor-link-smooth-scroll'
 import ProjectContainer from 'components/project/ProjectContainer'
@@ -12,11 +12,10 @@ import AboutSection from 'components/about/AboutSection'
 import ContactForm from 'components/contact/ContactForm'
 import { Trans, useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-import { SxProps } from '@mui/system'
-import { Theme } from '@mui/material/styles'
 import apolloClient from 'apolloClient'
 import { gql } from '@apollo/client'
 import { Project, Skill } from 'generated/graphql'
+import { motion } from 'framer-motion'
 
 const QUERY_PROJECTS = gql`
   query ProjectsAndSkills {
@@ -54,7 +53,7 @@ export const getStaticProps: GetStaticProps<{ projects: Project[]; skills: Skill
   }
 }
 
-const style: { [k: string]: SxProps<Theme> } = {
+const style = {
   root: (theme) => ({
     height: 'calc(100vh - 64px)',
     top: 64,
@@ -96,7 +95,6 @@ const style: { [k: string]: SxProps<Theme> } = {
 export default function Home(props: InferGetStaticPropsType<typeof getStaticProps>) {
   const { projects, skills } = props
   const { t } = useTranslation('common')
-  const theme = useTheme()
 
   return (
     <MainLayout>
@@ -106,16 +104,28 @@ export default function Home(props: InferGetStaticPropsType<typeof getStaticProp
       </Box>
       <Container className={styles.mainGrid}>
         <Grid container className={styles.mainGrid} alignItems={'center'}>
-          <Grid item xs={12} sx={{ color: theme.palette.secondary.main, textShadow: '1px 1px 5px black' }}>
-            <Typography variant={'h1'} component={'h2'} align={'center'} gutterBottom color={'#ffffff'}>
-              {t('h1')}
-            </Typography>
-            <Typography variant={'h5'} component={'h1'} align={'center'} color={'#ffffff'}>
-              <Trans i18nKey={'h2'}>
-                I am <em style={{ color: 'rgb(178, 178, 178)' }}>Fernand</em>, a dev lead in South Korea. Passionate
-                about video-games, I currently work with React.js, Node.js, Typescript & GraphQl.
-              </Trans>
-            </Typography>
+          <Grid item xs={12} sx={{ color: 'secondary.main', textShadow: '1px 1px 5px black' }}>
+            <motion.div
+              initial={{ opacity: 0, translateY: 16 }}
+              animate={{ opacity: 1, translateY: 0 }}
+              transition={{ duration: 0.3, ease: 'easeInOut' }}
+            >
+              <Typography variant={'h1'} component={'h2'} align={'center'} gutterBottom color={'#ffffff'}>
+                {t('h1')}
+              </Typography>
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, translateY: 16 }}
+              animate={{ opacity: 1, translateY: 0 }}
+              transition={{ duration: 0.3, delay: 0.15, ease: 'easeInOut' }}
+            >
+              <Typography variant={'h5'} component={'h1'} align={'center'} color={'#ffffff'}>
+                <Trans i18nKey={'h2'}>
+                  I am <em style={{ color: 'rgb(178, 178, 178)' }}>Fernand</em>, a dev lead in South Korea. Passionate
+                  about video-games, I currently work with React.js, Node.js, Typescript & GraphQl.
+                </Trans>
+              </Typography>
+            </motion.div>
           </Grid>
         </Grid>
       </Container>
@@ -127,7 +137,7 @@ export default function Home(props: InferGetStaticPropsType<typeof getStaticProp
         </AnchorLink>
       </Box>
       <Paper square sx={{ position: 'relative' }}>
-        <Container sx={{ paddingBottom: theme.spacing(6), '& > *': { paddingBottom: 12 } }}>
+        <Container sx={{ paddingBottom: 6, '& > *': { paddingBottom: 12 } }}>
           <ProjectContainer projects={projects} />
           <SkillContainer skills={skills} />
           <AboutSection />
