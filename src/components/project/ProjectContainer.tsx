@@ -11,11 +11,11 @@ interface ProjectContainerProps extends BoxProps {
 const cardVariant: Variants = {
   hidden: {
     opacity: 0,
-    transform: 'translateY(50px)',
+    translateY: 50,
   },
   visible: {
     opacity: 1,
-    transform: 'translateY(0px)',
+    translateY: 0,
   },
 }
 
@@ -43,17 +43,23 @@ const ProjectContainer = (props: ProjectContainerProps): JSX.Element => {
       ]}
       {...rest}
     >
-      <motion.div variants={container} initial="hidden" whileInView="visible" viewport={{ once: true }}>
-        <Grid container justifyContent={'center'} id={'projects'} spacing={2}>
-          {projects?.map((project) => (
-            <Grid item sm={3} xs={6} key={project.id}>
-              <motion.div variants={cardVariant}>
-                <ProjectCard project={project} />
-              </motion.div>
-            </Grid>
-          ))}
-        </Grid>
-      </motion.div>
+      <Grid
+        component={motion.div}
+        container
+        justifyContent={'center'}
+        id={'projects'}
+        spacing={2}
+        variants={container}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true }}
+      >
+        {projects?.map((project) => (
+          <Grid component={motion.div} item sm={3} xs={6} key={project.id} layout variants={cardVariant}>
+            <ProjectCard project={project} />
+          </Grid>
+        ))}
+      </Grid>
     </Box>
   )
 }
