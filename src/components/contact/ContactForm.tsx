@@ -6,6 +6,7 @@ import { FieldError, useForm } from 'react-hook-form'
 import { gql, useMutation } from '@apollo/client'
 import { useTranslation } from 'next-i18next'
 import { MutationCreateMessageArgs } from 'generated/graphql'
+import { motion, useAnimationControls } from 'framer-motion'
 
 const MUTATION_SEND_EMAIL = gql`
   mutation CreateMessage($data: MessageCreateInput!) {
@@ -25,33 +26,40 @@ const ContactForm = (): JSX.Element => {
   const [sendEmail, { loading }] = useMutation<{ sendEmail: string }, MutationCreateMessageArgs>(MUTATION_SEND_EMAIL)
   const [sent, setSent] = useState(false)
   const { t } = useTranslation('common')
+  const controls = useAnimationControls()
 
-  const submitForm = (form: MutationCreateMessageArgs) => {
+  const handleFormError = async (e: { data: Record<string, unknown> }) => {
+    const keys = Object.keys(e.data)
+    await controls.start((arg) => (keys.includes(arg) ? { translateX: [15, -15, 7, -7, 0] } : {}))
+  }
+
+  const submitForm = async (form: MutationCreateMessageArgs) => {
     const {
       data: { message, ...rest },
     } = form
-    sendEmail({
-      variables: {
-        data: {
-          ...rest,
-          message: {
-            type: 'paragraph',
-            children: [
-              {
-                text: message,
-              },
-            ],
+    try {
+      await sendEmail({
+        variables: {
+          data: {
+            ...rest,
+            message: {
+              type: 'paragraph',
+              children: [
+                {
+                  text: message,
+                },
+              ],
+            },
           },
         },
-      },
-    })
-      .then(() => setSent(true))
-      .catch((e) =>
-        setError('data.message', {
-          type: 'manual',
-          message: `The message could not be delivered: ${e}`,
-        }),
-      )
+      })
+      setSent(true)
+    } catch (e) {
+      setError('data.message', {
+        type: 'manual',
+        message: `The message could not be delivered: ${e}`,
+      })
+    }
   }
 
   return (
@@ -63,14 +71,14 @@ const ContactForm = (): JSX.Element => {
         paddingBottom: 4,
       }}
     >
-      <form onSubmit={handleSubmit(submitForm)}>
+      <form onSubmit={handleSubmit(submitForm, handleFormError)}>
         <Grid container spacing={4} justifyContent={'center'}>
           <Grid item xs={12}>
             <Typography variant={'h3'} align={'center'}>
               {t('share')} 🍻
             </Typography>
           </Grid>
-          <Grid item xs={12}>
+          <Grid item xs={12} component={motion.div} custom={'name'} transition={{ duration: 0.3 }} animate={controls}>
             <TextField
               name={'name'}
               label={t('name')}
@@ -82,7 +90,7 @@ const ContactForm = (): JSX.Element => {
               {...register('data.name', { required: t('required') })}
             />
           </Grid>
-          <Grid item xs={12}>
+          <Grid item xs={12} component={motion.div} custom={'email'} transition={{ duration: 0.3 }} animate={controls}>
             <TextField
               name={'email'}
               label={t('email')}
@@ -94,7 +102,14 @@ const ContactForm = (): JSX.Element => {
               {...register('data.email', { required: t('required') })}
             />
           </Grid>
-          <Grid item xs={12}>
+          <Grid
+            item
+            xs={12}
+            component={motion.div}
+            custom={'message'}
+            transition={{ duration: 0.3 }}
+            animate={controls}
+          >
             <TextField
               name={'message'}
               label={t('message')}
