@@ -2,6 +2,8 @@ import React from 'react'
 import { Box, BoxProps, Grid } from '@mui/material'
 import ProjectCard from 'components/project/ProjectCard'
 import { Project } from 'generated/graphql'
+import { motion } from 'framer-motion'
+import { cardVariant, container } from 'components/animations/cardsReveal'
 
 interface ProjectContainerProps extends BoxProps {
   projects: Project[]
@@ -21,9 +23,19 @@ const ProjectContainer = (props: ProjectContainerProps): JSX.Element => {
       ]}
       {...rest}
     >
-      <Grid container justifyContent={'center'} id={'projects'} spacing={2}>
+      <Grid
+        component={motion.div}
+        container
+        justifyContent={'center'}
+        id={'projects'}
+        spacing={2}
+        variants={container}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true }}
+      >
         {projects?.map((project) => (
-          <Grid item sm={3} xs={6} key={project.id}>
+          <Grid component={motion.div} item sm={3} xs={6} key={project.id} layout variants={cardVariant}>
             <ProjectCard project={project} />
           </Grid>
         ))}
