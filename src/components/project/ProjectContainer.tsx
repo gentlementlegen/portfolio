@@ -2,31 +2,11 @@ import React from 'react'
 import { Box, BoxProps, Grid } from '@mui/material'
 import ProjectCard from 'components/project/ProjectCard'
 import { Project } from 'generated/graphql'
-import { motion, Variants } from 'framer-motion'
+import { motion } from 'framer-motion'
+import { cardVariant, container } from 'components/animations/cardsReveal'
 
 interface ProjectContainerProps extends BoxProps {
   projects: Project[]
-}
-
-const cardVariant: Variants = {
-  hidden: {
-    opacity: 0,
-    translateY: 50,
-  },
-  visible: {
-    opacity: 1,
-    translateY: 0,
-  },
-}
-
-const container: Variants = {
-  hidden: {},
-  visible: {
-    transition: {
-      staggerChildren: 0.06,
-      delayChildren: 0.03,
-    },
-  },
 }
 
 const ProjectContainer = (props: ProjectContainerProps): JSX.Element => {
