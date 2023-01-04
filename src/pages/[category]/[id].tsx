@@ -5,50 +5,16 @@ import Image from 'next/image'
 import ProjectContainer from 'components/project/ProjectContainer'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { ParsedUrlQuery } from 'querystring'
-import { gql } from '@apollo/client'
 import apolloClient from 'apolloClient'
-import { Project, QueryProjectArgs, QueryProjectsArgs } from 'generated/graphql'
+import { ProjectQuery } from 'generated/graphql'
 import Head from 'next/head'
 import Link from 'next/link'
-
-const QUERY_PROJECT = gql`
-  query Project($where: ProjectWhereUniqueInput!) {
-    project(where: $where) {
-      ...project
-      description {
-        html
-        text
-      }
-    }
-    projects(first: 100) {
-      ...project
-    }
-  }
-  fragment project on Project {
-    id
-    title
-    slug
-    categories
-    blur
-    image {
-      id
-      url
-    }
-  }
-`
-
-const QUERY_PROJECTS = gql`
-  query Projects($first: Int) {
-    projects(first: $first) {
-      id
-      slug
-    }
-  }
-`
+import { ProjectElement, QUERY_PROJECT, QUERY_PROJECT_PAGES } from 'components/project/project.operations'
+import { getFragmentData } from 'generated'
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const { data } = await apolloClient.query<{ projects: Project[] }, QueryProjectsArgs>({
-    query: QUERY_PROJECTS,
+  const { data } = await apolloClient.query({
+    query: QUERY_PROJECT_PAGES,
     variables: {
       first: 1,
     },
@@ -64,8 +30,8 @@ export const getStaticPaths: GetStaticPaths = async () => {
   }
 }
 
-export const getStaticProps: GetStaticProps<{ project: Project; projects: Project[] }> = async ({ params, locale }) => {
-  const { data } = await apolloClient.query<{ projects: Project[]; project: Project }, QueryProjectArgs>({
+export const getStaticProps: GetStaticProps<ProjectQuery> = async ({ params, locale }) => {
+  const { data } = await apolloClient.query({
     query: QUERY_PROJECT,
     variables: { where: { slug: params.id as string } },
   })
@@ -80,10 +46,9 @@ export const getStaticProps: GetStaticProps<{ project: Project; projects: Projec
 }
 
 const ProjectPage: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = (props) => {
-  const {
-    project: { title, description, image, blur, categories },
-    projects,
-  } = props
+  const { project: projectFragment, projects } = props
+  const { description } = projectFragment
+  const { title, image, blur, categories } = getFragmentData(ProjectElement, projectFragment)
 
   return (
     <Container

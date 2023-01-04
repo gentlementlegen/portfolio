@@ -2,16 +2,18 @@ import React from 'react'
 import { Box, Grid, Stack, Typography } from '@mui/material'
 import Image from 'next/image'
 import { useTranslation } from 'next-i18next'
-import { Skill } from 'generated/graphql'
 import { motion } from 'framer-motion'
 import { cardVariant, container } from 'components/animations/cardsReveal'
+import { FragmentType, getFragmentData } from 'generated'
+import { SkillElement } from 'components/project/project.operations'
 
 interface SkillContainerProps {
-  skills: Skill[]
+  skills: FragmentType<typeof SkillElement>[]
 }
 
 const SkillContainer = (props: SkillContainerProps): JSX.Element => {
-  const { skills } = props
+  const { skills: skillsFragment } = props
+  const skills = getFragmentData(SkillElement, skillsFragment)
   const { t } = useTranslation('common')
 
   return (

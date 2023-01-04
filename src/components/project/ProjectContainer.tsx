@@ -1,16 +1,18 @@
 import React from 'react'
 import { Box, BoxProps, Grid } from '@mui/material'
 import ProjectCard from 'components/project/ProjectCard'
-import { Project } from 'generated/graphql'
 import { motion } from 'framer-motion'
 import { cardVariant, container } from 'components/animations/cardsReveal'
+import { FragmentType, getFragmentData } from 'generated'
+import { ProjectElement } from 'components/project/project.operations'
 
 interface ProjectContainerProps extends BoxProps {
-  projects: Project[]
+  projects: FragmentType<typeof ProjectElement>[]
 }
 
 const ProjectContainer = (props: ProjectContainerProps): JSX.Element => {
-  const { projects, sx, ...rest } = props
+  const { projects: projectsFragment, sx, ...rest } = props
+  const projects = getFragmentData(ProjectElement, projectsFragment)
 
   return (
     <Box

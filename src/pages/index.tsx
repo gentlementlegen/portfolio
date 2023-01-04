@@ -13,37 +13,25 @@ import ContactForm from 'components/contact/ContactForm'
 import { Trans, useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import apolloClient from 'apolloClient'
-import { gql } from '@apollo/client'
-import { Project, Skill } from 'generated/graphql'
+import { ProjectsAndSkillsQuery } from 'generated/graphql'
 import { motion } from 'framer-motion'
+import { graphql } from 'generated'
 
-const QUERY_PROJECTS = gql`
+const QUERY_PROJECTS = graphql(/* GraphQL */ `
   query ProjectsAndSkills {
     projects(first: 100) {
       id
-      title
-      slug
-      categories
-      image {
-        id
-        url
-      }
-      blur
+      ...projectElement
     }
     skills {
       id
-      name
-      image {
-        id
-        url
-      }
-      blur
+      ...skillElement
     }
   }
-`
+`)
 
-export const getStaticProps: GetStaticProps<{ projects: Project[]; skills: Skill[] }> = async ({ locale }) => {
-  const { data } = await apolloClient.query<{ projects: Project[]; skills: Skill[] }>({ query: QUERY_PROJECTS })
+export const getStaticProps: GetStaticProps<ProjectsAndSkillsQuery> = async ({ locale }) => {
+  const { data } = await apolloClient.query({ query: QUERY_PROJECTS })
 
   return {
     props: {

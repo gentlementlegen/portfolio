@@ -1,13 +1,13 @@
 import React from 'react'
 import { Card, CardActionArea, CardContent, CardMedia, CardProps, Typography } from '@mui/material'
 import Image from 'next/image'
-import { Project } from 'generated/graphql'
+import { ProjectElementFragment } from 'generated/graphql'
 import { motion } from 'framer-motion'
 import Link from 'next/link'
 
 interface ProjectCardProps extends CardProps {
-  project: Project
-  onActionAreaClick?: (id: Project) => void
+  project: ProjectElementFragment
+  onActionAreaClick?: (id: ProjectElementFragment) => void
 }
 
 const ProjectCard = (props: ProjectCardProps): JSX.Element => {
