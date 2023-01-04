@@ -28,6 +28,9 @@ const ContactSection = (): JSX.Element => {
 
   return (
     <div>
+      <Typography variant={'h2'} align={'center'}>
+        {t('find me')}
+      </Typography>
       <Grid
         container
         justifyContent={'center'}
@@ -38,11 +41,11 @@ const ContactSection = (): JSX.Element => {
         whileInView="visible"
         viewport={{ once: true }}
       >
-        <Grid item xs={12}>
-          <Typography variant={'h2'} align={'center'}>
-            {t('find me')}
-          </Typography>
-        </Grid>
+        {/*<Grid item xs={12}>*/}
+        {/*  <Typography variant={'h2'} align={'center'}>*/}
+        {/*    {t('find me')}*/}
+        {/*  </Typography>*/}
+        {/*</Grid>*/}
         <Grid item sm={2} xs={6} sx={styles.centered} component={motion.div} layout variants={cardVariant}>
           <Link
             target={'_blank'}

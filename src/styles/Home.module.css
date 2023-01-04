@@ -115,10 +115,6 @@
     }
 }
 
-.tutu {
-    background-color: #0070f3;
-}
-
 .mainGrid {
     height: calc(100vh - 64px);
     position: sticky;
