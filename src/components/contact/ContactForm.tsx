@@ -28,9 +28,11 @@ const ContactForm = (): JSX.Element => {
   const { t } = useTranslation('common')
   const controls = useAnimationControls()
 
-  const handleFormError = async (e: { data: Record<string, unknown> }) => {
-    const keys = Object.keys(e.data)
-    await controls.start((arg) => (keys.includes(arg) ? { translateX: [15, -15, 7, -7, 0] } : {}))
+  const handleFormError = async (event: { data: Record<string, unknown> }) => {
+    const keys = Object.keys(event.data)
+    controls
+      .start((arg) => (keys.includes(arg) ? { translateX: [15, -15, 7, -7, 0] } : {}))
+      .catch((e) => console.error(e))
   }
 
   const submitForm = async (form: MutationCreateMessageArgs) => {

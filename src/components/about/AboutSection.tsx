@@ -23,6 +23,7 @@ const AboutSection = (): JSX.Element => {
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true }}
+        transition={{ delay: 0.3 }}
       >
         <Span>{t('desc part 1')}</Span>
         <Span>{t('desc part 2')}</Span>
