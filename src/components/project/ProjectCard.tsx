@@ -1,24 +1,39 @@
 import React from 'react'
-import { Card, CardActionArea, CardContent, CardMedia, Typography } from '@mui/material'
-import Link from 'next/link'
+import { Card, CardActionArea, CardContent, CardMedia, CardProps, Typography } from '@mui/material'
 import Image from 'next/image'
 import { Project } from 'generated/graphql'
+import { motion } from 'framer-motion'
+import Link from 'next/link'
 
-interface ProjectCardProps {
+interface ProjectCardProps extends CardProps {
   project: Project
+  onActionAreaClick?: (id: Project) => void
 }
 
 const ProjectCard = (props: ProjectCardProps): JSX.Element => {
-  const { project } = props
+  const { project, onActionAreaClick = () => {}, sx, ...rest } = props
+
+  const handleCardActionAreaClick = () => {
+    onActionAreaClick(project)
+  }
+
   return (
-    <Card variant={'outlined'} sx={{ height: '100%' }}>
+    <Card
+      variant={'outlined'}
+      sx={[{ height: '100%' }, ...(Array.isArray(sx) ? sx : [sx])]}
+      component={motion.div}
+      layout
+      whileHover={{ scale: 1.07 }}
+      transition={{ type: 'spring', stiffness: 800, damping: 5 }}
+      {...rest}
+    >
       <Link
         href={`/${!!project.categories?.length ? project.categories[0].toLowerCase() : 'others'}/${project.slug}`}
         passHref
       >
-        <CardActionArea>
+        <CardActionArea onClick={handleCardActionAreaClick}>
           {project.image && (
-            <CardMedia style={{ minHeight: 0, position: 'relative', height: 150, width: '100%' }}>
+            <CardMedia sx={{ minHeight: 0, position: 'relative', height: 150, width: '100%' }}>
               <Image
                 src={project.image.url}
                 alt={project.title}
