@@ -2,27 +2,11 @@ import React from 'react'
 import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType, NextPage } from 'next'
 import MainLayout from 'components/layout/MainLayout'
 import { Box, Container, Typography } from '@mui/material'
-import { Category, Project, QueryProjectsArgs } from 'generated/graphql'
+import { Category, ProjectsQuery } from 'generated/graphql'
 import apolloClient from 'apolloClient'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
-import { gql } from '@apollo/client'
 import ProjectContainer from 'components/project/ProjectContainer'
-
-const QUERY_PROJECTS = gql`
-  query Project($where: ProjectWhereInput!) {
-    projects(where: $where, first: 100) {
-      id
-      title
-      slug
-      categories
-      blur
-      image {
-        id
-        url
-      }
-    }
-  }
-`
+import { QUERY_PROJECTS } from 'components/project/project.operations'
 
 function capitalizeFirstLetter(string: string) {
   return string.charAt(0).toLocaleUpperCase() + string.slice(1)
@@ -35,8 +19,8 @@ export const getStaticPaths: GetStaticPaths = () => {
   }
 }
 
-export const getStaticProps: GetStaticProps<{ projects: Project[]; title: string }> = async ({ params, locale }) => {
-  const { data } = await apolloClient.query<{ projects: Project[] }, QueryProjectsArgs>({
+export const getStaticProps: GetStaticProps<ProjectsQuery & { title: string }> = async ({ params, locale }) => {
+  const { data } = await apolloClient.query({
     query: QUERY_PROJECTS,
     variables: {
       where: {
@@ -56,7 +40,9 @@ export const getStaticProps: GetStaticProps<{ projects: Project[]; title: string
   }
 }
 
-const CategoryPage: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({ projects, title }) => {
+const CategoryPage: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = (props) => {
+  const { projects: projectsFragment, title } = props
+
   return (
     <MainLayout>
       <Container maxWidth={'lg'} sx={{ py: { xs: 4, sm: 10 } }}>
@@ -66,7 +52,7 @@ const CategoryPage: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = (
             {title}
           </Box>
         </Typography>
-        <ProjectContainer projects={projects} sx={{ pt: { xs: 0, sm: 8 } }} />
+        <ProjectContainer projects={projectsFragment} sx={{ pt: { xs: 0, sm: 8 } }} />
       </Container>
     </MainLayout>
   )
