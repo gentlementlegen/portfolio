@@ -731,7 +731,7 @@
     yaml "^1.10.0"
     yargs "^17.0.0"
 
-"@graphql-codegen/client-preset@^1.2.4":
+"@graphql-codegen/client-preset@1.2.4":
   version "1.2.4"
   resolved "https://registry.yarnpkg.com/@graphql-codegen/client-preset/-/client-preset-1.2.4.tgz#6bce6ce2d0cb938a5cc1ab317b51bc20d35d7e38"
   integrity sha512-Thk/f2m3irdcxNdiDxAH7s9qDtmeDp9bZuExZIQN14+qcoTXIeUJPL73r+2u5rBkoo5hfjbxPiy041p2I22Ebw==
@@ -4697,7 +4697,7 @@ react-hook-form@7.42.1:
   resolved "https://registry.yarnpkg.com/react-hook-form/-/react-hook-form-7.42.1.tgz#c6396ca684716d89abc1c7e64343badfd30c56c6"
   integrity sha512-2UIGqwMZksd5HS55crTT1ATLTr0rAI4jS7yVuqTaoRVDhY2Qc4IyjskCmpnmdYqUNOYFy04vW253tb2JRVh+IQ==
 
-react-i18next@^12.1.1:
+react-i18next@12.1.1:
   version "12.1.1"
   resolved "https://registry.yarnpkg.com/react-i18next/-/react-i18next-12.1.1.tgz#2626cdbfe6bcb76ef833861c0184a5c4e5e3c089"
   integrity sha512-mFdieOI0LDy84q3JuZU6Aou1DoWW2fhapcTGeBS8+vWSJuViuoCLQAMYSb0QoHhXS8B0WKUOPpx4cffAP7r/aA==
@@ -5274,7 +5274,7 @@ ts-log@^2.2.3:
   resolved "https://registry.yarnpkg.com/ts-log/-/ts-log-2.2.5.tgz#aef3252f1143d11047e2cb6f7cfaac7408d96623"
   integrity sha512-PGcnJoTBnVGy6yYNFxWVNkdcAuAMstvutN9MgDJIV6L0oG8fB+ZNNy1T+wJzah8RPGor1mZuPQkVfXNDpy9eHA==
 
-ts-node@^10.8.1:
+ts-node@10.9.1, ts-node@^10.8.1:
   version "10.9.1"
   resolved "https://registry.yarnpkg.com/ts-node/-/ts-node-10.9.1.tgz#e73de9102958af9e1f0b168a6ff320e25adcff4b"
   integrity sha512-NtVysVPkxxrwFGUUxGYhfux8k78pQB3JqYBXlLRZgdGUqTO5wU/UyHop5p70iEbGhB7q5KmiZiU0Y3KlJrScEw==
