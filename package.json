@@ -35,7 +35,7 @@
     "react-anchor-link-smooth-scroll": "1.0.12",
     "react-dom": "18.2.0",
     "react-ga4": "1.4.1",
-    "react-hook-form": "7.43.5",
+    "react-hook-form": "7.43.7",
     "react-i18next": "12.2.0",
     "react-icons": "4.8.0"
   },
