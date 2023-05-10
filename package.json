@@ -46,7 +46,7 @@
     "@graphql-codegen/typescript-react-apollo": "3.3.7",
     "@graphql-tools/schema": "9.0.19",
     "@types/apollo-upload-client": "17.0.2",
-    "@types/node": "18.16.6",
+    "@types/node": "18.16.7",
     "@types/nodemailer": "6.4.7",
     "@types/react": "18.2.2",
     "@types/react-anchor-link-smooth-scroll": "1.0.2",
