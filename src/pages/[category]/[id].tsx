@@ -20,6 +20,9 @@ function capitalizeFirstLetter(string: string) {
 export const getStaticPaths: GetStaticPaths = async () => {
   const { data } = await apolloClient.query({
     query: QUERY_PROJECT_PAGES,
+    variables: {
+      first: 100,
+    },
   })
   const paths = data?.projects.reduce<{ params: ParsedUrlQuery; locale?: string }[]>((acc, curr) => {
     const params = {
