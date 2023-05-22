@@ -21,9 +21,14 @@ export const getStaticPaths: GetStaticPaths = async () => {
     },
   })
   const paths = data?.projects.reduce<{ params: ParsedUrlQuery; locale?: string }[]>((acc, curr) => {
-    const params = { id: curr.slug ?? curr.id, category: curr.categories?.length ? curr.categories[0] : 'others' }
+    const params = {
+      id: curr.slug ?? curr.id,
+      category: curr.categories?.length ? curr.categories[0].toLowerCase() : 'others',
+    }
     return [...acc, { params, locale: 'en' }, { params, locale: 'ko' }, { params, locale: 'fr' }]
   }, [])
+
+  console.log('paths', paths)
 
   return {
     paths,
@@ -31,15 +36,18 @@ export const getStaticPaths: GetStaticPaths = async () => {
   }
 }
 
-export const getStaticProps: GetStaticProps<ProjectQuery> = async ({ params, locale }) => {
+export const getStaticProps: GetStaticProps<ProjectQuery> = async ({ params, locale = 'en' }) => {
+  console.log('test')
   const { data } = await apolloClient.query({
     query: QUERY_PROJECT,
     variables: { where: { slug: params?.id as string } },
   })
 
+  console.log('here')
+
   return {
     props: {
-      ...(await serverSideTranslations(locale ?? 'en', ['common'])),
+      ...(await serverSideTranslations(locale, ['common'])),
       project: data.project,
       projects: data.projects.filter((o) => o.id !== params?.id),
     },
@@ -72,9 +80,15 @@ const ProjectPage: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = (p
       </Head>
       <Stack direction={'row'} spacing={1} sx={{ mb: 2 }}>
         {categories?.map((category) => (
-          <Link key={category} href={`/${category.toLocaleLowerCase()}`} passHref>
-            <Chip label={category} color={'link'} component="a" clickable />
-          </Link>
+          <Chip
+            label={category}
+            color={'link'}
+            component={Link}
+            clickable
+            key={category}
+            href={`/${category.toLocaleLowerCase()}`}
+            passHref
+          />
         ))}
       </Stack>
       <Typography component={'h1'} variant={'h2'} align={'center'} gutterBottom>
