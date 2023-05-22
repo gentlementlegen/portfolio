@@ -8,10 +8,6 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import ProjectContainer from 'components/project/ProjectContainer'
 import { QUERY_PROJECTS } from 'components/project/project.operations'
 
-function capitalizeFirstLetter(string: string) {
-  return string.charAt(0).toLocaleUpperCase() + string.slice(1)
-}
-
 export const getStaticPaths: GetStaticPaths = () => {
   return {
     paths: Object.values(Category).map((o) => `/${o.toLocaleLowerCase()}`),
@@ -28,8 +24,7 @@ export const getStaticProps: GetStaticProps<ProjectsQuery & { title: string }> =
           ? [Category.Projects, Category.Games, Category.Others]
           : Array.isArray(params?.category)
           ? params?.category
-          : [params?.category]
-        ).map((o) => capitalizeFirstLetter(o)) as Category[],
+          : [params?.category]) as Category[],
       },
     },
   })

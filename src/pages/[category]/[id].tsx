@@ -6,22 +6,26 @@ import ProjectContainer from 'components/project/ProjectContainer'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { ParsedUrlQuery } from 'querystring'
 import apolloClient from 'apolloClient'
-import { ProjectQuery } from 'generated/graphql'
+import { Category, ProjectQuery } from 'generated/graphql'
 import Head from 'next/head'
 import Link from 'next/link'
 import Error from 'next/error'
 import { ProjectElement, QUERY_PROJECT, QUERY_PROJECT_PAGES } from 'components/project/project.operations'
 import { getFragmentData } from 'generated'
 
+function capitalizeFirstLetter(string: string) {
+  return string.charAt(0).toLocaleUpperCase() + string.slice(1)
+}
+
 export const getStaticPaths: GetStaticPaths = async () => {
   const { data } = await apolloClient.query({
     query: QUERY_PROJECT_PAGES,
-    variables: {
-      first: 1,
-    },
   })
   const paths = data?.projects.reduce<{ params: ParsedUrlQuery; locale?: string }[]>((acc, curr) => {
-    const params = { id: curr.slug ?? curr.id, category: curr.categories?.length ? curr.categories[0] : 'others' }
+    const params = {
+      id: curr.slug ?? curr.id,
+      category: curr.categories?.length ? curr.categories[0] : Category.Games,
+    }
     return [...acc, { params, locale: 'en' }, { params, locale: 'ko' }, { params, locale: 'fr' }]
   }, [])
 
@@ -31,7 +35,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
   }
 }
 
-export const getStaticProps: GetStaticProps<ProjectQuery> = async ({ params, locale }) => {
+export const getStaticProps: GetStaticProps<ProjectQuery> = async ({ params, locale = 'en' }) => {
   const { data } = await apolloClient.query({
     query: QUERY_PROJECT,
     variables: { where: { slug: params?.id as string } },
@@ -39,7 +43,7 @@ export const getStaticProps: GetStaticProps<ProjectQuery> = async ({ params, loc
 
   return {
     props: {
-      ...(await serverSideTranslations(locale ?? 'en', ['common'])),
+      ...(await serverSideTranslations(locale, ['common'])),
       project: data.project,
       projects: data.projects.filter((o) => o.id !== params?.id),
     },
@@ -72,9 +76,15 @@ const ProjectPage: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = (p
       </Head>
       <Stack direction={'row'} spacing={1} sx={{ mb: 2 }}>
         {categories?.map((category) => (
-          <Link key={category} href={`/${category.toLocaleLowerCase()}`} passHref>
-            <Chip label={category} color={'link'} component="a" clickable />
-          </Link>
+          <Chip
+            label={capitalizeFirstLetter(category)}
+            color={'link'}
+            component={Link}
+            clickable
+            key={category}
+            href={`/${category.toLocaleLowerCase()}`}
+            passHref
+          />
         ))}
       </Stack>
       <Typography component={'h1'} variant={'h2'} align={'center'} gutterBottom>
