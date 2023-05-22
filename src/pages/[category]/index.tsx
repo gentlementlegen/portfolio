@@ -19,14 +19,17 @@ export const getStaticPaths: GetStaticPaths = () => {
   }
 }
 
-export const getStaticProps: GetStaticProps<ProjectsQuery & { title: string }> = async ({ params, locale }) => {
+export const getStaticProps: GetStaticProps<ProjectsQuery & { title: string }> = async ({ params, locale = 'en' }) => {
   const { data } = await apolloClient.query({
     query: QUERY_PROJECTS,
     variables: {
       where: {
-        categories_contains_some: (Array.isArray(params.category) ? params.category : [params.category]).map((o) =>
-          capitalizeFirstLetter(o),
-        ) as Category[],
+        categories_contains_some: (!params?.category
+          ? [Category.Projects, Category.Games, Category.Others]
+          : Array.isArray(params?.category)
+          ? params?.category
+          : [params?.category]
+        ).map((o) => capitalizeFirstLetter(o)) as Category[],
       },
     },
   })
@@ -34,8 +37,8 @@ export const getStaticProps: GetStaticProps<ProjectsQuery & { title: string }> =
   return {
     props: {
       ...(await serverSideTranslations(locale, ['common'])),
-      projects: data.projects.filter((o) => o.id !== params.id),
-      title: Array.isArray(params.category) ? params.category[0] : params.category,
+      projects: data.projects.filter((o) => o.id !== params?.id),
+      title: !params?.category ? '' : Array.isArray(params.category) ? params.category[0] : params.category,
     },
   }
 }

@@ -3,7 +3,6 @@ import {
   AppBar,
   Box,
   Button,
-  Hidden,
   IconButton,
   List,
   ListItem,
@@ -17,7 +16,7 @@ import {
 import Link from 'next/link'
 import styles from 'styles/Home.module.css'
 import AnchorLink, { AnchorLinkProps } from 'react-anchor-link-smooth-scroll'
-import { ColorModeContext } from 'components/context/ColorModeContext'
+import { useColorMode } from 'components/context/ColorModeContext'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { Menu } from '@mui/icons-material'
@@ -100,8 +99,8 @@ const CustomSwitch = styled((props: SwitchProps) => (
   },
 }))
 
-const NavBar = (): JSX.Element => {
-  const { toggleColorMode } = React.useContext(ColorModeContext)
+const NavBar = (): React.JSX.Element => {
+  const { toggleColorMode } = useColorMode()
   const { t } = useTranslation('common')
   const [openDrawer, setOpenDrawer] = useState(false)
 
@@ -124,7 +123,7 @@ const NavBar = (): JSX.Element => {
   return (
     <AppBar position={'sticky'} sx={{ backgroundImage: 'none' }}>
       <Toolbar>
-        <Hidden smUp>
+        <Box visibility={{ sm: 'hidden' }}>
           <IconButton sx={{ marginRight: 1 }} size="small" onClick={toggleDrawer(true)}>
             <Menu />
           </IconButton>
@@ -149,7 +148,7 @@ const NavBar = (): JSX.Element => {
               </List>
             </Box>
           </SwipeableDrawer>
-        </Hidden>
+        </Box>
         <Link href={'/'} passHref style={{ flexGrow: 1 }}>
           <Typography variant={'h6'} className={styles.navBarTitle} color={'secondary'}>
             Fernand Veyrier

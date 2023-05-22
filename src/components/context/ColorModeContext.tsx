@@ -2,9 +2,11 @@ import React, { PropsWithChildren } from 'react'
 import makeTheme from 'theme'
 import { ThemeProvider } from '@mui/material/styles'
 
-export const ColorModeContext = React.createContext({
+const ColorModeContext = React.createContext({
   toggleColorMode: () => {},
 })
+
+export const useColorMode = () => React.useContext(ColorModeContext)
 
 export default function ToggleColorMode(props: PropsWithChildren<unknown>) {
   const [mode, setMode] = React.useState<'light' | 'dark'>('dark')

@@ -43,7 +43,7 @@ const SkillContainer = (props: SkillContainerProps): JSX.Element => {
                     height={50}
                     style={{ objectFit: 'contain' }}
                     placeholder={'blur'}
-                    blurDataURL={o.blur}
+                    blurDataURL={o.blur ?? ''}
                   />
                 )}
               </div>

@@ -9,6 +9,7 @@ import apolloClient from 'apolloClient'
 import { ProjectQuery } from 'generated/graphql'
 import Head from 'next/head'
 import Link from 'next/link'
+import Error from 'next/error'
 import { ProjectElement, QUERY_PROJECT, QUERY_PROJECT_PAGES } from 'components/project/project.operations'
 import { getFragmentData } from 'generated'
 
@@ -33,20 +34,23 @@ export const getStaticPaths: GetStaticPaths = async () => {
 export const getStaticProps: GetStaticProps<ProjectQuery> = async ({ params, locale }) => {
   const { data } = await apolloClient.query({
     query: QUERY_PROJECT,
-    variables: { where: { slug: params.id as string } },
+    variables: { where: { slug: params?.id as string } },
   })
 
   return {
     props: {
-      ...(await serverSideTranslations(locale, ['common'])),
+      ...(await serverSideTranslations(locale ?? 'en', ['common'])),
       project: data.project,
-      projects: data.projects.filter((o) => o.id !== params.id),
+      projects: data.projects.filter((o) => o.id !== params?.id),
     },
   }
 }
 
 const ProjectPage: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = (props) => {
   const { project: projectFragment, projects } = props
+  if (!projectFragment) {
+    return <Error statusCode={404} />
+  }
   const { description } = projectFragment
   const { title, image, blur, categories } = getFragmentData(ProjectElement, projectFragment)
 
@@ -92,7 +96,7 @@ const ProjectPage: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = (p
             height={300}
             alt={title}
             placeholder={'blur'}
-            blurDataURL={blur}
+            blurDataURL={blur ?? ''}
             style={{
               maxWidth: '100%',
             }}

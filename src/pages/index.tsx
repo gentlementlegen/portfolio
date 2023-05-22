@@ -30,7 +30,7 @@ const QUERY_PROJECTS = graphql(/* GraphQL */ `
   }
 `)
 
-export const getStaticProps: GetStaticProps<ProjectsAndSkillsQuery> = async ({ locale }) => {
+export const getStaticProps: GetStaticProps<ProjectsAndSkillsQuery> = async ({ locale = 'en' }) => {
   const { data } = await apolloClient.query({ query: QUERY_PROJECTS })
 
   return {
