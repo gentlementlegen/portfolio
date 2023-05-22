@@ -42,6 +42,16 @@ function MyApp(props: AppProps & { Component: { hideMainLayout: boolean }; emoti
           content="I am Fernand Veyrier, gameplay and fullstack programmer. This portfolio mostly focuses on video games and personal projects."
           key="ogdescription"
         />
+        <link rel="shortcut icon" href="/favicon.ico" />
+        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+        <link rel="manifest" href="/site.webmanifest" />
+        <meta property="og:image" content={`https://${process.env.NEXT_PUBLIC_VERCEL_URL}/background.png`} />
+        <meta property="og:image:secure_url" content={`https://${process.env.NEXT_PUBLIC_VERCEL_URL}/background.png`} />
+        <meta property="og:image:type" content="image/png" />
+        <meta property="og:image:width" content="1024" />
+        <meta property="og:image:height" content="576" />
       </Head>
       <ThemeProvider theme={theme}>
         <ApolloProvider client={apolloClient}>
