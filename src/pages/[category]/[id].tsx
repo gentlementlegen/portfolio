@@ -6,7 +6,7 @@ import ProjectContainer from 'components/project/ProjectContainer'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { ParsedUrlQuery } from 'querystring'
 import apolloClient from 'apolloClient'
-import { ProjectQuery } from 'generated/graphql'
+import { Category, ProjectQuery } from 'generated/graphql'
 import Head from 'next/head'
 import Link from 'next/link'
 import Error from 'next/error'
@@ -16,19 +16,14 @@ import { getFragmentData } from 'generated'
 export const getStaticPaths: GetStaticPaths = async () => {
   const { data } = await apolloClient.query({
     query: QUERY_PROJECT_PAGES,
-    variables: {
-      first: 1,
-    },
   })
   const paths = data?.projects.reduce<{ params: ParsedUrlQuery; locale?: string }[]>((acc, curr) => {
     const params = {
       id: curr.slug ?? curr.id,
-      category: curr.categories?.length ? curr.categories[0].toLowerCase() : 'others',
+      category: curr.categories?.length ? curr.categories[0] : Category.Games,
     }
     return [...acc, { params, locale: 'en' }, { params, locale: 'ko' }, { params, locale: 'fr' }]
   }, [])
-
-  console.log('paths', paths)
 
   return {
     paths,
@@ -37,13 +32,10 @@ export const getStaticPaths: GetStaticPaths = async () => {
 }
 
 export const getStaticProps: GetStaticProps<ProjectQuery> = async ({ params, locale = 'en' }) => {
-  console.log('test')
   const { data } = await apolloClient.query({
     query: QUERY_PROJECT,
     variables: { where: { slug: params?.id as string } },
   })
-
-  console.log('here')
 
   return {
     props: {
