@@ -14,7 +14,6 @@ class MyDocument extends Document {
 
     ctx.renderPage = () =>
       originalRenderPage({
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         enhanceApp: (App: any) =>
           function EnhanceApp(props) {
             return <App emotionCache={cache} {...props} />
@@ -38,12 +37,11 @@ class MyDocument extends Document {
     }
   }
 
-  render(): JSX.Element {
+  render(): React.JSX.Element {
     return (
       <Html lang={'en'}>
         <Head>
-          {/* Inject MUI styles first to match with the prepend: true configuration. */}
-          {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
+          {/* Inject MUI styles first to match with prepend: true configuration. */}
           {/* @ts-ignore */}
           {this.props.emotionStyleTags}
         </Head>

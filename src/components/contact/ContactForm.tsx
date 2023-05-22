@@ -82,26 +82,24 @@ const ContactForm = (): JSX.Element => {
           </Grid>
           <Grid item xs={12} component={motion.div} custom={'name'} transition={{ duration: 0.3 }} animate={controls}>
             <TextField
-              name={'name'}
               label={t('name')}
               variant={'outlined'}
               color={'secondary'}
               error={Boolean(errors.data?.name)}
               helperText={errors.data?.name?.message}
               fullWidth
-              {...register('data.name', { required: t('required') })}
+              {...register('data.name', { required: `${t('required')}` })}
             />
           </Grid>
           <Grid item xs={12} component={motion.div} custom={'email'} transition={{ duration: 0.3 }} animate={controls}>
             <TextField
-              name={'email'}
               label={t('email')}
               variant={'outlined'}
               color={'secondary'}
               error={Boolean(errors.data?.email)}
               helperText={errors.data?.email?.message}
               fullWidth
-              {...register('data.email', { required: t('required') })}
+              {...register('data.email', { required: `${t('required')}` })}
             />
           </Grid>
           <Grid
@@ -113,7 +111,6 @@ const ContactForm = (): JSX.Element => {
             animate={controls}
           >
             <TextField
-              name={'message'}
               label={t('message')}
               variant={'outlined'}
               color={'secondary'}
@@ -122,7 +119,7 @@ const ContactForm = (): JSX.Element => {
               error={Boolean(errors.data?.message)}
               helperText={(errors.data?.message as FieldError)?.message}
               fullWidth
-              {...register('data.message', { required: t('required') })}
+              {...register('data.message', { required: `${t('required')}` })}
             />
           </Grid>
           <Grid item style={{ maxHeight: 68.5 }}>

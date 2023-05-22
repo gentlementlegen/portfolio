@@ -4,7 +4,7 @@ import { AppProps } from 'next/app'
 import { CssBaseline } from '@mui/material'
 import { ThemeProvider, useTheme } from '@mui/material/styles'
 import { ApolloProvider } from '@apollo/client'
-import client from 'apolloClient'
+import apolloClient from 'apolloClient'
 import Footer from 'components/layout/Footer'
 import ReactGA from 'react-ga4'
 import NavBar from 'components/layout/NavBar'
@@ -44,7 +44,7 @@ function MyApp(props: AppProps & { Component: { hideMainLayout: boolean }; emoti
         />
       </Head>
       <ThemeProvider theme={theme}>
-        <ApolloProvider client={client}>
+        <ApolloProvider client={apolloClient}>
           <CssBaseline />
           {!Component.hideMainLayout && <NavBar />}
           <main>
