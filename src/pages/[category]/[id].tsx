@@ -13,6 +13,10 @@ import Error from 'next/error'
 import { ProjectElement, QUERY_PROJECT, QUERY_PROJECT_PAGES } from 'components/project/project.operations'
 import { getFragmentData } from 'generated'
 
+function capitalizeFirstLetter(string: string) {
+  return string.charAt(0).toLocaleUpperCase() + string.slice(1)
+}
+
 export const getStaticPaths: GetStaticPaths = async () => {
   const { data } = await apolloClient.query({
     query: QUERY_PROJECT_PAGES,
@@ -73,7 +77,7 @@ const ProjectPage: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = (p
       <Stack direction={'row'} spacing={1} sx={{ mb: 2 }}>
         {categories?.map((category) => (
           <Chip
-            label={category}
+            label={capitalizeFirstLetter(category)}
             color={'link'}
             component={Link}
             clickable
