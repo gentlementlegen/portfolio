@@ -43,7 +43,7 @@
     "@graphql-codegen/cli": "2.16.5",
     "@graphql-codegen/client-preset": "2.1.1",
     "@types/apollo-upload-client": "17.0.2",
-    "@types/node": "18.16.17",
+    "@types/node": "18.16.18",
     "@types/nodemailer": "6.4.8",
     "@types/react": "18.2.12",
     "@types/react-anchor-link-smooth-scroll": "1.0.2",
