@@ -29,7 +29,7 @@
     "graphql": "16.7.1",
     "i18next": "23.5.1",
     "next": "13.4.10",
-    "next-i18next": "13.3.0",
+    "next-i18next": "14.0.3",
     "nodemailer": "6.9.5",
     "react": "18.2.0",
     "react-anchor-link-smooth-scroll": "1.0.12",
