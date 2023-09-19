@@ -130,6 +130,8 @@ export default function Home(props: InferGetStaticPropsType<typeof getStaticProp
       </Container>
       <Box sx={style.projectContainer}>
         <AnchorLink href={'#projects'} offset={100}>
+          {/*We ignore this error because it is due to the new children type in React and this lib is not up-to-date*/}
+          {/*@ts-ignore*/}
           <IconButton size={'large'} color={'secondary'}>
             <KeyboardArrowDownRoundedIcon />
           </IconButton>
