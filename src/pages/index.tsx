@@ -1,5 +1,5 @@
 import React from 'react'
-import { Box, Container, Grid, IconButton, Paper, Typography } from '@mui/material'
+import { Box, Container, Grid, IconButton, NoSsr, Paper, Typography } from '@mui/material'
 import KeyboardArrowDownRoundedIcon from '@mui/icons-material/KeyboardArrowDownRounded'
 import AnchorLink from 'react-anchor-link-smooth-scroll'
 import ProjectContainer from 'components/project/ProjectContainer'
@@ -13,9 +13,11 @@ import ContactForm from 'components/contact/ContactForm'
 import { Trans, useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import apolloClient from 'apolloClient'
-import { ProjectsAndSkillsQuery } from 'generated/graphql'
+import { ProjectElementFragmentDoc, ProjectsAndSkillsQuery } from 'generated/graphql'
 import { motion } from 'framer-motion'
-import { graphql } from 'generated'
+import { getFragmentData, graphql } from 'generated'
+import { BrowserView, MobileView } from 'react-device-detect'
+import CrossFadeImage from 'components/images/CrossFadeImage'
 
 const QUERY_PROJECTS = graphql(/* GraphQL */ `
   query ProjectsAndSkills {
@@ -87,9 +89,18 @@ export default function Home(props: InferGetStaticPropsType<typeof getStaticProp
   return (
     <MainLayout>
       <Box id={'home'} sx={style.root} />
-      <Box component={'video'} autoPlay muted loop preload="none" id="backgroundVideo" sx={style.videoContainer}>
-        <source src="backgroundVideo.mp4" type="video/mp4" />
-      </Box>
+      <NoSsr>
+        <BrowserView>
+          <Box component={'video'} autoPlay muted loop preload="none" id="backgroundVideo" sx={style.videoContainer}>
+            <source src="backgroundVideo.mp4" type="video/mp4" />
+          </Box>
+        </BrowserView>
+        <MobileView>
+          <Box sx={style.videoContainer}>
+            <CrossFadeImage images={getFragmentData(ProjectElementFragmentDoc, projects).map((o) => o.image.url)} />
+          </Box>
+        </MobileView>
+      </NoSsr>
       <Container className={styles.mainGrid}>
         <Grid container className={styles.mainGrid} alignItems={'center'}>
           <Grid item xs={12} sx={{ color: 'secondary.main', textShadow: '1px 1px 5px black' }}>
@@ -119,6 +130,8 @@ export default function Home(props: InferGetStaticPropsType<typeof getStaticProp
       </Container>
       <Box sx={style.projectContainer}>
         <AnchorLink href={'#projects'} offset={100}>
+          {/*We ignore this error because it is due to the new children type in React and this lib is not up-to-date*/}
+          {/*@ts-ignore*/}
           <IconButton size={'large'} color={'secondary'}>
             <KeyboardArrowDownRoundedIcon />
           </IconButton>

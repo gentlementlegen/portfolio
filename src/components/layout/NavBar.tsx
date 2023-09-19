@@ -21,7 +21,7 @@ import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { Menu } from '@mui/icons-material'
 
-const LinkElement = ({ children, href, offset }: PropsWithChildren<AnchorLinkProps>) => {
+const LinkElement = ({ children, href, offset }: PropsWithChildren<Omit<AnchorLinkProps, 'children'>>) => {
   const { route } = useRouter()
 
   return route !== '/' ? (
@@ -30,7 +30,7 @@ const LinkElement = ({ children, href, offset }: PropsWithChildren<AnchorLinkPro
     </Link>
   ) : (
     <AnchorLink href={href} offset={offset}>
-      {children}
+      {children as string}
     </AnchorLink>
   )
 }
