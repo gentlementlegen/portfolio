@@ -22,7 +22,7 @@ if (process.env.NODE_ENV === 'production') {
 
 const clientSideEmotionCache = createEmotionCache()
 
-function MyApp(props: AppProps & { Component: { hideMainLayout: boolean }; emotionCache: EmotionCache }) {
+function MyApp(props: AppProps & { emotionCache: EmotionCache }) {
   const { Component, emotionCache = clientSideEmotionCache, pageProps, router } = props
   const theme = useTheme()
 
@@ -67,7 +67,7 @@ function MyApp(props: AppProps & { Component: { hideMainLayout: boolean }; emoti
   )
 }
 
-const MainApp = (props: AppProps & { Component: { hideMainLayout: boolean }; emotionCache: EmotionCache }) => {
+const MainApp = (props: AppProps & { emotionCache: EmotionCache }) => {
   return (
     <ToggleColorMode>
       <MyApp {...props} />
