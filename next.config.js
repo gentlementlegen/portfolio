@@ -13,4 +13,13 @@ module.exports = {
     workerThreads: false,
     cpus: 1,
   },
+  async redirects() {
+    return [
+      {
+        source: '/svg-to-mui',
+        destination: 'https://mui-svg-converter.vercel.app/',
+        permanent: true,
+      },
+    ]
+  },
 }
