@@ -1814,10 +1814,10 @@
   resolved "https://registry.yarnpkg.com/@types/prop-types/-/prop-types-15.7.8.tgz#805eae6e8f41bd19e88917d2ea200dc992f405d3"
   integrity sha512-kMpQpfZKSCBqltAJwskgePRaYRFukDkm1oItcAbC3gNELR20XIBcN9VRgg4+m8DKsTfkWeA4m4Imp4DDuWy7FQ==
 
-"@types/react-anchor-link-smooth-scroll@1.0.3":
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/@types/react-anchor-link-smooth-scroll/-/react-anchor-link-smooth-scroll-1.0.3.tgz#e6359e3961dc3397663b08e706e71040092353ca"
-  integrity sha512-njjoSR6R2eGfIFOWCnJhETJtPbcIM6i6zSKwch+HuXoHCNEMz88mpIE1173H7MWSNzZr1CmKlgD98ag9nKE7fQ==
+"@types/react-anchor-link-smooth-scroll@1.0.4":
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/@types/react-anchor-link-smooth-scroll/-/react-anchor-link-smooth-scroll-1.0.4.tgz#eb3c78be1b0bdf516146cca0e7221a2ae6141c54"
+  integrity sha512-BPNSKK0Y4tDaTBbT+DMAdoq0Z8zU63DKbUB3MXVjNorsd7PdW17fR97NyG4Hi5TaAsyYJal32R0rum7Yd2D6zg==
   dependencies:
     "@types/react" "*"
 
