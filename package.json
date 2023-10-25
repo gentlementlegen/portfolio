@@ -46,7 +46,7 @@
     "@types/apollo-upload-client": "17.0.4",
     "@types/node": "20.8.8",
     "@types/nodemailer": "6.4.13",
-    "@types/react": "18.2.23",
+    "@types/react": "18.2.32",
     "@types/react-anchor-link-smooth-scroll": "1.0.4",
     "@typescript-eslint/eslint-plugin": "6.9.0",
     "@typescript-eslint/parser": "6.9.0",
