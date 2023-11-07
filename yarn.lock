@@ -1787,10 +1787,10 @@
   resolved "https://registry.yarnpkg.com/@types/prop-types/-/prop-types-15.7.9.tgz#b6f785caa7ea1fe4414d9df42ee0ab67f23d8a6d"
   integrity sha512-n1yyPsugYNSmHgxDFjicaI2+gCNjsBck8UX9kuofAKlc0h1bL+20oSF72KeNaW2DUlesbEVCFgyV2dPGTiY42g==
 
-"@types/react-anchor-link-smooth-scroll@1.0.4":
-  version "1.0.4"
-  resolved "https://registry.yarnpkg.com/@types/react-anchor-link-smooth-scroll/-/react-anchor-link-smooth-scroll-1.0.4.tgz#eb3c78be1b0bdf516146cca0e7221a2ae6141c54"
-  integrity sha512-BPNSKK0Y4tDaTBbT+DMAdoq0Z8zU63DKbUB3MXVjNorsd7PdW17fR97NyG4Hi5TaAsyYJal32R0rum7Yd2D6zg==
+"@types/react-anchor-link-smooth-scroll@1.0.5":
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/@types/react-anchor-link-smooth-scroll/-/react-anchor-link-smooth-scroll-1.0.5.tgz#43bc18f9e72bea25b85ea2b2fccc9bb450a7ed13"
+  integrity sha512-/OYQGmPMQ5IkEhQpiOtaMjOovdG8Vwr4UmCyIN7AiBoTvcAa5drg5Lizy9Bdz/WAnXFWj8xnQPwIxUWsVZUuew==
   dependencies:
     "@types/react" "*"
 
