@@ -47,7 +47,7 @@
     "@types/node": "20.8.10",
     "@types/nodemailer": "6.4.13",
     "@types/react": "18.2.23",
-    "@types/react-anchor-link-smooth-scroll": "1.0.4",
+    "@types/react-anchor-link-smooth-scroll": "1.0.5",
     "@typescript-eslint/eslint-plugin": "6.10.0",
     "@typescript-eslint/parser": "6.10.0",
     "dotenv": "16.3.1",
