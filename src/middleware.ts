@@ -5,11 +5,13 @@ import { cookieName, fallbackLng, languages } from 'components/i18n/settings'
 acceptLanguage.languages(languages)
 
 export const config = {
-  matcher: ['/((?!_next).*)'],
+  matcher: ['/((?!_next|.*.mp4|.*.ico).*)'],
 }
 
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl
+
+  console.log(pathname)
 
   if (pathname.startsWith('/svg-to-mui')) {
     return Response.redirect('https://mui-svg-converter.vercel.app/')

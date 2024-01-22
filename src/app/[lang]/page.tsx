@@ -11,6 +11,8 @@ import ContactSection from 'components/contact/ContactSection'
 import AboutSection from 'components/about/AboutSection'
 import SkillContainer from 'components/skills/SkillContainer'
 import ProjectContainer from 'components/project/ProjectContainer'
+import WelcomeMessage from 'components/home/WelcomeMessage'
+import DownArrow from 'components/home/DownArrow'
 
 interface HomePageProps {}
 
@@ -62,7 +64,6 @@ async function HomePage(props: HomePageProps) {
   const {
     data: { projects, skills },
   } = await apolloClient.query({ query: QUERY_PROJECTS })
-  // const { t } = useTranslation('common')
 
   return (
     <>
@@ -70,7 +71,7 @@ async function HomePage(props: HomePageProps) {
       <NoSsr>
         <BrowserView>
           <Box component={'video'} autoPlay muted loop preload="none" id="backgroundVideo" sx={style.videoContainer}>
-            <source src="../../../public/backgroundVideo.mp4" type="video/mp4" />
+            <source src="/backgroundVideo.mp4" type="video/mp4" />
           </Box>
         </BrowserView>
         <MobileView>
@@ -82,38 +83,12 @@ async function HomePage(props: HomePageProps) {
       <Container className={styles.mainGrid}>
         <Grid container className={styles.mainGrid} alignItems={'center'}>
           <Grid item xs={12} sx={{ color: 'secondary.main', textShadow: '1px 1px 5px black' }}>
-            {/*<motion.div*/}
-            {/*  initial={{ opacity: 0, translateY: 16 }}*/}
-            {/*  animate={{ opacity: 1, translateY: 0 }}*/}
-            {/*  transition={{ duration: 0.5, ease: 'easeInOut' }}*/}
-            {/*>*/}
-            {/*  <Typography variant={'h1'} component={'h2'} align={'center'} gutterBottom color={'#ffffff'}>*/}
-            {/*    {t('h1')}*/}
-            {/*  </Typography>*/}
-            {/*</motion.div>*/}
-            {/*<motion.div*/}
-            {/*  initial={{ opacity: 0, translateY: 16 }}*/}
-            {/*  animate={{ opacity: 1, translateY: 0 }}*/}
-            {/*  transition={{ duration: 0.4, delay: 0.1, ease: 'easeInOut' }}*/}
-            {/*>*/}
-            {/*  <Typography variant={'h5'} component={'h1'} align={'center'} color={'#ffffff'}>*/}
-            {/*    <Trans i18nKey={'h2'}>*/}
-            {/*      I am <em style={{ color: 'rgb(178, 178, 178)' }}>Fernand</em>, a dev lead in South Korea. Passionate*/}
-            {/*      about video-games, I currently work with React.js, Node.js, Typescript & GraphQl.*/}
-            {/*    </Trans>*/}
-            {/*  </Typography>*/}
-            {/*</motion.div>*/}
+            <WelcomeMessage />
           </Grid>
         </Grid>
       </Container>
       <Box sx={style.projectContainer}>
-        {/*<AnchorLink href={'#projects'} offset={100}>*/}
-        {/*  /!*We ignore this error because it is due to the new children type in React and this lib is not up-to-date*!/*/}
-        {/*  /!*@ts-ignore*!/*/}
-        {/*  <IconButton size={'large'} color={'secondary'}>*/}
-        {/*    <KeyboardArrowDownRoundedIcon />*/}
-        {/*  </IconButton>*/}
-        {/*</AnchorLink>*/}
+        <DownArrow />
       </Box>
       <Paper square sx={{ position: 'relative' }}>
         <Container sx={{ paddingBottom: 6, '& > *': { paddingBottom: 12 } }}>
