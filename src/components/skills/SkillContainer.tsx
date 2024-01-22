@@ -1,11 +1,13 @@
+'use client'
+
 import React from 'react'
 import { Box, Grid, Stack, Typography } from '@mui/material'
 import Image from 'next/image'
-import { useTranslation } from 'next-i18next'
 import { motion } from 'framer-motion'
 import { cardVariant, container } from 'components/animations/cardsReveal'
 import { FragmentType, getFragmentData } from 'generated'
 import { SkillElement } from 'components/project/project.operations'
+import { useTranslation } from 'components/i18n/client'
 
 interface SkillContainerProps {
   skills: FragmentType<typeof SkillElement>[]
@@ -14,7 +16,7 @@ interface SkillContainerProps {
 const SkillContainer = (props: SkillContainerProps): JSX.Element => {
   const { skills: skillsFragment } = props
   const skills = getFragmentData(SkillElement, skillsFragment)
-  const { t } = useTranslation('common')
+  const { t } = useTranslation('en', 'common')
 
   return (
     <Box>

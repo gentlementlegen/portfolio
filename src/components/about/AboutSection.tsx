@@ -1,3 +1,5 @@
+'use client'
+
 import React from 'react'
 import { Container, styled, Typography } from '@mui/material'
 import { useTranslation } from 'next-i18next'

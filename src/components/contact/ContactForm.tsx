@@ -1,20 +1,23 @@
+'use client'
+
 import React, { useState } from 'react'
 import { Container, Grid, TextField, Typography } from '@mui/material'
 import { LoadingButton } from '@mui/lab'
 import Success from 'components/animated/Success'
 import { FieldError, useForm } from 'react-hook-form'
-import { gql, useMutation } from '@apollo/client'
-import { useTranslation } from 'next-i18next'
+import { useMutation } from '@apollo/client'
 import { MutationCreateMessageArgs } from 'generated/graphql'
 import { motion, useAnimationControls } from 'framer-motion'
+import { useTranslation } from 'components/i18n/client'
+import { graphql } from 'generated'
 
-const MUTATION_SEND_EMAIL = gql`
+const MUTATION_SEND_EMAIL = graphql(/* GraphQL */ `
   mutation CreateMessage($data: MessageCreateInput!) {
     createMessage(data: $data) {
       id
     }
   }
-`
+`)
 
 const ContactForm = (): JSX.Element => {
   const {
@@ -23,9 +26,9 @@ const ContactForm = (): JSX.Element => {
     setError,
     formState: { errors },
   } = useForm<MutationCreateMessageArgs>()
-  const [sendEmail, { loading }] = useMutation<{ sendEmail: string }, MutationCreateMessageArgs>(MUTATION_SEND_EMAIL)
+  const [sendEmail, { loading }] = useMutation(MUTATION_SEND_EMAIL)
   const [sent, setSent] = useState(false)
-  const { t } = useTranslation('common')
+  const { t } = useTranslation('en', 'common')
   const controls = useAnimationControls()
 
   const handleFormError = async (event: { data: Record<string, unknown> }) => {

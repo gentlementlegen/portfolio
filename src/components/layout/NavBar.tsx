@@ -1,3 +1,5 @@
+'use client'
+
 import React, { PropsWithChildren, useState } from 'react'
 import {
   AppBar,
@@ -17,12 +19,12 @@ import Link from 'next/link'
 import styles from 'styles/Home.module.css'
 import AnchorLink, { AnchorLinkProps } from 'react-anchor-link-smooth-scroll'
 import { useColorMode } from 'components/context/ColorModeContext'
-import { useRouter } from 'next/router'
+import { usePathname } from 'next/navigation'
 import { useTranslation } from 'next-i18next'
 import { Menu } from '@mui/icons-material'
 
 const LinkElement = ({ children, href, offset }: PropsWithChildren<Omit<AnchorLinkProps, 'children'>>) => {
-  const { route } = useRouter()
+  const route = usePathname()
 
   return route !== '/' ? (
     <Link href={`/${href}`} passHref>
