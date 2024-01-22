@@ -11,8 +11,6 @@ export const config = {
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl
 
-  console.log(pathname)
-
   if (pathname.startsWith('/svg-to-mui')) {
     return Response.redirect('https://mui-svg-converter.vercel.app/')
   }

@@ -19,7 +19,11 @@ const MUTATION_SEND_EMAIL = graphql(/* GraphQL */ `
   }
 `)
 
-const ContactForm = (): JSX.Element => {
+export interface ContactFormProps {
+  lang: string
+}
+
+const ContactForm = ({ lang }: ContactFormProps) => {
   const {
     handleSubmit,
     register,
@@ -28,7 +32,7 @@ const ContactForm = (): JSX.Element => {
   } = useForm<MutationCreateMessageArgs>()
   const [sendEmail, { loading }] = useMutation(MUTATION_SEND_EMAIL)
   const [sent, setSent] = useState(false)
-  const { t } = useTranslation('en', 'common')
+  const { t } = useTranslation(lang, 'common')
   const controls = useAnimationControls()
 
   const handleFormError = async (event: { data: Record<string, unknown> }) => {

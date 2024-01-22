@@ -46,7 +46,7 @@ export default function RootLayout({ children, params }: { children: React.React
       <body>
         <CookiesProvider>
           <CommonTheme>
-            <NavBar />
+            <NavBar lang={params.lang} />
             <MainLayout>{children}</MainLayout>
             <Footer />
           </CommonTheme>

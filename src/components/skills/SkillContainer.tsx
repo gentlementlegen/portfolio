@@ -11,12 +11,13 @@ import { useTranslation } from 'components/i18n/client'
 
 interface SkillContainerProps {
   skills: FragmentType<typeof SkillElement>[]
+  lang: string
 }
 
 const SkillContainer = (props: SkillContainerProps): JSX.Element => {
-  const { skills: skillsFragment } = props
+  const { skills: skillsFragment, lang } = props
   const skills = getFragmentData(SkillElement, skillsFragment)
-  const { t } = useTranslation('en', 'common')
+  const { t } = useTranslation(lang, 'common')
 
   return (
     <Box>

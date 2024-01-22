@@ -2,7 +2,7 @@ import React from 'react'
 import apolloClient from 'apolloClient'
 import { ProjectElement, QUERY_PROJECT } from 'components/project/project.operations'
 import { getFragmentData } from 'generated'
-import { notFound } from 'next/navigation'
+import { redirect } from 'next/navigation'
 import { Box, Chip, Container, Stack, Typography } from '@mui/material'
 import Link from 'next/link'
 import ProjectContainer from 'components/project/ProjectContainer'
@@ -42,7 +42,7 @@ async function ProjectPage({ params }: { params: { id: string } }) {
   const project = data.project
   const projects = data.projects.filter((o) => o.id !== params?.id)
   if (!project) {
-    return notFound()
+    return redirect('/')
   }
   const { description } = project
   const { title, image, blur, categories } = getFragmentData(ProjectElement, project)

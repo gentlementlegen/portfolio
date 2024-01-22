@@ -1,24 +1,34 @@
 import React from 'react'
 import apolloClient from 'apolloClient'
-import { QUERY_PROJECTS } from 'components/project/project.operations'
+import { ProjectElement, QUERY_PROJECTS } from 'components/project/project.operations'
 import { Category } from 'generated/graphql'
 import { Box, Container, Typography } from '@mui/material'
 import ProjectContainer from 'components/project/ProjectContainer'
+import { FragmentType } from 'generated'
+import { redirect } from 'next/navigation'
 
 async function CategoryPage({ params }: { params: { category: string; id: string } }) {
-  const { data } = await apolloClient.query({
-    query: QUERY_PROJECTS,
-    variables: {
-      where: {
-        categories_contains_some: (!params?.category
-          ? [Category.Projects, Category.Games, Category.Others]
-          : Array.isArray(params?.category)
-            ? params?.category
-            : [params?.category]) as Category[],
+  let projects: FragmentType<typeof ProjectElement>[] | null = null
+  try {
+    const { data, error } = await apolloClient.query({
+      query: QUERY_PROJECTS,
+      variables: {
+        where: {
+          categories_contains_some: (!params?.category
+            ? [Category.Projects, Category.Games, Category.Others]
+            : Array.isArray(params?.category)
+              ? params?.category
+              : [params?.category]) as Category[],
+        },
       },
-    },
-  })
-  const projects = data.projects.filter((o) => o.id !== params?.id)
+    })
+    projects = data.projects.filter((o) => o.id !== params?.id)
+  } catch (e) {
+    console.error('Failed to fetch projects', e)
+  }
+  if (!projects) {
+    return redirect('/')
+  }
   const title = !params?.category ? '' : Array.isArray(params.category) ? params.category[0] : params.category
   return (
     <>

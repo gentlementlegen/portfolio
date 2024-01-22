@@ -20,8 +20,8 @@ import styles from 'styles/Home.module.css'
 import AnchorLink, { AnchorLinkProps } from 'react-anchor-link-smooth-scroll'
 import { useColorMode } from 'components/context/ColorModeContext'
 import { usePathname } from 'next/navigation'
-import { useTranslation } from 'next-i18next'
 import { Menu } from '@mui/icons-material'
+import { useTranslation } from 'components/i18n/client'
 
 const LinkElement = ({ children, href, offset }: PropsWithChildren<Omit<AnchorLinkProps, 'children'>>) => {
   const route = usePathname()
@@ -101,9 +101,13 @@ const CustomSwitch = styled((props: SwitchProps) => (
   },
 }))
 
-const NavBar = (): React.JSX.Element => {
+export interface NavBarProps {
+  lang: string
+}
+
+const NavBar = ({ lang }: NavBarProps) => {
   const { toggleColorMode } = useColorMode()
-  const { t } = useTranslation('common')
+  const { t } = useTranslation(lang, 'common')
   const [openDrawer, setOpenDrawer] = useState(false)
 
   const handleSwitchChange = () => {

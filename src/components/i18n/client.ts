@@ -5,7 +5,7 @@ import i18next from 'i18next'
 import { initReactI18next, useTranslation as useTranslationOrg, UseTranslationOptions } from 'react-i18next'
 import resourcesToBackend from 'i18next-resources-to-backend'
 import LanguageDetector from 'i18next-browser-languagedetector'
-import { cookieName, getOptions, languages } from 'components/i18n/settings'
+import { cookieName, defaultNS, getOptions, languages } from 'components/i18n/settings'
 import { useCookies } from 'next-client-cookies'
 
 const runsOnServerSide = typeof window === 'undefined'
@@ -23,7 +23,7 @@ i18next
     preload: runsOnServerSide ? languages : [],
   })
 
-export function useTranslation(lng: string, ns: string, options?: UseTranslationOptions<undefined>) {
+export function useTranslation(lng: string, ns = defaultNS, options?: UseTranslationOptions<undefined>) {
   const ret = useTranslationOrg(ns, options)
   const cookies = useCookies()
 

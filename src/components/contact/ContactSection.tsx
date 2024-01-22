@@ -25,8 +25,12 @@ const styles = {
   },
 }
 
-const ContactSection = (): JSX.Element => {
-  const { t } = useTranslation('en', 'common')
+export interface ContactSectionProps {
+  lang: string
+}
+
+const ContactSection = ({ lang }: ContactSectionProps) => {
+  const { t } = useTranslation(lang, 'common')
 
   return (
     <div>

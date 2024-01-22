@@ -2,7 +2,7 @@
 
 import React from 'react'
 import { Container, styled, Typography } from '@mui/material'
-import { useTranslation } from 'next-i18next'
+import { useTranslation } from 'components/i18n/client'
 import { motion } from 'framer-motion'
 import { cardVariant } from 'components/animations/cardsReveal'
 
@@ -11,8 +11,12 @@ const Span = styled('span')(({ theme }) => ({
   display: 'block',
 }))
 
-const AboutSection = (): JSX.Element => {
-  const { t } = useTranslation('common')
+export interface AboutSectionProps {
+  lang: string
+}
+
+const AboutSection = ({ lang }: AboutSectionProps) => {
+  const { t } = useTranslation(lang, 'common')
 
   return (
     <Container maxWidth={'md'} id={'about'}>
