@@ -129,7 +129,7 @@ const NavBar = ({ lang }: NavBarProps) => {
   return (
     <AppBar position={'sticky'} sx={{ backgroundImage: 'none' }}>
       <Toolbar>
-        <Box visibility={{ sm: 'hidden' }}>
+        <Box visibility={{ md: 'hidden' }}>
           <IconButton sx={{ marginRight: 1 }} size="small" onClick={toggleDrawer(true)}>
             <Menu />
           </IconButton>
@@ -155,11 +155,12 @@ const NavBar = ({ lang }: NavBarProps) => {
             </Box>
           </SwipeableDrawer>
         </Box>
-        <Link href={'/'} passHref style={{ flexGrow: 1 }}>
+        <Link href={'/'} passHref>
           <Typography variant={'h6'} className={styles.navBarTitle} color={'secondary'}>
             Fernand Veyrier
           </Typography>
         </Link>
+        <Box flexGrow={1} />
         <Box display={{ xs: 'none', md: 'block' }}>
           <LinkElement href={'#home'} offset={100}>
             <Button color={'inherit'}>{t('home')}</Button>
