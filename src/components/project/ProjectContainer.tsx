@@ -1,3 +1,5 @@
+'use client'
+
 import React from 'react'
 import { Box, BoxProps, Grid } from '@mui/material'
 import ProjectCard from 'components/project/ProjectCard'
