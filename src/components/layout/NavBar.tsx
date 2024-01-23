@@ -1,3 +1,5 @@
+'use client'
+
 import React, { PropsWithChildren, useState } from 'react'
 import {
   AppBar,
@@ -17,14 +19,14 @@ import Link from 'next/link'
 import styles from 'styles/Home.module.css'
 import AnchorLink, { AnchorLinkProps } from 'react-anchor-link-smooth-scroll'
 import { useColorMode } from 'components/context/ColorModeContext'
-import { useRouter } from 'next/router'
-import { useTranslation } from 'next-i18next'
+import { useParams } from 'next/navigation'
 import { Menu } from '@mui/icons-material'
+import { useTranslation } from 'components/i18n/client'
 
 const LinkElement = ({ children, href, offset }: PropsWithChildren<Omit<AnchorLinkProps, 'children'>>) => {
-  const { route } = useRouter()
+  const { category } = useParams()
 
-  return route !== '/' ? (
+  return category ? (
     <Link href={`/${href}`} passHref>
       {children}
     </Link>
@@ -99,9 +101,13 @@ const CustomSwitch = styled((props: SwitchProps) => (
   },
 }))
 
-const NavBar = (): React.JSX.Element => {
+export interface NavBarProps {
+  lang: string
+}
+
+const NavBar = ({ lang }: NavBarProps) => {
   const { toggleColorMode } = useColorMode()
-  const { t } = useTranslation('common')
+  const { t } = useTranslation(lang, 'common')
   const [openDrawer, setOpenDrawer] = useState(false)
 
   const handleSwitchChange = () => {
@@ -123,7 +129,7 @@ const NavBar = (): React.JSX.Element => {
   return (
     <AppBar position={'sticky'} sx={{ backgroundImage: 'none' }}>
       <Toolbar>
-        <Box visibility={{ sm: 'hidden' }}>
+        <Box visibility={{ md: 'hidden' }}>
           <IconButton sx={{ marginRight: 1 }} size="small" onClick={toggleDrawer(true)}>
             <Menu />
           </IconButton>
@@ -149,11 +155,12 @@ const NavBar = (): React.JSX.Element => {
             </Box>
           </SwipeableDrawer>
         </Box>
-        <Link href={'/'} passHref style={{ flexGrow: 1 }}>
+        <Link href={'/'} passHref>
           <Typography variant={'h6'} className={styles.navBarTitle} color={'secondary'}>
             Fernand Veyrier
           </Typography>
         </Link>
+        <Box flexGrow={1} />
         <Box display={{ xs: 'none', md: 'block' }}>
           <LinkElement href={'#home'} offset={100}>
             <Button color={'inherit'}>{t('home')}</Button>
