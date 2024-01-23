@@ -7,6 +7,7 @@ declare global {
       EMAIL_PASSWORD: string
       MONGODB_URI: string
       NEXT_PUBLIC_BACKEND_URL: string
+      SITE_URL: string
     }
   }
 }

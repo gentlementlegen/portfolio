@@ -5,7 +5,7 @@ import { cookieName, fallbackLng, languages } from 'components/i18n/settings'
 acceptLanguage.languages(languages)
 
 export const config = {
-  matcher: ['/((?!_next|.*.mp4|.*.ico).*)'],
+  matcher: ['/((?!_next|.*.mp4|.*.ico|sitemap.xml).*)'],
 }
 
 export function middleware(request: NextRequest) {
