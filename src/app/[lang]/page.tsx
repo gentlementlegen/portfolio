@@ -1,9 +1,6 @@
 import React from 'react'
-import { Box, Container, Grid, NoSsr, Paper, SxProps, Theme } from '@mui/material'
-import { BrowserView, MobileView } from 'react-device-detect'
-import CrossFadeImage from 'components/images/CrossFadeImage'
-import { getFragmentData, graphql } from 'generated'
-import { ProjectElementFragmentDoc } from 'generated/graphql'
+import { Box, Container, Grid, Paper, SxProps, Theme } from '@mui/material'
+import { graphql } from 'generated'
 import apolloClient from 'apolloClient'
 import styles from 'styles/Home.module.css'
 import ContactForm from 'components/contact/ContactForm'
@@ -13,6 +10,7 @@ import SkillContainer from 'components/skills/SkillContainer'
 import ProjectContainer from 'components/project/ProjectContainer'
 import WelcomeMessage from 'components/home/WelcomeMessage'
 import DownArrow from 'components/home/DownArrow'
+import Background from 'components/home/Background'
 
 interface HomePageProps {
   params: {
@@ -72,18 +70,7 @@ async function HomePage({ params }: HomePageProps) {
   return (
     <>
       <Box id={'home'} sx={style.root} />
-      <NoSsr>
-        <BrowserView>
-          <Box component={'video'} autoPlay muted loop preload="none" id="backgroundVideo" sx={style.videoContainer}>
-            <source src="/backgroundVideo.mp4" type="video/mp4" />
-          </Box>
-        </BrowserView>
-        <MobileView>
-          <Box sx={style.videoContainer}>
-            <CrossFadeImage images={getFragmentData(ProjectElementFragmentDoc, projects).map((o) => o.image.url)} />
-          </Box>
-        </MobileView>
-      </NoSsr>
+      <Background projects={projects} />
       <Container className={styles.mainGrid}>
         <Grid container className={styles.mainGrid} alignItems={'center'}>
           <Grid item xs={12} sx={{ color: 'secondary.main', textShadow: '1px 1px 5px black' }}>
