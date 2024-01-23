@@ -19,14 +19,14 @@ import Link from 'next/link'
 import styles from 'styles/Home.module.css'
 import AnchorLink, { AnchorLinkProps } from 'react-anchor-link-smooth-scroll'
 import { useColorMode } from 'components/context/ColorModeContext'
-import { usePathname } from 'next/navigation'
+import { useParams } from 'next/navigation'
 import { Menu } from '@mui/icons-material'
 import { useTranslation } from 'components/i18n/client'
 
 const LinkElement = ({ children, href, offset }: PropsWithChildren<Omit<AnchorLinkProps, 'children'>>) => {
-  const route = usePathname()
+  const { category } = useParams()
 
-  return route !== '/' ? (
+  return category ? (
     <Link href={`/${href}`} passHref>
       {children}
     </Link>
