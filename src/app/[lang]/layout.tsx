@@ -8,11 +8,6 @@ import { dir } from 'i18next'
 import { languages } from 'components/i18n/settings'
 import { CookiesProvider } from 'next-client-cookies/server'
 
-//         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
-//         <link rel="shortcut icon" href="/favicon.ico" />
-//         <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-//         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
-//         <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
 //         <link rel="manifest" href="/site.webmanifest" />
 //         <meta property="og:image" content={`https://${process.env.NEXT_PUBLIC_VERCEL_URL}/background.png`} />
 //         <meta property="og:image:secure_url" content={`https://${process.env.NEXT_PUBLIC_VERCEL_URL}/background.png`} />
@@ -21,6 +16,15 @@ import { CookiesProvider } from 'next-client-cookies/server'
 //         <meta property="og:image:height" content="576" />
 
 export const metadata = {
+  metadataBase: new URL(`https://${process.env.NEXT_PUBLIC_VERCEL_URL}`),
+  alternates: {
+    canonical: '/',
+    languages: {
+      en: 'en',
+      fr: 'fr',
+      ko: 'ko',
+    },
+  },
   title: 'Fernand Veyrier',
   description:
     'I am Fernand Veyrier, gameplay and fullstack programmer. This portfolio mostly focuses on video games and personal projects.',
@@ -28,6 +32,7 @@ export const metadata = {
     title: 'Fernand Veyrier',
     description:
       'I am Fernand Veyrier, gameplay and fullstack programmer. This portfolio mostly focuses on video games and personal projects.',
+    images: '/background.png',
   },
 }
 
