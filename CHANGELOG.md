@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.0](https://github.com/FernandVEYRIER/portfolio/compare/v1.0.0...v1.1.0) (2024-01-23)
+
+
+### Features
+
+* the mobile background is now static images instead of a video to improve performance ([cb92db2](https://github.com/FernandVEYRIER/portfolio/commit/cb92db23ca0e2a8162710e86e05bd4d7410c3781))
+
 ## 1.0.0 (2024-01-23)
 
 
