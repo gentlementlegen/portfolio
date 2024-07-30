@@ -4114,10 +4114,10 @@ i18next-browser-languagedetector@8.0.0:
   dependencies:
     "@babel/runtime" "^7.23.2"
 
-i18next-fs-backend@^2.3.1:
-  version "2.3.1"
-  resolved "https://registry.yarnpkg.com/i18next-fs-backend/-/i18next-fs-backend-2.3.1.tgz#0c7d2459ff4a039e2b3228131809fbc0e74ff1a8"
-  integrity sha512-tvfXskmG/9o+TJ5Fxu54sSO5OkY6d+uMn+K6JiUGLJrwxAVfer+8V3nU8jq3ts9Pe5lXJv4b1N7foIjJ8Iy2Gg==
+i18next-fs-backend@^2.3.2:
+  version "2.3.2"
+  resolved "https://registry.yarnpkg.com/i18next-fs-backend/-/i18next-fs-backend-2.3.2.tgz#580b91c9a306b452112e0a1ad3b07e9fd266e567"
+  integrity sha512-LIwUlkqDZnUI8lnUxBnEj8K/FrHQTT/Sc+1rvDm9E8YvvY5YxzoEAASNx+W5M9DfD5s77lI5vSAFWeTp26B/3Q==
 
 i18next-resources-to-backend@1.2.1:
   version "1.2.1"
@@ -4909,16 +4909,16 @@ next-client-cookies@1.1.1:
   dependencies:
     js-cookie "^3.0.5"
 
-next-i18next@15.3.0:
-  version "15.3.0"
-  resolved "https://registry.yarnpkg.com/next-i18next/-/next-i18next-15.3.0.tgz#b4530c80573854d00f95229af405e1e5beedbf18"
-  integrity sha512-bq7Cc9XJFcmGOCLnyEtHaeJ3+JJNsI/8Pkj9BaHAnhm4sZ9vNNC4ZsaqYnlRZ7VH5ypSo73fEqLK935jLsmCvQ==
+next-i18next@15.3.1:
+  version "15.3.1"
+  resolved "https://registry.yarnpkg.com/next-i18next/-/next-i18next-15.3.1.tgz#7603d1194f2eb518372e636b93b5ffa3c809b15d"
+  integrity sha512-+pa2pZJb7B6k5PKW3TLVMmAodqkNaOBWVYlpWX56mgcEJz0UMW+MKSdKM9Z72CHp6Bp48g7OWwDnLqxXNp/84w==
   dependencies:
     "@babel/runtime" "^7.23.2"
     "@types/hoist-non-react-statics" "^3.3.4"
     core-js "^3"
     hoist-non-react-statics "^3.3.2"
-    i18next-fs-backend "^2.3.1"
+    i18next-fs-backend "^2.3.2"
 
 next@14.2.5:
   version "14.2.5"
