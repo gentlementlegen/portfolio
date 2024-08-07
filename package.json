@@ -13,7 +13,7 @@
     "watch": "graphql-codegen -r dotenv/config --watch"
   },
   "dependencies": {
-    "@apollo/client": "3.11.3",
+    "@apollo/client": "3.11.4",
     "@emotion/cache": "11.13.1",
     "@emotion/react": "11.13.0",
     "@emotion/server": "11.11.0",
