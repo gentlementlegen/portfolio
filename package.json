@@ -22,7 +22,7 @@
     "@mui/lab": "5.0.0-alpha.173",
     "@mui/material": "5.16.7",
     "@mui/system": "5.16.7",
-    "accept-language": "3.0.18",
+    "accept-language": "3.0.20",
     "apollo-upload-client": "17.0.0",
     "clsx": "2.1.1",
     "framer-motion": "11.3.24",
