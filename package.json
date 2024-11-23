@@ -46,7 +46,7 @@
   "devDependencies": {
     "@formatjs/intl-localematcher": "0.5.8",
     "@graphql-codegen/cli": "5.0.3",
-    "@graphql-codegen/client-preset": "4.5.0",
+    "@graphql-codegen/client-preset": "4.5.1",
     "@types/apollo-upload-client": "17.0.5",
     "@types/negotiator": "0.6.3",
     "@types/node": "22.9.1",
