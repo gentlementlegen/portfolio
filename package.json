@@ -59,7 +59,7 @@
     "dotenv-cli": "7.4.4",
     "eslint": "9.15.0",
     "eslint-config-next": "14.2.18",
-    "prettier": "3.4.0",
+    "prettier": "3.4.1",
     "ts-node": "10.9.2",
     "typescript": "5.7.2"
   }
