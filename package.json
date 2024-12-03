@@ -55,7 +55,7 @@
     "@types/react-anchor-link-smooth-scroll": "1.0.5",
     "@typescript-eslint/eslint-plugin": "8.17.0",
     "@typescript-eslint/parser": "8.17.0",
-    "dotenv": "16.4.5",
+    "dotenv": "16.4.6",
     "dotenv-cli": "7.4.4",
     "eslint": "9.16.0",
     "eslint-config-next": "14.2.18",
