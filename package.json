@@ -44,7 +44,7 @@
     "react-icons": "5.5.0"
   },
   "devDependencies": {
-    "@formatjs/intl-localematcher": "0.6.0",
+    "@formatjs/intl-localematcher": "0.6.1",
     "@graphql-codegen/cli": "5.0.5",
     "@graphql-codegen/client-preset": "4.7.0",
     "@types/apollo-upload-client": "17.0.5",
