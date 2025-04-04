@@ -57,7 +57,7 @@
     "@typescript-eslint/parser": "8.29.0",
     "dotenv": "16.4.7",
     "dotenv-cli": "8.0.0",
-    "eslint": "9.23.0",
+    "eslint": "9.24.0",
     "eslint-config-next": "14.2.26",
     "prettier": "3.5.3",
     "ts-node": "10.9.2",
