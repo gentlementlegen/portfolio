@@ -1,11 +1,13 @@
+'use client'
+
 import React from 'react'
 import { Grid, styled, Typography } from '@mui/material'
 import { BsGithub, BsLinkedin, BsStackOverflow } from 'react-icons/bs'
 import MuiLink from '@mui/material/Link'
 import { AiFillRocket } from 'react-icons/ai'
-import { useTranslation } from 'next-i18next'
 import { motion } from 'framer-motion'
 import { cardVariant, container } from 'components/animations/cardsReveal'
+import { useTranslation } from 'components/i18n/client'
 
 const Link = styled(MuiLink)(
   ({ theme }) => `
@@ -23,8 +25,12 @@ const styles = {
   },
 }
 
-const ContactSection = (): JSX.Element => {
-  const { t } = useTranslation('common')
+export interface ContactSectionProps {
+  lang: string
+}
+
+const ContactSection = ({ lang }: ContactSectionProps) => {
+  const { t } = useTranslation(lang, 'common')
 
   return (
     <div>
@@ -41,11 +47,6 @@ const ContactSection = (): JSX.Element => {
         whileInView="visible"
         viewport={{ once: true }}
       >
-        {/*<Grid item xs={12}>*/}
-        {/*  <Typography variant={'h2'} align={'center'}>*/}
-        {/*    {t('find me')}*/}
-        {/*  </Typography>*/}
-        {/*</Grid>*/}
         <Grid item sm={2} xs={6} sx={styles.centered} component={motion.div} layout variants={cardVariant}>
           <Link
             target={'_blank'}
