@@ -1,0 +1,8 @@
+schema: src/generated/schema.graphql
+extensions:
+  endpoints:
+    Default GraphQL Endpoint:
+      url: ${NEXT_PUBLIC_BACKEND_URL}
+      headers:
+        user-agent: JS GraphQL
+      introspect: true
