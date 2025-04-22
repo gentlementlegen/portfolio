@@ -13,10 +13,11 @@ function capitalizeFirstLetter(string: string) {
   return string.charAt(0).toLocaleUpperCase() + string.slice(1)
 }
 
-export async function generateMetadata({ params }: { params: { id: string } }): Promise<Metadata> {
+export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
+  const { id } = await params
   const { data } = await apolloClient.query({
     query: QUERY_PROJECT,
-    variables: { where: { slug: params.id } },
+    variables: { where: { slug: id } },
   })
   const project = data.project
 
@@ -35,13 +36,14 @@ export async function generateMetadata({ params }: { params: { id: string } }): 
   }
 }
 
-async function ProjectPage({ params }: { params: { id: string } }) {
+async function ProjectPage({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params
   const { data } = await apolloClient.query({
     query: QUERY_PROJECT,
-    variables: { where: { slug: params.id } },
+    variables: { where: { slug: id } },
   })
   const project = data.project
-  const projects = data.projects.filter((o) => o.id !== params?.id)
+  const projects = data.projects.filter((o) => o.id !== id)
   if (!project) {
     return redirect('/')
   }

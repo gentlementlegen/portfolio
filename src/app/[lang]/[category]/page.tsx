@@ -7,29 +7,30 @@ import ProjectContainer from 'components/project/ProjectContainer'
 import { FragmentType } from 'generated'
 import { redirect } from 'next/navigation'
 
-async function CategoryPage({ params }: { params: { category: string; id: string } }) {
+async function CategoryPage({ params }: { params: Promise<{ category: string; id: string }> }) {
+  const { category, id } = await params
   let projects: FragmentType<typeof ProjectElement>[] | null = null
   try {
     const { data, error } = await apolloClient.query({
       query: QUERY_PROJECTS,
       variables: {
         where: {
-          categories_contains_some: (!params?.category
+          categories_contains_some: (!category
             ? [Category.Projects, Category.Games, Category.Others]
-            : Array.isArray(params?.category)
-              ? params?.category
-              : [params?.category]) as Category[],
+            : Array.isArray(category)
+              ? category
+              : [category]) as Category[],
         },
       },
     })
-    projects = data.projects.filter((o) => o.id !== params?.id)
+    projects = data.projects.filter((o) => o.id !== id)
   } catch (e) {
     console.error('Failed to fetch projects', e)
   }
   if (!projects) {
     return redirect('/')
   }
-  const title = !params?.category ? '' : Array.isArray(params.category) ? params.category[0] : params.category
+  const title = !category ? '' : Array.isArray(category) ? category[0] : category
   return (
     <>
       <Container maxWidth={'lg'} sx={{ py: { xs: 4, sm: 10 } }}>

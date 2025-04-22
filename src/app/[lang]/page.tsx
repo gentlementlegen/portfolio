@@ -13,9 +13,9 @@ import DownArrow from 'components/home/DownArrow'
 import Background from 'components/home/Background'
 
 interface HomePageProps {
-  params: {
+  params: Promise<{
     lang: string
-  }
+  }>
 }
 
 const style: Record<'root' | 'projectContainer' | 'videoContainer', SxProps<Theme>> = {
@@ -66,6 +66,7 @@ async function HomePage({ params }: HomePageProps) {
   const {
     data: { projects, skills },
   } = await apolloClient.query({ query: QUERY_PROJECTS })
+  const { lang } = await params
 
   return (
     <>
@@ -74,7 +75,7 @@ async function HomePage({ params }: HomePageProps) {
       <Container className={styles.mainGrid}>
         <Grid container className={styles.mainGrid} alignItems={'center'}>
           <Grid item xs={12} sx={{ color: 'secondary.main', textShadow: '1px 1px 5px black' }}>
-            <WelcomeMessage lang={params.lang} />
+            <WelcomeMessage lang={lang} />
           </Grid>
         </Grid>
       </Container>
@@ -84,10 +85,10 @@ async function HomePage({ params }: HomePageProps) {
       <Paper square sx={{ position: 'relative' }}>
         <Container sx={{ paddingBottom: 6, '& > *': { paddingBottom: 12 } }}>
           <ProjectContainer projects={projects} />
-          <SkillContainer skills={skills} lang={params.lang} />
-          <AboutSection lang={params.lang} />
-          <ContactSection lang={params.lang} />
-          <ContactForm lang={params.lang} />
+          <SkillContainer skills={skills} lang={lang} />
+          <AboutSection lang={lang} />
+          <ContactSection lang={lang} />
+          <ContactForm lang={lang} />
         </Container>
       </Paper>
     </>
