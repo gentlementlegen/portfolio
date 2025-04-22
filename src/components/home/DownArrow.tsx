@@ -9,6 +9,8 @@ interface DownArrowProps extends AnchorLinkProps {}
 
 export default function DownArrow(props: DownArrowProps) {
   return (
+    /*We ignore this error because it is due to the new children type in React and this lib is not up-to-date*/
+    /*@ts-ignore*/
     <AnchorLink href={'#projects'} offset={100}>
       {/*We ignore this error because it is due to the new children type in React and this lib is not up-to-date*/}
       {/*@ts-ignore*/}
