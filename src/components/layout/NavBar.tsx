@@ -31,6 +31,7 @@ const LinkElement = ({ children, href, offset }: PropsWithChildren<Omit<AnchorLi
       {children}
     </Link>
   ) : (
+    // @ts-ignore
     <AnchorLink href={href} offset={offset}>
       {children as string}
     </AnchorLink>

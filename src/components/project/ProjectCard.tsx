@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { JSX } from 'react'
 import { Card, CardActionArea, CardContent, CardMedia, CardProps, Typography } from '@mui/material'
 import Image from 'next/image'
 import { ProjectElementFragment } from 'generated/graphql'

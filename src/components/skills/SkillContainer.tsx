@@ -1,6 +1,6 @@
 'use client'
 
-import React from 'react'
+import React, { JSX } from 'react'
 import { Box, Grid, Stack, Typography } from '@mui/material'
 import Image from 'next/image'
 import { motion } from 'framer-motion'
@@ -35,7 +35,7 @@ const SkillContainer = (props: SkillContainerProps): JSX.Element => {
         viewport={{ once: true }}
       >
         {skills.map((o) => (
-          <Grid key={o.id} item xs={6} sm={4} md={2} component={motion.div} layout variants={cardVariant}>
+          <Grid key={o.id} size={{ xs: 6, sm: 4, md: 2 }} component={motion.div} layout variants={cardVariant}>
             <Stack position={'relative'} alignItems={'center'}>
               <div>
                 {o.image && (
