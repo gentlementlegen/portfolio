@@ -1,5 +1,5 @@
 import React from 'react'
-import { Box, Container, Grid, Paper, SxProps, Theme } from '@mui/material'
+import { Box, Container, Paper, SxProps, Theme, Grid } from '@mui/material'
 import { graphql } from 'generated'
 import apolloClient from 'apolloClient'
 import styles from 'styles/Home.module.css'
@@ -74,7 +74,7 @@ async function HomePage({ params }: HomePageProps) {
       <Background projects={projects} />
       <Container className={styles.mainGrid}>
         <Grid container className={styles.mainGrid} alignItems={'center'}>
-          <Grid item xs={12} sx={{ color: 'secondary.main', textShadow: '1px 1px 5px black' }}>
+          <Grid size={{ xs: 12 }} sx={{ color: 'secondary.main', textShadow: '1px 1px 5px black' }}>
             <WelcomeMessage lang={lang} />
           </Grid>
         </Grid>

@@ -1,6 +1,6 @@
 'use client'
 
-import React from 'react'
+import React, { JSX } from 'react'
 import { Box, BoxProps, Grid } from '@mui/material'
 import ProjectCard from 'components/project/ProjectCard'
 import { motion } from 'framer-motion'
@@ -39,7 +39,7 @@ const ProjectContainer = (props: ProjectContainerProps): JSX.Element => {
         viewport={{ once: true }}
       >
         {projects?.map((project) => (
-          <Grid component={motion.div} item sm={3} xs={6} key={project.id} layout variants={cardVariant}>
+          <Grid component={motion.div} size={{ sm: 3, xs: 6 }} key={project.id} layout variants={cardVariant}>
             <ProjectCard project={project} />
           </Grid>
         ))}

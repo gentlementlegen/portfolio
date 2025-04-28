@@ -1,4 +1,4 @@
-import React, { PropsWithChildren } from 'react'
+import React, { JSX, PropsWithChildren } from 'react'
 import styles from 'styles/Home.module.css'
 import { Box, BoxProps } from '@mui/system'
 

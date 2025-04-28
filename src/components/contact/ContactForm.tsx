@@ -82,12 +82,12 @@ const ContactForm = ({ lang }: ContactFormProps) => {
     >
       <form onSubmit={handleSubmit(submitForm, handleFormError)}>
         <Grid container spacing={4} justifyContent={'center'}>
-          <Grid item xs={12}>
+          <Grid size={12}>
             <Typography variant={'h3'} align={'center'}>
               {t('share')} 🍻
             </Typography>
           </Grid>
-          <Grid item xs={12} component={motion.div} custom={'name'} transition={{ duration: 0.3 }} animate={controls}>
+          <Grid size={12} component={motion.div} custom={'name'} transition={{ duration: 0.3 }} animate={controls}>
             <TextField
               label={t('name')}
               variant={'outlined'}
@@ -98,7 +98,7 @@ const ContactForm = ({ lang }: ContactFormProps) => {
               {...register('data.name', { required: `${t('required')}` })}
             />
           </Grid>
-          <Grid item xs={12} component={motion.div} custom={'email'} transition={{ duration: 0.3 }} animate={controls}>
+          <Grid size={12} component={motion.div} custom={'email'} transition={{ duration: 0.3 }} animate={controls}>
             <TextField
               label={t('email')}
               variant={'outlined'}
@@ -109,14 +109,7 @@ const ContactForm = ({ lang }: ContactFormProps) => {
               {...register('data.email', { required: `${t('required')}` })}
             />
           </Grid>
-          <Grid
-            item
-            xs={12}
-            component={motion.div}
-            custom={'message'}
-            transition={{ duration: 0.3 }}
-            animate={controls}
-          >
+          <Grid size={12} component={motion.div} custom={'message'} transition={{ duration: 0.3 }} animate={controls}>
             <TextField
               label={t('message')}
               variant={'outlined'}
@@ -129,7 +122,7 @@ const ContactForm = ({ lang }: ContactFormProps) => {
               {...register('data.message', { required: `${t('required')}` })}
             />
           </Grid>
-          <Grid item style={{ maxHeight: 68.5 }}>
+          <Grid style={{ maxHeight: 68.5 }}>
             <LoadingButton
               style={{ overflow: 'hidden' }}
               type={'submit'}

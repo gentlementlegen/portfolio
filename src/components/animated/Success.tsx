@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { JSX } from 'react'
 import style from 'components/animated/Success.module.css'
 import { clsx } from 'clsx'
 
