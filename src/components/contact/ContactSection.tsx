@@ -47,7 +47,7 @@ const ContactSection = ({ lang }: ContactSectionProps) => {
         whileInView="visible"
         viewport={{ once: true }}
       >
-        <Grid item sm={2} xs={6} sx={styles.centered} component={motion.div} layout variants={cardVariant}>
+        <Grid size={{ xs: 6, sm: 2 }} sx={styles.centered} component={motion.div} layout variants={cardVariant}>
           <Link
             target={'_blank'}
             rel={'noreferrer'}
@@ -59,7 +59,7 @@ const ContactSection = ({ lang }: ContactSectionProps) => {
             <Typography align={'center'}>Stack Overflow</Typography>
           </Link>
         </Grid>
-        <Grid item sm={2} xs={6} sx={styles.centered} component={motion.div} layout variants={cardVariant}>
+        <Grid size={{ xs: 6, sm: 2 }} sx={styles.centered} component={motion.div} layout variants={cardVariant}>
           <Link
             target={'_blank'}
             rel={'noreferrer'}
@@ -71,7 +71,7 @@ const ContactSection = ({ lang }: ContactSectionProps) => {
             <Typography align={'center'}>Github</Typography>
           </Link>
         </Grid>
-        <Grid item sm={2} xs={6} sx={styles.centered} component={motion.div} layout variants={cardVariant}>
+        <Grid size={{ xs: 6, sm: 2 }} sx={styles.centered} component={motion.div} layout variants={cardVariant}>
           <Link
             target={'_blank'}
             rel={'noreferrer'}
@@ -83,7 +83,7 @@ const ContactSection = ({ lang }: ContactSectionProps) => {
             <Typography align={'center'}>LinkedIn</Typography>
           </Link>
         </Grid>
-        <Grid item sm={2} xs={6} sx={styles.centered} component={motion.div} layout variants={cardVariant}>
+        <Grid size={{ xs: 6, sm: 2 }} sx={styles.centered} component={motion.div} layout variants={cardVariant}>
           <Link
             target={'_blank'}
             rel={'noreferrer'}
