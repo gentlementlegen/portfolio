@@ -33,7 +33,7 @@
     "next": "15.3.1",
     "next-client-cookies": "2.1.0",
     "next-i18next": "15.4.2",
-    "nodemailer": "7.0.0",
+    "nodemailer": "7.0.2",
     "react": "19.1.0",
     "react-anchor-link-smooth-scroll": "1.0.12",
     "react-device-detect": "2.2.3",
