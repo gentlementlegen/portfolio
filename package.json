@@ -48,7 +48,7 @@
     "@graphql-codegen/cli": "5.0.7",
     "@graphql-codegen/client-preset": "4.8.2",
     "@types/apollo-upload-client": "17.0.5",
-    "@types/negotiator": "0.6.3",
+    "@types/negotiator": "0.6.4",
     "@types/node": "22.15.30",
     "@types/nodemailer": "6.4.17",
     "@types/react": "19.1.6",
