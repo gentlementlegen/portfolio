@@ -1,5 +1,6 @@
 {
   "lockfileVersion": 1,
+  "configVersion": 0,
   "workspaces": {
     "": {
       "name": "portfolio",
@@ -24,7 +25,7 @@
         "next": "15.4.7",
         "next-client-cookies": "2.1.0",
         "next-i18next": "15.4.2",
-        "nodemailer": "7.0.6",
+        "nodemailer": "7.0.11",
         "react": "19.1.1",
         "react-anchor-link-smooth-scroll": "1.0.12",
         "react-device-detect": "2.2.3",
@@ -1223,7 +1224,7 @@
 
     "node-releases": ["node-releases@2.0.19", "", {}, "sha512-xxOWJsBKtzAq7DY0J+DTzuz58K8e7sJbdgwkbMWQe8UYB6ekmsQ45q0M/tJDsGaZmbC+l7n57UV8Hl5tHxO9uw=="],
 
-    "nodemailer": ["nodemailer@7.0.6", "", {}, "sha512-F44uVzgwo49xboqbFgBGkRaiMgtoBrBEWCVincJPK9+S9Adkzt/wXCLKbf7dxucmxfTI5gHGB+bEmdyzN6QKjw=="],
+    "nodemailer": ["nodemailer@7.0.11", "", {}, "sha512-gnXhNRE0FNhD7wPSCGhdNh46Hs6nm+uTyg+Kq0cZukNQiYdnCsoQjodNP9BQVG9XrcK/v6/MgpAPBUFyzh9pvw=="],
 
     "normalize-path": ["normalize-path@2.1.1", "", { "dependencies": { "remove-trailing-separator": "^1.0.1" } }, "sha512-3pKJwH184Xo/lnH6oyP1q2pMd7HcypqqmRs91/6/i2CGtWwIKGCkOOMTm/zXbgTEWHw1uNpNi/igc3ePOYHb6w=="],
 
