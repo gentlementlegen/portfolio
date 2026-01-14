@@ -17,12 +17,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const { data } = await apolloClient.query({
     query: QUERY_PROJECTS,
   })
+  const projects = data?.projects ?? []
   const siteUrl = process.env.SITE_URL ? `https://${process.env.SITE_URL}` : 'https://www.fernand-veyrier.xyz'
   const categoriesUrl = Object.values(Category).map((key) => ({
     url: `${siteUrl}/${key}`,
     lastModified: new Date(),
   }))
-  const projectsUrl = data.projects.map((project) => ({
+  const projectsUrl = projects.map((project) => ({
     url: `${siteUrl}/${project.categories[0]}/${project.slug}`,
     lastModified: new Date(),
   }))

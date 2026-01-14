@@ -63,9 +63,9 @@ const QUERY_PROJECTS = graphql(/* GraphQL */ `
 `)
 
 async function HomePage({ params }: HomePageProps) {
-  const {
-    data: { projects, skills },
-  } = await apolloClient.query({ query: QUERY_PROJECTS })
+  const { data } = await apolloClient.query({ query: QUERY_PROJECTS })
+  const projects = data?.projects ?? []
+  const skills = data?.skills ?? []
   const { lang } = await params
 
   return (

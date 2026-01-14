@@ -19,7 +19,7 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
     query: QUERY_PROJECT,
     variables: { where: { slug: id } },
   })
-  const project = data.project
+  const project = data?.project
 
   if (!project) return {}
   const { description } = project
@@ -42,8 +42,8 @@ async function ProjectPage({ params }: { params: Promise<{ id: string }> }) {
     query: QUERY_PROJECT,
     variables: { where: { slug: id } },
   })
-  const project = data.project
-  const projects = data.projects.filter((o) => o.id !== id)
+  const project = data?.project
+  const projects = data?.projects?.filter((o) => o.id !== id) ?? []
   if (!project) {
     return redirect('/')
   }

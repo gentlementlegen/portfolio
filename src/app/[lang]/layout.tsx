@@ -45,13 +45,20 @@ if (process.env.NODE_ENV === 'production') {
   ReactGA.send('pageview')
 }
 
-export default function RootLayout({ children, params }: { children: React.ReactNode; params: { lang: string } }) {
+export default async function RootLayout({
+  children,
+  params,
+}: {
+  children: React.ReactNode
+  params: Promise<{ lang: string }>
+}) {
+  const { lang } = await params
   return (
-    <html lang={params.lang} dir={dir(params.lang)}>
+    <html lang={lang} dir={dir(lang)}>
       <body>
         <CookiesProvider>
           <CommonTheme>
-            <NavBar lang={params.lang} />
+            <NavBar lang={lang} />
             <MainLayout>{children}</MainLayout>
             <Footer />
           </CommonTheme>
