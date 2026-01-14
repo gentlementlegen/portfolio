@@ -3,15 +3,11 @@ import apolloClient from 'apolloClient'
 import { ProjectElement, QUERY_PROJECT } from 'components/project/project.operations'
 import { getFragmentData } from 'generated'
 import { redirect } from 'next/navigation'
-import { Box, Chip, Container, Stack, Typography } from '@mui/material'
-import Link from 'next/link'
+import { Box, Container, Typography } from '@mui/material'
 import ProjectContainer from 'components/project/ProjectContainer'
 import Image from 'next/image'
 import { Metadata } from 'next'
-
-function capitalizeFirstLetter(string: string) {
-  return string.charAt(0).toLocaleUpperCase() + string.slice(1)
-}
+import ProjectCategoryChips from 'components/project/ProjectCategoryChips'
 
 export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
   const { id } = await params
@@ -19,7 +15,7 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
     query: QUERY_PROJECT,
     variables: { where: { slug: id } },
   })
-  const project = data.project
+  const project = data?.project
 
   if (!project) return {}
   const { description } = project
@@ -42,8 +38,8 @@ async function ProjectPage({ params }: { params: Promise<{ id: string }> }) {
     query: QUERY_PROJECT,
     variables: { where: { slug: id } },
   })
-  const project = data.project
-  const projects = data.projects.filter((o) => o.id !== id)
+  const project = data?.project
+  const projects = data?.projects?.filter((o) => o.id !== id) ?? []
   if (!project) {
     return redirect('/')
   }
@@ -59,19 +55,7 @@ async function ProjectPage({ params }: { params: Promise<{ id: string }> }) {
         my: { xs: 4, sm: 10 },
       }}
     >
-      <Stack direction={'row'} spacing={1} sx={{ mb: 2 }}>
-        {categories?.map((category) => (
-          <Chip
-            label={capitalizeFirstLetter(category)}
-            color={'link'}
-            component={Link}
-            clickable
-            key={category}
-            href={`/${category.toLocaleLowerCase()}`}
-            passHref
-          />
-        ))}
-      </Stack>
+      <ProjectCategoryChips categories={categories ?? []} />
       <Typography component={'h1'} variant={'h2'} align={'center'} gutterBottom>
         {title}
       </Typography>

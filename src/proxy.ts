@@ -8,7 +8,7 @@ export const config = {
   matcher: ['/((?!_next|.*.mp4|.*.ico|sitemap.xml|robots.txt|.*.png).*)'],
 }
 
-export function middleware(request: NextRequest) {
+export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl
 
   if (pathname.startsWith('/svg-to-mui')) {

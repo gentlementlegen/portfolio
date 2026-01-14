@@ -2,7 +2,7 @@
 
 import React, { PropsWithChildren } from 'react'
 import { CssBaseline } from '@mui/material'
-import { ApolloProvider } from '@apollo/client'
+import { ApolloProvider } from '@apollo/client/react'
 import apolloClient from 'apolloClient'
 import ToggleColorMode from 'components/context/ColorModeContext'
 
