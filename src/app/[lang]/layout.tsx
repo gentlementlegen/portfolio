@@ -7,6 +7,7 @@ import ReactGA from 'react-ga4'
 import { dir } from 'i18next'
 import { languages } from 'components/i18n/settings'
 import { CookiesProvider } from 'next-client-cookies/server'
+import { Analytics } from '@vercel/analytics/next'
 
 //         <link rel="manifest" href="/site.webmanifest" />
 //         <meta property="og:image" content={`https://${process.env.NEXT_PUBLIC_VERCEL_URL}/background.png`} />
@@ -63,6 +64,7 @@ export default async function RootLayout({
             <Footer />
           </CommonTheme>
         </CookiesProvider>
+        <Analytics />
       </body>
     </html>
   )
