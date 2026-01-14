@@ -11,7 +11,7 @@ async function CategoryPage({ params }: { params: Promise<{ category: string; id
   const { category, id } = await params
   let projects: FragmentType<typeof ProjectElement>[] | null = null
   try {
-    const { data, error } = await apolloClient.query({
+    const { data } = await apolloClient.query({
       query: QUERY_PROJECTS,
       variables: {
         where: {
@@ -23,7 +23,7 @@ async function CategoryPage({ params }: { params: Promise<{ category: string; id
         },
       },
     })
-    projects = data.projects.filter((o) => o.id !== id)
+    projects = data?.projects?.filter((o) => o.id !== id) ?? null
   } catch (e) {
     console.error('Failed to fetch projects', e)
   }
