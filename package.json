@@ -52,7 +52,7 @@
     "@formatjs/intl-localematcher": "0.7.5",
     "@graphql-codegen/cli": "6.1.1",
     "@graphql-codegen/client-preset": "5.2.2",
-    "@playwright/test": "1.55.0",
+    "@playwright/test": "1.57.0",
     "@types/apollo-upload-client": "19.0.0",
     "@types/negotiator": "0.6.4",
     "@types/node": "25.0.8",
