@@ -1,8 +1,7 @@
 'use client'
 
 import React, { useState } from 'react'
-import { Container, Grid, TextField, Typography } from '@mui/material'
-import { LoadingButton } from '@mui/lab'
+import { Button, Container, Grid, TextField, Typography } from '@mui/material'
 import Success from 'components/animated/Success'
 import { FieldError, useForm } from 'react-hook-form'
 import { useMutation } from '@apollo/client/react'
@@ -123,7 +122,7 @@ const ContactForm = ({ lang }: ContactFormProps) => {
             />
           </Grid>
           <Grid style={{ maxHeight: 68.5 }}>
-            <LoadingButton
+            <Button
               style={{ overflow: 'hidden' }}
               type={'submit'}
               variant={'contained'}
@@ -133,7 +132,7 @@ const ContactForm = ({ lang }: ContactFormProps) => {
               loadingIndicator={sent ? <Success /> : undefined}
             >
               {t('submit')}
-            </LoadingButton>
+            </Button>
           </Grid>
         </Grid>
       </form>
