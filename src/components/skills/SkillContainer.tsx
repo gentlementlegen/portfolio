@@ -20,7 +20,7 @@ const SkillContainer = (props: SkillContainerProps): JSX.Element => {
   const { t } = useTranslation(lang, 'common')
 
   return (
-    <Box>
+    <Box id={'skills'}>
       <Typography variant={'h2'} align={'center'} gutterBottom>
         {t('skills')}
       </Typography>

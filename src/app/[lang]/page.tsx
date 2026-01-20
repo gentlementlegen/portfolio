@@ -1,8 +1,7 @@
 import React from 'react'
-import { Box, Container, Paper, SxProps, Theme, Grid } from '@mui/material'
+import { Box, Container, Grid, Paper, SxProps, Theme } from '@mui/material'
 import { graphql } from 'generated'
 import apolloClient from 'apolloClient'
-import styles from 'styles/Home.module.css'
 import ContactForm from 'components/contact/ContactForm'
 import ContactSection from 'components/contact/ContactSection'
 import AboutSection from 'components/about/AboutSection'
@@ -18,34 +17,29 @@ interface HomePageProps {
   }>
 }
 
-const style: Record<'root' | 'projectContainer' | 'videoContainer', SxProps<Theme>> = {
-  root: {
-    height: { xs: 'calc(100vh - 56px)', md: 'calc(100vh - 64px)' },
-    top: { sx: 56, md: 64 },
-    width: '100%',
-    position: 'absolute',
-    zIndex: -2,
-    backgroundColor: 'black',
-    opacity: 0.7,
+const style: Record<'hero' | 'scrollCue' | 'contentPaper', SxProps<Theme>> = {
+  hero: {
+    minHeight: { xs: 'calc(100vh - 80px)', md: 'calc(100vh - 96px)' },
+    display: 'flex',
+    alignItems: 'center',
+    position: 'relative',
+    paddingTop: { xs: 10, md: 14 },
+    paddingBottom: { xs: 12, md: 16 },
   },
-  projectContainer: {
+  scrollCue: {
     display: 'flex',
     justifyContent: 'center',
-    position: 'fixed',
+    position: 'absolute',
     left: '50%',
-    bottom: 8,
+    bottom: { xs: 16, md: 24 },
     transform: 'translateX(-50%)',
   },
-  videoContainer: {
-    height: { xs: 'calc(100vh - 56px)', md: 'calc(100vh - 64px)' },
-    top: { sx: 56, md: 64 },
-    width: '100%',
-    position: 'fixed',
-    zIndex: -3,
-    objectFit: 'cover',
-    filter: 'blur(4px)',
-    msFilter: 'blur(4px)',
-    webkitFilter: 'blur(4px)',
+  contentPaper: {
+    position: 'relative',
+    backgroundColor: 'background.paper',
+    borderTop: '1px solid',
+    borderColor: 'divider',
+    backdropFilter: 'blur(18px)',
   },
 }
 
@@ -70,20 +64,21 @@ async function HomePage({ params }: HomePageProps) {
 
   return (
     <>
-      <Box id={'home'} sx={style.root} />
-      <Background projects={projects} />
-      <Container className={styles.mainGrid}>
-        <Grid container className={styles.mainGrid} alignItems={'center'}>
-          <Grid size={{ xs: 12 }} sx={{ color: 'secondary.main', textShadow: '1px 1px 5px black' }}>
-            <WelcomeMessage lang={lang} />
+      <Background />
+      <Box id={'home'} sx={style.hero}>
+        <Container maxWidth={'md'}>
+          <Grid container alignItems={'center'} justifyContent={'center'}>
+            <Grid size={{ xs: 12 }}>
+              <WelcomeMessage lang={lang} />
+            </Grid>
           </Grid>
-        </Grid>
-      </Container>
-      <Box sx={style.projectContainer}>
-        <DownArrow />
+        </Container>
+        <Box sx={style.scrollCue}>
+          <DownArrow />
+        </Box>
       </Box>
-      <Paper square sx={{ position: 'relative' }}>
-        <Container sx={{ paddingBottom: 6, '& > *': { paddingBottom: 12 } }}>
+      <Paper square variant={'outlined'} sx={style.contentPaper}>
+        <Container sx={{ paddingBottom: 6, paddingTop: 10, '& > *': { paddingBottom: 12 } }}>
           <ProjectContainer projects={projects} />
           <SkillContainer skills={skills} lang={lang} />
           <AboutSection lang={lang} />
