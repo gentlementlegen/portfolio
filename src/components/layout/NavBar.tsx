@@ -1,6 +1,6 @@
 'use client'
 
-import React, { PropsWithChildren, useState } from 'react'
+import { DarkModeOutlined, LightModeOutlined, Menu } from '@mui/icons-material'
 import {
   AppBar,
   Box,
@@ -14,13 +14,13 @@ import {
   Toolbar,
   Typography,
 } from '@mui/material'
-import Link from 'next/link'
-import AnchorLink, { AnchorLinkProps } from 'react-anchor-link-smooth-scroll'
-import { useColorMode } from 'components/context/ColorModeContext'
-import { useParams } from 'next/navigation'
-import { DarkModeOutlined, LightModeOutlined, Menu } from '@mui/icons-material'
-import { useTranslation } from 'components/i18n/client'
 import { useTheme } from '@mui/material/styles'
+import { useColorMode } from 'components/context/ColorModeContext'
+import { useTranslation } from 'components/i18n/client'
+import Link from 'next/link'
+import { useParams } from 'next/navigation'
+import React, { PropsWithChildren, useState } from 'react'
+import AnchorLink, { AnchorLinkProps } from 'react-anchor-link-smooth-scroll'
 
 const LinkElement = ({ children, href, offset }: PropsWithChildren<Omit<AnchorLinkProps, 'children'>>) => {
   const { category } = useParams()
@@ -123,7 +123,7 @@ const NavBar = ({ lang }: NavBarProps) => {
                   color: 'text.primary',
                 }}
               >
-                {'<Dev />'}
+                {'<Fernand />'}
               </Typography>
             </Link>
             <Box flexGrow={1} />
@@ -152,7 +152,11 @@ const NavBar = ({ lang }: NavBarProps) => {
               onClick={toggleColorMode}
               aria-label={'toggle color mode'}
             >
-              {theme.palette.mode === 'dark' ? <LightModeOutlined fontSize={'small'} /> : <DarkModeOutlined fontSize={'small'} />}
+              {theme.palette.mode === 'dark' ? (
+                <LightModeOutlined fontSize={'small'} />
+              ) : (
+                <DarkModeOutlined fontSize={'small'} />
+              )}
             </IconButton>
           </Toolbar>
         </Paper>
