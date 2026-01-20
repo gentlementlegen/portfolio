@@ -1,13 +1,12 @@
 'use client'
 
-import React from 'react'
 import { Grid, styled, Typography } from '@mui/material'
-import { BsGithub, BsLinkedin, BsStackOverflow } from 'react-icons/bs'
 import MuiLink from '@mui/material/Link'
-import { AiFillRocket } from 'react-icons/ai'
-import { motion } from 'framer-motion'
 import { cardVariant, container } from 'components/animations/cardsReveal'
 import { useTranslation } from 'components/i18n/client'
+import { motion } from 'framer-motion'
+import { AiFillRocket } from 'react-icons/ai'
+import { BsGithub, BsLinkedin, BsStackOverflow } from 'react-icons/bs'
 
 const Link = styled(MuiLink)(
   ({ theme }) => `
@@ -64,7 +63,7 @@ const ContactSection = ({ lang }: ContactSectionProps) => {
             target={'_blank'}
             rel={'noreferrer'}
             color={'inherit'}
-            href={'https://github.com/FernandVEYRIER'}
+            href={'https://github.com/gentlementlegen'}
             underline={'hover'}
           >
             <BsGithub size={25} />
