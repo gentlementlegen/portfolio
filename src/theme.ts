@@ -138,7 +138,7 @@ const makeTheme = (mode: 'light' | 'dark') => {
             backgroundImage: 'none',
           },
           rounded: {
-            borderRadius: theme.shape.borderRadius * 1.2,
+            borderRadius: Number(theme.shape.borderRadius) * 1.2,
           },
           outlined: {
             borderColor: alpha(theme.palette.text.primary, 0.12),
