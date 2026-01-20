@@ -9,10 +9,22 @@ import { CodeRounded, DownloadRounded, MailOutline, GitHub, LinkedIn } from '@mu
 
 interface WelcomeMessageProps {
   lang: string
+  cvUrl?: string
 }
 
-export default function WelcomeMessage({ lang }: WelcomeMessageProps) {
+export default function WelcomeMessage({ lang, cvUrl }: WelcomeMessageProps) {
   const { t } = useTranslation(lang, 'common')
+  const handleContactClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
+    event.preventDefault()
+    const target = document.getElementById('contact')
+    if (!target) {
+      return
+    }
+    const navOffset = 96
+    const top = target.getBoundingClientRect().top + window.scrollY - navOffset
+    window.scrollTo({ top, behavior: 'smooth' })
+    window.history.replaceState(null, '', '#contact')
+  }
 
   return (
     <motion.div
@@ -75,13 +87,21 @@ export default function WelcomeMessage({ lang }: WelcomeMessageProps) {
             <Button
               variant={'contained'}
               startIcon={<DownloadRounded />}
-              component={'a'}
-              href={'/fernand-veyrier-cv.pdf'}
-              download
+              component={cvUrl ? 'a' : 'button'}
+              href={cvUrl || undefined}
+              target={cvUrl ? '_blank' : undefined}
+              rel={cvUrl ? 'noreferrer' : undefined}
+              disabled={!cvUrl}
             >
               {t('download cv')}
             </Button>
-            <Button variant={'outlined'} startIcon={<MailOutline />} component={'a'} href={'#contact'}>
+            <Button
+              variant={'outlined'}
+              startIcon={<MailOutline />}
+              component={'a'}
+              href={'#contact'}
+              onClick={handleContactClick}
+            >
               {t('get in touch')}
             </Button>
           </Stack>

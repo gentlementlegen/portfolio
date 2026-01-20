@@ -53,6 +53,13 @@ const QUERY_PROJECTS = graphql(/* GraphQL */ `
       id
       ...skillElement
     }
+    cvs(first: 1) {
+      id
+      document {
+        id
+        url
+      }
+    }
   }
 `)
 
@@ -60,6 +67,7 @@ async function HomePage({ params }: HomePageProps) {
   const { data } = await apolloClient.query({ query: QUERY_PROJECTS })
   const projects = data?.projects ?? []
   const skills = data?.skills ?? []
+  const cvUrl = data?.cvs?.[0]?.document?.url ?? ''
   const { lang } = await params
 
   return (
@@ -69,7 +77,7 @@ async function HomePage({ params }: HomePageProps) {
         <Container maxWidth={'md'}>
           <Grid container alignItems={'center'} justifyContent={'center'}>
             <Grid size={{ xs: 12 }}>
-              <WelcomeMessage lang={lang} />
+              <WelcomeMessage lang={lang} cvUrl={cvUrl} />
             </Grid>
           </Grid>
         </Container>
