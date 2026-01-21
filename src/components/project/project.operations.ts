@@ -24,6 +24,15 @@ export const ProjectElement = graphql(/* GraphQL */ `
     slug
     categories
     blur
+    projectUrl
+    projectCodeUrl
+    description {
+      text
+    }
+    skills {
+      id
+      name
+    }
     image {
       id
       url

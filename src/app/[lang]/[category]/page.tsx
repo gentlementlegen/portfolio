@@ -7,8 +7,8 @@ import ProjectContainer from 'components/project/ProjectContainer'
 import { FragmentType } from 'generated'
 import { redirect } from 'next/navigation'
 
-async function CategoryPage({ params }: { params: Promise<{ category: string; id: string }> }) {
-  const { category, id } = await params
+async function CategoryPage({ params }: { params: Promise<{ category: string; id: string; lang: string }> }) {
+  const { category, id, lang } = await params
   let projects: FragmentType<typeof ProjectElement>[] | null = null
   try {
     const { data } = await apolloClient.query({
@@ -40,7 +40,7 @@ async function CategoryPage({ params }: { params: Promise<{ category: string; id
             {title}
           </Box>
         </Typography>
-        <ProjectContainer projects={projects} sx={{ pt: { xs: 0, sm: 8 } }} />
+        <ProjectContainer projects={projects} lang={lang} showHeader={false} sx={{ pt: { xs: 0, sm: 8 } }} />
       </Container>
     </>
   )

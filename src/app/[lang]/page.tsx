@@ -1,14 +1,13 @@
-import React from 'react'
 import { Box, Container, Grid, Paper, SxProps, Theme } from '@mui/material'
-import { graphql } from 'generated'
 import apolloClient from 'apolloClient'
-import ContactForm from 'components/contact/ContactForm'
 import AboutSection from 'components/about/AboutSection'
-import SkillContainer from 'components/skills/SkillContainer'
-import ProjectContainer from 'components/project/ProjectContainer'
-import WelcomeMessage from 'components/home/WelcomeMessage'
-import DownArrow from 'components/home/DownArrow'
+import ContactForm from 'components/contact/ContactForm'
 import Background from 'components/home/Background'
+import DownArrow from 'components/home/DownArrow'
+import WelcomeMessage from 'components/home/WelcomeMessage'
+import ProjectContainer from 'components/project/ProjectContainer'
+import SkillContainer from 'components/skills/SkillContainer'
+import { graphql } from 'generated'
 
 interface HomePageProps {
   params: Promise<{
@@ -44,11 +43,11 @@ const style: Record<'hero' | 'scrollCue' | 'contentPaper', SxProps<Theme>> = {
 
 const QUERY_PROJECTS = graphql(/* GraphQL */ `
   query ProjectsAndSkills {
-    projects(first: 100) {
+    projects(first: 100, orderBy: createdAt_DESC) {
       id
       ...projectElement
     }
-    skills {
+    skills(first: 100) {
       id
       ...skillElement
     }
@@ -87,8 +86,8 @@ async function HomePage({ params }: HomePageProps) {
       <Paper square variant={'outlined'} sx={style.contentPaper}>
         <Container sx={{ paddingBottom: 6, paddingTop: 10, '& > *': { paddingBottom: 12 } }}>
           <AboutSection lang={lang} />
-          <ProjectContainer projects={projects} />
           <SkillContainer skills={skills} lang={lang} />
+          <ProjectContainer projects={projects} lang={lang} />
           <ContactForm lang={lang} />
         </Container>
       </Paper>

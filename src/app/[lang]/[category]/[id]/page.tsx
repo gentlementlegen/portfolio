@@ -9,7 +9,9 @@ import Image from 'next/image'
 import { Metadata } from 'next'
 import ProjectCategoryChips from 'components/project/ProjectCategoryChips'
 
-export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: { params: Promise<{ id: string; lang: string; category: string }> }): Promise<Metadata> {
   const { id } = await params
   const { data } = await apolloClient.query({
     query: QUERY_PROJECT,
@@ -32,8 +34,8 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
   }
 }
 
-async function ProjectPage({ params }: { params: Promise<{ id: string }> }) {
-  const { id } = await params
+async function ProjectPage({ params }: { params: Promise<{ id: string; lang: string; category: string }> }) {
+  const { id, lang } = await params
   const { data } = await apolloClient.query({
     query: QUERY_PROJECT,
     variables: { where: { slug: id } },
@@ -89,7 +91,7 @@ async function ProjectPage({ params }: { params: Promise<{ id: string }> }) {
       <Typography variant={'h3'} sx={{ marginTop: 12 }}>
         All recent work
       </Typography>
-      <ProjectContainer projects={projects} />
+      <ProjectContainer projects={projects} lang={lang} showHeader={false} />
     </Container>
   )
 }
