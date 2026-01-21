@@ -54,6 +54,7 @@ export const SkillElement = graphql(/* GraphQL */ `
   fragment skillElement on Skill {
     id
     name
+    category
     image {
       id
       url

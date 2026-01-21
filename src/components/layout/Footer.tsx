@@ -1,5 +1,5 @@
-import React, { JSX } from 'react'
 import { Paper, Typography } from '@mui/material'
+import { JSX } from 'react'
 
 const Footer = (): JSX.Element => {
   return (
@@ -7,6 +7,7 @@ const Footer = (): JSX.Element => {
       <Paper
         square
         elevation={0}
+        variant="outlined"
         sx={{
           padding: 2,
           position: 'relative',
@@ -14,6 +15,7 @@ const Footer = (): JSX.Element => {
           justifyContent: 'center',
           alignItems: 'center',
           columnGap: 1,
+          backgroundColor: 'transparent',
         }}
       >
         <Typography variant={'caption'} align={'center'} component={'p'}>

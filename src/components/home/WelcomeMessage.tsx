@@ -1,11 +1,13 @@
 'use client'
 
-import React from 'react'
+import { CodeRounded, DownloadRounded, GitHub, LinkedIn, MailOutline } from '@mui/icons-material'
+import { Box, Button, IconButton, Paper, Stack, Typography } from '@mui/material'
 import { useTranslation } from 'components/i18n/client'
 import { motion } from 'framer-motion'
-import { Box, Button, IconButton, Paper, Stack, Typography } from '@mui/material'
 import { Trans } from 'next-i18next'
-import { CodeRounded, DownloadRounded, MailOutline, GitHub, LinkedIn } from '@mui/icons-material'
+import React from 'react'
+import { AiFillRocket } from 'react-icons/ai'
+import { BsStackOverflow } from 'react-icons/bs'
 
 interface WelcomeMessageProps {
   lang: string
@@ -38,7 +40,7 @@ export default function WelcomeMessage({ lang, cvUrl }: WelcomeMessageProps) {
           px: { xs: 3, sm: 6 },
           py: { xs: 4, sm: 6 },
           textAlign: 'center',
-          borderRadius: { xs: 4, sm: 6 },
+          borderRadius: { xs: 1 },
           maxWidth: 860,
           margin: '0 auto',
           boxShadow: '0 24px 60px rgba(2, 6, 23, 0.45)',
@@ -106,7 +108,12 @@ export default function WelcomeMessage({ lang, cvUrl }: WelcomeMessageProps) {
             </Button>
           </Stack>
           <Stack direction={'row'} spacing={2}>
-            <IconButton component={'a'} href={'https://github.com/gentlementlegen'} target={'_blank'} rel={'noreferrer'}>
+            <IconButton
+              component={'a'}
+              href={'https://github.com/gentlementlegen'}
+              target={'_blank'}
+              rel={'noreferrer'}
+            >
               <GitHub fontSize={'small'} />
             </IconButton>
             <IconButton
@@ -116,6 +123,22 @@ export default function WelcomeMessage({ lang, cvUrl }: WelcomeMessageProps) {
               rel={'noreferrer'}
             >
               <LinkedIn fontSize={'small'} />
+            </IconButton>
+            <IconButton
+              component={'a'}
+              href={'https://stackoverflow.com/users/10346405/mentlegen'}
+              target={'_blank'}
+              rel={'noreferrer'}
+            >
+              <BsStackOverflow size={20} />
+            </IconButton>
+            <IconButton
+              component={'a'}
+              href={'https://www.rocketpunch.com/@fernandveyrier96'}
+              target={'_blank'}
+              rel={'noreferrer'}
+            >
+              <AiFillRocket size={20} />
             </IconButton>
             <IconButton component={'a'} href={'#contact'}>
               <MailOutline fontSize={'small'} />

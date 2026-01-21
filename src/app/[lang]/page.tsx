@@ -3,7 +3,6 @@ import { Box, Container, Grid, Paper, SxProps, Theme } from '@mui/material'
 import { graphql } from 'generated'
 import apolloClient from 'apolloClient'
 import ContactForm from 'components/contact/ContactForm'
-import ContactSection from 'components/contact/ContactSection'
 import AboutSection from 'components/about/AboutSection'
 import SkillContainer from 'components/skills/SkillContainer'
 import ProjectContainer from 'components/project/ProjectContainer'
@@ -36,10 +35,10 @@ const style: Record<'hero' | 'scrollCue' | 'contentPaper', SxProps<Theme>> = {
   },
   contentPaper: {
     position: 'relative',
-    backgroundColor: 'background.paper',
+    backgroundColor: 'transparent',
     borderTop: '1px solid',
-    borderColor: 'divider',
-    backdropFilter: 'blur(18px)',
+    borderColor: 'transparent',
+    backdropFilter: 'none',
   },
 }
 
@@ -87,10 +86,9 @@ async function HomePage({ params }: HomePageProps) {
       </Box>
       <Paper square variant={'outlined'} sx={style.contentPaper}>
         <Container sx={{ paddingBottom: 6, paddingTop: 10, '& > *': { paddingBottom: 12 } }}>
+          <AboutSection lang={lang} />
           <ProjectContainer projects={projects} />
           <SkillContainer skills={skills} lang={lang} />
-          <AboutSection lang={lang} />
-          <ContactSection lang={lang} />
           <ContactForm lang={lang} />
         </Container>
       </Paper>
