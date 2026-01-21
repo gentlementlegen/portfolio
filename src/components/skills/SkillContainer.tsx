@@ -1,80 +1,83 @@
 'use client'
 
-import React, { JSX } from 'react'
 import { Box, Grid, Paper, SxProps, Theme, Typography } from '@mui/material'
 import { alpha } from '@mui/material/styles'
-import { motion } from 'framer-motion'
 import { cardVariant, container } from 'components/animations/cardsReveal'
-import { FragmentType, getFragmentData } from 'generated'
-import { SkillElement } from 'components/project/project.operations'
 import { useTranslation } from 'components/i18n/client'
+import { SkillElement } from 'components/project/project.operations'
+import { motion } from 'framer-motion'
+import { FragmentType, getFragmentData } from 'generated'
 import { SkillCategory } from 'generated/graphql'
+import { JSX } from 'react'
 
 interface SkillContainerProps {
   skills: FragmentType<typeof SkillElement>[]
   lang: string
 }
 
-const styles: Record<'section' | 'header' | 'heading' | 'subtitle' | 'grid' | 'card' | 'cardTitle' | 'chipWrap' | 'chip', SxProps<Theme>> =
-  {
-    section: {
-      position: 'relative',
-      padding: { xs: 4, sm: 5, md: 7 },
-    },
-    header: {
-      textAlign: 'center',
-      marginBottom: { xs: 3, md: 5 },
-    },
-    heading: {
-      marginBottom: { xs: 1, md: 1.5 },
-    },
-    subtitle: (theme) => ({
-      maxWidth: 720,
-      margin: '0 auto',
-      color: theme.palette.text.secondary,
-    }),
-    grid: {
-      marginTop: { xs: 2, md: 3 },
-    },
-    card: (theme) => ({
-      height: '100%',
-      padding: { xs: 3, sm: 3.5 },
-      border: `1px solid ${alpha(theme.palette.text.primary, 0.12)}`,
-      background: `linear-gradient(150deg, ${alpha(
-        theme.palette.background.paper,
-        theme.palette.mode === 'dark' ? 0.78 : 0.95,
-      )}, ${alpha(theme.palette.background.paper, theme.palette.mode === 'dark' ? 0.58 : 0.88)})`,
-      boxShadow: `0 18px 40px ${alpha(theme.palette.common.black, theme.palette.mode === 'dark' ? 0.35 : 0.16)}`,
-      backdropFilter: 'blur(16px)',
-    }),
-    cardTitle: {
-      fontWeight: 600,
-      marginBottom: 2,
-    },
-    chipWrap: {
-      display: 'flex',
-      flexWrap: 'wrap',
-      gap: 1.25,
-    },
-    chip: (theme) => ({
-      display: 'inline-flex',
-      alignItems: 'center',
-      paddingInline: theme.spacing(1.7),
-      paddingBlock: theme.spacing(0.6),
-      borderRadius: 999,
-      fontSize: '0.95rem',
-      fontWeight: 500,
-      color: theme.palette.text.primary,
-      border: `1px solid ${alpha(theme.palette.text.primary, theme.palette.mode === 'dark' ? 0.24 : 0.18)}`,
-      backgroundColor: alpha(theme.palette.text.primary, theme.palette.mode === 'dark' ? 0.08 : 0.06),
-    }),
-  }
+const styles: Record<
+  'section' | 'header' | 'heading' | 'subtitle' | 'grid' | 'card' | 'cardTitle' | 'chipWrap' | 'chip',
+  SxProps<Theme>
+> = {
+  section: {
+    position: 'relative',
+    padding: { xs: 4, sm: 5, md: 7 },
+  },
+  header: {
+    textAlign: 'center',
+    marginBottom: { xs: 3, md: 5 },
+  },
+  heading: {
+    marginBottom: { xs: 1, md: 1.5 },
+  },
+  subtitle: (theme) => ({
+    maxWidth: 720,
+    margin: '0 auto',
+    color: theme.palette.text.secondary,
+  }),
+  grid: {
+    marginTop: { xs: 2, md: 3 },
+  },
+  card: (theme) => ({
+    height: '100%',
+    padding: { xs: 3, sm: 3.5 },
+    border: `1px solid ${alpha(theme.palette.text.primary, 0.12)}`,
+    background: `linear-gradient(150deg, ${alpha(
+      theme.palette.background.paper,
+      theme.palette.mode === 'dark' ? 0.78 : 0.95,
+    )}, ${alpha(theme.palette.background.paper, theme.palette.mode === 'dark' ? 0.58 : 0.88)})`,
+    boxShadow: `0 18px 40px ${alpha(theme.palette.common.black, theme.palette.mode === 'dark' ? 0.35 : 0.16)}`,
+    backdropFilter: 'blur(16px)',
+  }),
+  cardTitle: {
+    fontWeight: 600,
+    marginBottom: 2,
+  },
+  chipWrap: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    gap: 1.25,
+  },
+  chip: (theme) => ({
+    display: 'inline-flex',
+    alignItems: 'center',
+    paddingInline: theme.spacing(1.7),
+    paddingBlock: theme.spacing(0.6),
+    borderRadius: 999,
+    fontSize: '0.95rem',
+    fontWeight: 500,
+    color: theme.palette.text.primary,
+    border: `1px solid ${alpha(theme.palette.text.primary, theme.palette.mode === 'dark' ? 0.24 : 0.18)}`,
+    backgroundColor: alpha(theme.palette.text.primary, theme.palette.mode === 'dark' ? 0.08 : 0.06),
+  }),
+}
 
 const categoryOrder: SkillCategory[] = [
   SkillCategory.Frontend,
   SkillCategory.Backend,
   SkillCategory.Web3,
   SkillCategory.ToolsAndDevops,
+  SkillCategory.Language,
 ]
 
 const SkillContainer = (props: SkillContainerProps): JSX.Element => {
@@ -87,6 +90,7 @@ const SkillContainer = (props: SkillContainerProps): JSX.Element => {
     [SkillCategory.Backend]: t('skills category backend'),
     [SkillCategory.Web3]: t('skills category web3'),
     [SkillCategory.ToolsAndDevops]: t('skills category tools'),
+    [SkillCategory.Language]: t('language category tools'),
   }
 
   const groupedSkills = skills.reduce(
