@@ -16,7 +16,20 @@ interface ProjectContainerProps extends BoxProps {
   showHeader?: boolean
 }
 
-const styles: Record<'section' | 'header' | 'heading' | 'subtitle' | 'grid', SxProps<Theme>> = {
+const styles: Record<
+  | 'section'
+  | 'header'
+  | 'heading'
+  | 'subtitle'
+  | 'grid'
+  | 'toggleWrap'
+  | 'toggleGroup'
+  | 'toggleButton'
+  | 'toggleButtonActive'
+  | 'toggleIndicator'
+  | 'toggleLabel',
+  SxProps<Theme>
+> = {
   section: {
     position: 'relative',
     padding: { xs: 4, sm: 5, md: 7 },
@@ -36,17 +49,78 @@ const styles: Record<'section' | 'header' | 'heading' | 'subtitle' | 'grid', SxP
   grid: {
     marginTop: { xs: 2, md: 3 },
   },
+  toggleWrap: {
+    display: 'flex',
+    justifyContent: 'center',
+    marginTop: { xs: 2, md: 3 },
+    marginBottom: { xs: 1.5, md: 2 },
+  },
+  toggleGroup: (theme) => ({
+    display: 'inline-flex',
+    alignItems: 'center',
+    padding: theme.spacing(0.5),
+    gap: theme.spacing(0.5),
+    borderRadius: 999,
+    border: `1px solid ${theme.palette.divider}`,
+    backgroundColor: theme.palette.action.selected,
+  }),
+  toggleButton: (theme) => ({
+    position: 'relative',
+    border: 0,
+    background: 'transparent',
+    padding: theme.spacing(0.75, 2),
+    borderRadius: 999,
+    cursor: 'pointer',
+    font: 'inherit',
+    fontWeight: 600,
+    color: theme.palette.text.secondary,
+    transition: 'color 200ms ease',
+    '&:focus-visible': {
+      outline: `2px solid ${theme.palette.primary.main}`,
+      outlineOffset: 2,
+    },
+  }),
+  toggleButtonActive: (theme) => ({
+    color: theme.palette.primary.contrastText,
+  }),
+  toggleIndicator: (theme) => ({
+    position: 'absolute',
+    inset: 2,
+    borderRadius: 999,
+    backgroundColor: theme.palette.primary.main,
+    zIndex: 0,
+  }),
+  toggleLabel: {
+    position: 'relative',
+    zIndex: 1,
+    whiteSpace: 'nowrap',
+  },
 }
 
 const ProjectContainer = (props: ProjectContainerProps): JSX.Element => {
   const { projects: projectsFragment, sx, lang = 'en', showHeader = true, ...rest } = props
-  // Projects first, most recent project first
-  const projects = getFragmentData(ProjectElement, projectsFragment).sort(
-    (a, b) =>
-      Number(b.categories.includes(Category.Projects)) - Number(a.categories.includes(Category.Projects)) ||
-      b.id.localeCompare(a.id),
-  )
   const { t } = useTranslation(lang, 'common')
+  const [selectedCategory, setSelectedCategory] = React.useState<Category>(Category.Projects)
+
+  const categoryLabels: Record<Category, string> = {
+    [Category.Projects]: t('projects category projects'),
+    [Category.Games]: t('projects category games'),
+    [Category.Others]: t('projects category others'),
+  }
+
+  const projects = React.useMemo(() => {
+    const data = getFragmentData(ProjectElement, projectsFragment)
+    return data.slice().sort((a, b) => {
+      const aSelected = a.categories.includes(selectedCategory)
+      const bSelected = b.categories.includes(selectedCategory)
+      if (aSelected !== bSelected) {
+        return Number(bSelected) - Number(aSelected)
+      }
+      return b.id.localeCompare(a.id)
+    })
+  }, [projectsFragment, selectedCategory])
+
+  const categoryOrder = [Category.Projects, Category.Games, Category.Others]
 
   return (
     <Box
@@ -70,6 +144,35 @@ const ProjectContainer = (props: ProjectContainerProps): JSX.Element => {
           </Typography>
         </Box>
       )}
+      <Box sx={styles.toggleWrap}>
+        <Box sx={styles.toggleGroup} role={'group'} aria-label={t('projects categories')}>
+          {categoryOrder.map((category) => {
+            const isActive = selectedCategory === category
+            return (
+              <Box
+                key={category}
+                component={'button'}
+                type={'button'}
+                onClick={() => setSelectedCategory(category)}
+                aria-pressed={isActive}
+                sx={[styles.toggleButton, isActive && styles.toggleButtonActive]}
+              >
+                {isActive && (
+                  <Box
+                    component={motion.span}
+                    layoutId={'projects-category-indicator'}
+                    transition={{ type: 'spring', stiffness: 500, damping: 40 }}
+                    sx={styles.toggleIndicator}
+                  />
+                )}
+                <Box component={'span'} sx={styles.toggleLabel}>
+                  {categoryLabels[category]}
+                </Box>
+              </Box>
+            )
+          })}
+        </Box>
+      </Box>
       <Grid
         component={motion.div}
         container
