@@ -1,10 +1,9 @@
 import { GitHub, LaunchRounded } from '@mui/icons-material'
-import { Box, Card, CardActionArea, CardContent, CardProps, Typography } from '@mui/material'
+import { Box, Card, CardContent, CardProps, Typography } from '@mui/material'
 import { alpha } from '@mui/material/styles'
 import { motion } from 'framer-motion'
 import { ProjectElementFragment } from 'generated/graphql'
 import Image from 'next/image'
-import Link from 'next/link'
 import { JSX } from 'react'
 
 interface ProjectCardProps extends CardProps {
@@ -13,11 +12,10 @@ interface ProjectCardProps extends CardProps {
     liveDemo: string
     code: string
   }
-  onActionAreaClick?: (id: ProjectElementFragment) => void
 }
 
 const ProjectCard = (props: ProjectCardProps): JSX.Element => {
-  const { project, labels, onActionAreaClick = () => {}, sx, ...rest } = props
+  const { project, labels, sx, ...rest } = props
   const description = project.description?.text ?? ''
   const tagLabels =
     project.skills?.length > 0
@@ -26,13 +24,8 @@ const ProjectCard = (props: ProjectCardProps): JSX.Element => {
           const label = `${category}`
           return `${label.charAt(0).toUpperCase()}${label.slice(1)}`
         }) ?? [])
-  const internalHref = `/${!!project.categories?.length ? project.categories[0].toLowerCase() : 'others'}/${project.slug}`
   const liveDemoUrl = project.projectUrl ?? ''
   const codeUrl = project.projectCodeUrl ?? ''
-
-  const handleCardActionAreaClick = () => {
-    onActionAreaClick(project)
-  }
 
   const renderAction = (label: string, href: string, icon: JSX.Element) => {
     const disabled = !href
@@ -104,12 +97,7 @@ const ProjectCard = (props: ProjectCardProps): JSX.Element => {
       transition={{ type: 'spring', stiffness: 320, damping: 22 }}
       {...rest}
     >
-      <CardActionArea
-        component={Link}
-        href={internalHref}
-        onClick={handleCardActionAreaClick}
-        sx={{ display: 'flex', flexDirection: 'column', alignItems: 'stretch', flexGrow: 1 }}
-      >
+      <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'stretch', flexGrow: 1 }}>
         <Box
           sx={(theme) => ({
             position: 'relative',
@@ -199,7 +187,7 @@ const ProjectCard = (props: ProjectCardProps): JSX.Element => {
             </Box>
           )}
         </CardContent>
-      </CardActionArea>
+      </Box>
       <Box sx={{ padding: { xs: 2.5, sm: 3 }, paddingTop: 0, display: 'flex', gap: 2, flexWrap: 'wrap' }}>
         {renderAction(labels.liveDemo, liveDemoUrl, <LaunchRounded />)}
         {renderAction(labels.code, codeUrl, <GitHub />)}
