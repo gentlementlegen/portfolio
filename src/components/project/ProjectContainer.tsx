@@ -8,6 +8,7 @@ import { cardVariant, container } from 'components/animations/cardsReveal'
 import { FragmentType, getFragmentData } from 'generated'
 import { ProjectElement } from 'components/project/project.operations'
 import { useTranslation } from 'components/i18n/client'
+import { Category } from 'generated/graphql'
 
 interface ProjectContainerProps extends BoxProps {
   projects: FragmentType<typeof ProjectElement>[]
@@ -39,7 +40,12 @@ const styles: Record<'section' | 'header' | 'heading' | 'subtitle' | 'grid', SxP
 
 const ProjectContainer = (props: ProjectContainerProps): JSX.Element => {
   const { projects: projectsFragment, sx, lang = 'en', showHeader = true, ...rest } = props
-  const projects = getFragmentData(ProjectElement, projectsFragment)
+  // Projects first, most recent project first
+  const projects = getFragmentData(ProjectElement, projectsFragment).sort(
+    (a, b) =>
+      Number(b.categories.includes(Category.Projects)) - Number(a.categories.includes(Category.Projects)) ||
+      b.id.localeCompare(a.id),
+  )
   const { t } = useTranslation(lang, 'common')
 
   return (

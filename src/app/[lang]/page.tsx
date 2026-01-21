@@ -21,8 +21,8 @@ const style: Record<'hero' | 'scrollCue' | 'contentPaper', SxProps<Theme>> = {
     display: 'flex',
     alignItems: 'center',
     position: 'relative',
-    paddingTop: { xs: 10, md: 14 },
-    paddingBottom: { xs: 12, md: 16 },
+    paddingTop: { xs: 2, md: 14 },
+    paddingBottom: { xs: 2, md: 16 },
   },
   scrollCue: {
     display: 'flex',
@@ -84,7 +84,7 @@ async function HomePage({ params }: HomePageProps) {
         </Box>
       </Box>
       <Paper square variant={'outlined'} sx={style.contentPaper}>
-        <Container sx={{ paddingBottom: 6, paddingTop: 10, '& > *': { paddingBottom: 12 } }}>
+        <Container sx={{ paddingBottom: 6, paddingTop: { xs: 0, md: 10 }, '& > *': { paddingBottom: 12 } }}>
           <AboutSection lang={lang} />
           <SkillContainer skills={skills} lang={lang} />
           <ProjectContainer projects={projects} lang={lang} />
