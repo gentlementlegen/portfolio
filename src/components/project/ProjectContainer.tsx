@@ -5,7 +5,7 @@ import { cardVariant, container } from 'components/animations/cardsReveal'
 import { useTranslation } from 'components/i18n/client'
 import { ProjectElement } from 'components/project/project.operations'
 import ProjectCard from 'components/project/ProjectCard'
-import { motion } from 'framer-motion'
+import { motion, Variants } from 'framer-motion'
 import { FragmentType, getFragmentData } from 'generated'
 import { Category } from 'generated/graphql'
 import React, { JSX } from 'react'
@@ -97,6 +97,39 @@ const styles = {
   SxProps<Theme>
 >
 
+const projectCardVariants: Variants = {
+  initial: {
+    ...cardVariant.hidden,
+    scale: 0.98,
+    display: 'block',
+  },
+  visible: {
+    ...cardVariant.visible,
+    scale: 1,
+    display: 'block',
+    pointerEvents: 'auto',
+    transition: { duration: 0.25, ease: 'easeOut' },
+  },
+  hidden: {
+    opacity: 0,
+    scale: 0.98,
+    translateY: 12,
+    display: 'block',
+    pointerEvents: 'none',
+    transition: { duration: 0.25, ease: 'easeOut' },
+    transitionEnd: {
+      display: 'none',
+    },
+  },
+  hiddenInstant: {
+    opacity: 0,
+    scale: 0.98,
+    translateY: 12,
+    display: 'none',
+    pointerEvents: 'none',
+  },
+}
+
 const ProjectContainer = (props: ProjectContainerProps): JSX.Element => {
   const { projects: projectsFragment, sx, lang = 'en', showHeader = true, ...rest } = props
   const { t } = useTranslation(lang, 'common')
@@ -119,8 +152,6 @@ const ProjectContainer = (props: ProjectContainerProps): JSX.Element => {
       return b.id.localeCompare(a.id)
     })
   }, [projectsFragment, selectedCategory])
-
-  console.log('Filtered Projects:', projects.length, selectedCategory)
 
   const categoryOrder = [Category.Projects, Category.Games, Category.Others]
 
@@ -186,17 +217,31 @@ const ProjectContainer = (props: ProjectContainerProps): JSX.Element => {
         viewport={{ once: true }}
         sx={styles.grid}
       >
-        {projects?.map((project) => (
-          <Grid component={motion.div} size={{ xs: 12, sm: 6, md: 4 }} key={project.id} layout variants={cardVariant}>
-            <ProjectCard
-              project={project}
-              labels={{
-                liveDemo: t('projects live demo'),
-                code: t('projects code'),
-              }}
-            />
-          </Grid>
-        ))}
+        {projects?.map((project) => {
+          const isVisible = project.categories.includes(selectedCategory)
+          const initialVariant = isVisible ? 'initial' : 'hiddenInstant'
+          const animateVariant = isVisible ? 'visible' : 'hidden'
+          return (
+            <Grid
+              component={motion.div}
+              size={{ xs: 12, sm: 6, md: 4 }}
+              key={project.id}
+              layout
+              variants={projectCardVariants}
+              initial={initialVariant}
+              animate={animateVariant}
+              aria-hidden={!isVisible}
+            >
+              <ProjectCard
+                project={project}
+                labels={{
+                  liveDemo: t('projects live demo'),
+                  code: t('projects code'),
+                }}
+              />
+            </Grid>
+          )
+        })}
       </Grid>
     </Box>
   )

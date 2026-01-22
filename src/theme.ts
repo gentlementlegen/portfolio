@@ -61,7 +61,7 @@ const makeTheme = (mode: 'light' | 'dark') => {
               },
               background: {
                 default: '#f5f7fb',
-                paper: '#ffffff',
+                paper: 'rgba(255, 255, 255, 0.5)',
               },
               text: {
                 primary: '#0f172a',
@@ -86,7 +86,7 @@ const makeTheme = (mode: 'light' | 'dark') => {
               },
               background: {
                 default: '#0b0f1a',
-                paper: 'rgba(25, 29, 41, 0.86)',
+                paper: 'rgba(25, 29, 41, 0.5)',
               },
               text: {
                 primary: '#e7ecf8',
