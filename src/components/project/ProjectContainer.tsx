@@ -1,14 +1,14 @@
 'use client'
 
-import React, { JSX } from 'react'
 import { Box, BoxProps, Grid, SxProps, Theme, Typography } from '@mui/material'
+import { cardVariant, container } from 'components/animations/cardsReveal'
+import { useTranslation } from 'components/i18n/client'
+import { ProjectElement } from 'components/project/project.operations'
 import ProjectCard from 'components/project/ProjectCard'
 import { motion } from 'framer-motion'
-import { cardVariant, container } from 'components/animations/cardsReveal'
 import { FragmentType, getFragmentData } from 'generated'
-import { ProjectElement } from 'components/project/project.operations'
-import { useTranslation } from 'components/i18n/client'
 import { Category } from 'generated/graphql'
+import React, { JSX } from 'react'
 
 interface ProjectContainerProps extends BoxProps {
   projects: FragmentType<typeof ProjectElement>[]
@@ -16,20 +16,7 @@ interface ProjectContainerProps extends BoxProps {
   showHeader?: boolean
 }
 
-const styles: Record<
-  | 'section'
-  | 'header'
-  | 'heading'
-  | 'subtitle'
-  | 'grid'
-  | 'toggleWrap'
-  | 'toggleGroup'
-  | 'toggleButton'
-  | 'toggleButtonActive'
-  | 'toggleIndicator'
-  | 'toggleLabel',
-  SxProps<Theme>
-> = {
+const styles = {
   section: {
     position: 'relative',
     padding: { xs: 4, sm: 5, md: 7 },
@@ -95,7 +82,20 @@ const styles: Record<
     zIndex: 1,
     whiteSpace: 'nowrap',
   },
-}
+} satisfies Record<
+  | 'section'
+  | 'header'
+  | 'heading'
+  | 'subtitle'
+  | 'grid'
+  | 'toggleWrap'
+  | 'toggleGroup'
+  | 'toggleButton'
+  | 'toggleButtonActive'
+  | 'toggleIndicator'
+  | 'toggleLabel',
+  SxProps<Theme>
+>
 
 const ProjectContainer = (props: ProjectContainerProps): JSX.Element => {
   const { projects: projectsFragment, sx, lang = 'en', showHeader = true, ...rest } = props
@@ -119,6 +119,8 @@ const ProjectContainer = (props: ProjectContainerProps): JSX.Element => {
       return b.id.localeCompare(a.id)
     })
   }, [projectsFragment, selectedCategory])
+
+  console.log('Filtered Projects:', projects.length, selectedCategory)
 
   const categoryOrder = [Category.Projects, Category.Games, Category.Others]
 
@@ -155,7 +157,7 @@ const ProjectContainer = (props: ProjectContainerProps): JSX.Element => {
                 type={'button'}
                 onClick={() => setSelectedCategory(category)}
                 aria-pressed={isActive}
-                sx={[styles.toggleButton, isActive && styles.toggleButtonActive]}
+                sx={[styles.toggleButton, ...(isActive ? [styles.toggleButtonActive] : [])]}
               >
                 {isActive && (
                   <Box
