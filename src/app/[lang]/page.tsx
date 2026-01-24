@@ -51,7 +51,7 @@ const QUERY_PROJECTS = graphql(/* GraphQL */ `
       id
       ...skillElement
     }
-    cvs(first: 1) {
+    cvs(first: 1, orderBy: createdAt_DESC) {
       id
       document {
         id
