@@ -66,6 +66,26 @@ const NavBar = ({ lang }: NavBarProps) => {
     setOpenDrawer(open)
   }
 
+  const handleHomeClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
+    if (typeof window === 'undefined') {
+      return
+    }
+
+    const currentPath = window.location.pathname.replace(/\/$/, '') || '/'
+    const homePath = `/${lang}`.replace(/\/$/, '')
+    const isHome = currentPath === '/' || currentPath === homePath
+
+    if (!isHome) {
+      return
+    }
+
+    event.preventDefault()
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+    if (window.location.hash) {
+      window.history.replaceState(null, '', window.location.pathname)
+    }
+  }
+
   return (
     <AppBar position={'sticky'} elevation={0} color={'transparent'} sx={{ py: { xs: 1, md: 2 } }}>
       <Container maxWidth={'lg'}>
@@ -114,7 +134,7 @@ const NavBar = ({ lang }: NavBarProps) => {
                 </Box>
               </SwipeableDrawer>
             </Box>
-            <Link href={'/'} passHref>
+            <Link href={'/'} passHref onClick={handleHomeClick}>
               <Typography
                 variant={'h6'}
                 sx={{

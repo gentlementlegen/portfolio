@@ -123,10 +123,18 @@ const makeTheme = (mode: 'light' | 'dark') => {
         styleOverrides: `
           @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap');
           *::selection { background: ${theme.palette.link.main}; }
+          html {
+            scroll-behavior: smooth;
+          }
           body {
             background: ${theme.palette.background.default};
             color: ${theme.palette.text.primary};
             letter-spacing: -0.01em;
+          }
+          @media (prefers-reduced-motion: reduce) {
+            html {
+              scroll-behavior: auto;
+            }
           }
           em {
             color: ${theme.palette.secondary.dark};
