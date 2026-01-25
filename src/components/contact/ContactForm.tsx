@@ -93,7 +93,10 @@ const styles: Record<
       padding: theme.spacing(1.6, 2),
     },
     '& .MuiInputBase-multiline': {
-      padding: theme.spacing(1.4, 2),
+      padding: 0,
+    },
+    '& .MuiInputBase-inputMultiline': {
+      padding: theme.spacing(1.6, 2),
     },
     '& .MuiInputBase-input::placeholder': {
       color: theme.palette.text.secondary,
