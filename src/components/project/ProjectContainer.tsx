@@ -55,6 +55,9 @@ const styles = {
     position: 'relative',
     border: 0,
     background: 'transparent',
+    appearance: 'none',
+    WebkitAppearance: 'none',
+    WebkitTapHighlightColor: 'transparent',
     padding: theme.spacing(0.75, 2),
     borderRadius: 999,
     cursor: 'pointer',
@@ -62,9 +65,13 @@ const styles = {
     fontWeight: 600,
     color: theme.palette.text.secondary,
     transition: 'color 200ms ease',
+    userSelect: 'none',
     '&:focus-visible': {
       outline: `2px solid ${theme.palette.primary.main}`,
       outlineOffset: 2,
+    },
+    '&:active': {
+      backgroundColor: 'transparent',
     },
   }),
   toggleButtonActive: (theme) => ({

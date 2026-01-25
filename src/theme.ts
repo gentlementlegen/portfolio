@@ -103,6 +103,20 @@ const makeTheme = (mode: 'light' | 'dark') => {
     }),
   )
 
+  const isDark = theme.palette.mode === 'dark'
+  const containedGradient = isDark
+    ? 'linear-gradient(180deg, #465670 0%, #344158 100%)'
+    : 'linear-gradient(180deg, #edf1f9 0%, #d5dceb 100%)'
+  const containedHoverGradient = isDark
+    ? 'linear-gradient(180deg, #4f617e 0%, #3a4864 100%)'
+    : 'linear-gradient(180deg, #f2f5fb 0%, #c6d0e5 100%)'
+  const containedBorderColor = isDark ? 'rgba(255, 255, 255, 0.14)' : 'rgba(15, 23, 42, 0.14)'
+  const containedTextColor = isDark ? '#f8fafc' : '#1f2a44'
+  const outlinedBackground = isDark ? '#5c606a' : '#e2e7f2'
+  const outlinedHoverBackground = isDark ? '#676c77' : '#d6dde9'
+  const outlinedBorderColor = isDark ? 'rgba(255, 255, 255, 0.28)' : 'rgba(15, 23, 42, 0.2)'
+  const outlinedTextColor = isDark ? '#f1f5f9' : '#2a364b'
+
   theme = createTheme(theme, {
     components: {
       MuiCssBaseline: {
@@ -167,18 +181,20 @@ const makeTheme = (mode: 'light' | 'dark') => {
             paddingBlock: theme.spacing(1),
           },
           contained: {
-            backgroundColor: theme.palette.link.main,
-            color: theme.palette.link.contrastText,
+            background: containedGradient,
+            border: `1px solid ${containedBorderColor}`,
+            color: containedTextColor,
             '&:hover': {
-              backgroundColor: theme.palette.link.dark,
+              background: containedHoverGradient,
             },
           },
           outlined: {
-            borderColor: alpha(theme.palette.text.primary, 0.2),
-            color: theme.palette.text.primary,
+            backgroundColor: outlinedBackground,
+            borderColor: outlinedBorderColor,
+            color: outlinedTextColor,
             '&:hover': {
-              borderColor: alpha(theme.palette.text.primary, 0.35),
-              backgroundColor: alpha(theme.palette.text.primary, 0.08),
+              borderColor: outlinedBorderColor,
+              backgroundColor: outlinedHoverBackground,
             },
           },
         },

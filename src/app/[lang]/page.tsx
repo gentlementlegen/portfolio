@@ -21,7 +21,7 @@ const style: Record<'hero' | 'scrollCue' | 'contentPaper', SxProps<Theme>> = {
     display: 'flex',
     alignItems: 'center',
     position: 'relative',
-    paddingTop: { xs: 2, md: 14 },
+    paddingTop: { xs: 0.5, md: 14 },
     paddingBottom: { xs: 2, md: 16 },
   },
   scrollCue: {
