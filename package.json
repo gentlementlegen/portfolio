@@ -58,7 +58,7 @@
     "@types/negotiator": "0.6.4",
     "@types/node": "25.0.10",
     "@types/nodemailer": "7.0.9",
-    "@types/react": "19.2.9",
+    "@types/react": "19.2.10",
     "@types/react-anchor-link-smooth-scroll": "1.0.5",
     "@typescript-eslint/eslint-plugin": "8.54.0",
     "@typescript-eslint/parser": "8.54.0",
