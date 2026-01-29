@@ -1,12 +1,20 @@
 import React, { JSX, PropsWithChildren } from 'react'
-import styles from 'styles/Home.module.css'
-import { Box, BoxProps } from '@mui/system'
+import { Box, BoxProps } from '@mui/material'
 
 const MainLayout = (props: PropsWithChildren<BoxProps>): JSX.Element => {
-  const { children, ...rest } = props
+  const { children, sx, ...rest } = props
 
   return (
-    <Box className={styles.mainTitle} {...rest}>
+    <Box
+      sx={[
+        {
+          minHeight: '100vh',
+          position: 'relative',
+        },
+        ...(Array.isArray(sx) ? sx : [sx]),
+      ]}
+      {...rest}
+    >
       {children}
     </Box>
   )

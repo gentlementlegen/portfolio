@@ -24,6 +24,15 @@ export const ProjectElement = graphql(/* GraphQL */ `
     slug
     categories
     blur
+    projectUrl
+    projectCodeUrl
+    description {
+      text
+    }
+    skills {
+      id
+      name
+    }
     image {
       id
       url
@@ -54,6 +63,7 @@ export const SkillElement = graphql(/* GraphQL */ `
   fragment skillElement on Skill {
     id
     name
+    category
     image {
       id
       url

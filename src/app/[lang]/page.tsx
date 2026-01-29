@@ -1,16 +1,13 @@
-import React from 'react'
-import { Box, Container, Paper, SxProps, Theme, Grid } from '@mui/material'
-import { graphql } from 'generated'
+import { Box, Container, Grid, Paper, SxProps, Theme } from '@mui/material'
 import apolloClient from 'apolloClient'
-import styles from 'styles/Home.module.css'
-import ContactForm from 'components/contact/ContactForm'
-import ContactSection from 'components/contact/ContactSection'
 import AboutSection from 'components/about/AboutSection'
-import SkillContainer from 'components/skills/SkillContainer'
-import ProjectContainer from 'components/project/ProjectContainer'
-import WelcomeMessage from 'components/home/WelcomeMessage'
-import DownArrow from 'components/home/DownArrow'
+import ContactForm from 'components/contact/ContactForm'
 import Background from 'components/home/Background'
+import DownArrow from 'components/home/DownArrow'
+import WelcomeMessage from 'components/home/WelcomeMessage'
+import ProjectContainer from 'components/project/ProjectContainer'
+import SkillContainer from 'components/skills/SkillContainer'
+import { graphql } from 'generated'
 
 interface HomePageProps {
   params: Promise<{
@@ -18,46 +15,48 @@ interface HomePageProps {
   }>
 }
 
-const style: Record<'root' | 'projectContainer' | 'videoContainer', SxProps<Theme>> = {
-  root: {
-    height: { xs: 'calc(100vh - 56px)', md: 'calc(100vh - 64px)' },
-    top: { sx: 56, md: 64 },
-    width: '100%',
-    position: 'absolute',
-    zIndex: -2,
-    backgroundColor: 'black',
-    opacity: 0.7,
+const style: Record<'hero' | 'scrollCue' | 'contentPaper', SxProps<Theme>> = {
+  hero: {
+    minHeight: { xs: 'calc(100vh - 80px)', md: 'calc(100vh - 96px)' },
+    display: 'flex',
+    alignItems: 'center',
+    position: 'relative',
+    paddingTop: { xs: 0.5, md: 14 },
+    paddingBottom: { xs: 2, md: 16 },
   },
-  projectContainer: {
+  scrollCue: {
     display: 'flex',
     justifyContent: 'center',
-    position: 'fixed',
+    position: 'absolute',
     left: '50%',
-    bottom: 8,
+    bottom: { xs: 16, md: 24 },
     transform: 'translateX(-50%)',
   },
-  videoContainer: {
-    height: { xs: 'calc(100vh - 56px)', md: 'calc(100vh - 64px)' },
-    top: { sx: 56, md: 64 },
-    width: '100%',
-    position: 'fixed',
-    zIndex: -3,
-    objectFit: 'cover',
-    filter: 'blur(4px)',
-    msFilter: 'blur(4px)',
-    webkitFilter: 'blur(4px)',
+  contentPaper: {
+    position: 'relative',
+    backgroundColor: 'transparent',
+    borderTop: '1px solid',
+    borderColor: 'transparent',
+    backdropFilter: 'none',
   },
 }
 
 const QUERY_PROJECTS = graphql(/* GraphQL */ `
   query ProjectsAndSkills {
-    projects(first: 100) {
+    projects(first: 100, orderBy: createdAt_DESC) {
       id
       ...projectElement
     }
-    skills {
+    skills(first: 100) {
       id
       ...skillElement
+    }
+    cvs(first: 1, orderBy: createdAt_DESC) {
+      id
+      document {
+        id
+        url
+      }
     }
   }
 `)
@@ -66,28 +65,29 @@ async function HomePage({ params }: HomePageProps) {
   const { data } = await apolloClient.query({ query: QUERY_PROJECTS })
   const projects = data?.projects ?? []
   const skills = data?.skills ?? []
+  const cvUrl = data?.cvs?.[0]?.document?.url ?? ''
   const { lang } = await params
 
   return (
     <>
-      <Box id={'home'} sx={style.root} />
-      <Background projects={projects} />
-      <Container className={styles.mainGrid}>
-        <Grid container className={styles.mainGrid} alignItems={'center'}>
-          <Grid size={{ xs: 12 }} sx={{ color: 'secondary.main', textShadow: '1px 1px 5px black' }}>
-            <WelcomeMessage lang={lang} />
+      <Background />
+      <Box id={'home'} sx={style.hero}>
+        <Container maxWidth={'md'}>
+          <Grid container alignItems={'center'} justifyContent={'center'}>
+            <Grid size={{ xs: 12 }}>
+              <WelcomeMessage lang={lang} cvUrl={cvUrl} />
+            </Grid>
           </Grid>
-        </Grid>
-      </Container>
-      <Box sx={style.projectContainer}>
-        <DownArrow />
+        </Container>
+        <Box sx={style.scrollCue}>
+          <DownArrow />
+        </Box>
       </Box>
-      <Paper square sx={{ position: 'relative' }}>
-        <Container sx={{ paddingBottom: 6, '& > *': { paddingBottom: 12 } }}>
-          <ProjectContainer projects={projects} />
-          <SkillContainer skills={skills} lang={lang} />
+      <Paper square variant={'outlined'} sx={style.contentPaper}>
+        <Container sx={{ paddingBottom: 6, paddingTop: { xs: 0, md: 10 }, '& > *': { paddingBottom: 12 } }}>
           <AboutSection lang={lang} />
-          <ContactSection lang={lang} />
+          <SkillContainer skills={skills} lang={lang} />
+          <ProjectContainer projects={projects} lang={lang} />
           <ContactForm lang={lang} />
         </Container>
       </Paper>
