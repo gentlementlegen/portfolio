@@ -28,11 +28,11 @@ export const metadata = {
   },
   title: 'Fernand Veyrier',
   description:
-    'I am Fernand Veyrier, gameplay and fullstack programmer. This portfolio mostly focuses on video games and personal projects.',
+    'I am Fernand Veyrier, fullstack and Web3 programmer. This portfolio mostly focuses on video games and personal projects.',
   openGraph: {
     title: 'Fernand Veyrier',
     description:
-      'I am Fernand Veyrier, gameplay and fullstack programmer. This portfolio mostly focuses on video games and personal projects.',
+      'I am Fernand Veyrier, fullstack and Web3 programmer. This portfolio mostly focuses on video games and personal projects.',
     images: '/background.png',
   },
 }

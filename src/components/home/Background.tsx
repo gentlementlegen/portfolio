@@ -1,44 +1,32 @@
 'use client'
 
 import React from 'react'
-import { Box, NoSsr, SxProps, Theme } from '@mui/material'
-import { BrowserView, MobileView } from 'react-device-detect'
-import CrossFadeImage from 'components/images/CrossFadeImage'
-import { FragmentType, getFragmentData } from 'generated'
-import { ProjectElementFragmentDoc } from 'generated/graphql'
-import { ProjectElement } from 'components/project/project.operations'
+import { Box } from '@mui/material'
 
-interface BackgroundProps {
-  projects: FragmentType<typeof ProjectElement>[]
-}
-
-const style: Record<'videoContainer', SxProps<Theme>> = {
-  videoContainer: {
-    height: { xs: 'calc(100vh - 56px)', md: 'calc(100vh - 64px)' },
-    top: { sx: 56, md: 64 },
-    width: '100%',
-    position: 'fixed',
-    zIndex: -3,
-    objectFit: 'cover',
-    filter: 'blur(4px)',
-    msFilter: 'blur(4px)',
-    webkitFilter: 'blur(4px)',
-  },
-}
-
-export default function Background({ projects }: BackgroundProps) {
+export default function Background() {
   return (
-    <NoSsr>
-      <BrowserView>
-        <Box component={'video'} autoPlay muted loop preload="none" id="backgroundVideo" sx={style.videoContainer}>
-          <source src="/backgroundVideo.mp4" type="video/mp4" />
-        </Box>
-      </BrowserView>
-      <MobileView>
-        <Box sx={style.videoContainer}>
-          <CrossFadeImage images={getFragmentData(ProjectElementFragmentDoc, projects).map((o) => o.image.url)} />
-        </Box>
-      </MobileView>
-    </NoSsr>
+    <Box
+      sx={(theme) => {
+        const gridColor =
+          theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.06)' : 'rgba(15, 23, 42, 0.08)'
+        const glowOne = theme.palette.mode === 'dark' ? 'rgba(90, 120, 255, 0.22)' : 'rgba(63, 92, 190, 0.15)'
+        const glowTwo = theme.palette.mode === 'dark' ? 'rgba(110, 200, 255, 0.16)' : 'rgba(56, 148, 207, 0.12)'
+        return {
+          position: 'fixed',
+          inset: 0,
+          zIndex: -3,
+          pointerEvents: 'none',
+          backgroundColor: theme.palette.background.default,
+          backgroundImage: `
+            radial-gradient(circle at 20% 15%, ${glowOne}, transparent 42%),
+            radial-gradient(circle at 80% 10%, ${glowTwo}, transparent 38%),
+            linear-gradient(${gridColor} 1px, transparent 1px),
+            linear-gradient(90deg, ${gridColor} 1px, transparent 1px)
+          `,
+          backgroundSize: 'auto, auto, 48px 48px, 48px 48px',
+          backgroundPosition: '0 0, 0 0, -1px -1px, -1px -1px',
+        }
+      }}
+    />
   )
 }
