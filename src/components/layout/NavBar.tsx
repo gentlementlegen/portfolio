@@ -21,6 +21,7 @@ import Link from 'next/link'
 import { useParams } from 'next/navigation'
 import React, { PropsWithChildren, useState } from 'react'
 import AnchorLink, { AnchorLinkProps } from 'react-anchor-link-smooth-scroll'
+import { useScrollToTopOnHomeClick } from 'components/hooks/scrollToTopHook'
 
 const LinkElement = ({ children, href, offset }: PropsWithChildren<Omit<AnchorLinkProps, 'children'>>) => {
   const { category } = useParams()
@@ -46,6 +47,7 @@ const NavBar = ({ lang }: NavBarProps) => {
   const { t } = useTranslation(lang, 'common')
   const theme = useTheme()
   const [openDrawer, setOpenDrawer] = useState(false)
+  const onHomeClick = useScrollToTopOnHomeClick(lang)
 
   const navLinks = [
     { label: t('about'), href: '#about' },
@@ -64,26 +66,6 @@ const NavBar = ({ lang }: NavBarProps) => {
     }
 
     setOpenDrawer(open)
-  }
-
-  const handleHomeClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
-    if (typeof window === 'undefined') {
-      return
-    }
-
-    const currentPath = window.location.pathname.replace(/\/$/, '') || '/'
-    const homePath = `/${lang}`.replace(/\/$/, '')
-    const isHome = currentPath === '/' || currentPath === homePath
-
-    if (!isHome) {
-      return
-    }
-
-    event.preventDefault()
-    window.scrollTo({ top: 0, behavior: 'smooth' })
-    if (window.location.hash) {
-      window.history.replaceState(null, '', window.location.pathname)
-    }
   }
 
   return (
@@ -134,7 +116,7 @@ const NavBar = ({ lang }: NavBarProps) => {
                 </Box>
               </SwipeableDrawer>
             </Box>
-            <Link href={'/'} passHref onClick={handleHomeClick}>
+            <Link href={'/'} passHref onClick={onHomeClick}>
               <Typography
                 variant={'h6'}
                 sx={{
