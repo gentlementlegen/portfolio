@@ -43,7 +43,7 @@
         "@playwright/test": "1.58.1",
         "@types/apollo-upload-client": "19.0.0",
         "@types/negotiator": "0.6.4",
-        "@types/node": "25.2.0",
+        "@types/node": "25.2.1",
         "@types/nodemailer": "7.0.9",
         "@types/react": "19.2.11",
         "@types/react-anchor-link-smooth-scroll": "1.0.5",
@@ -424,7 +424,7 @@
 
     "@types/negotiator": ["@types/negotiator@0.6.4", "", {}, "sha512-elf6BsTq+AkyNsb2h5cGNst2Mc7dPliVoAPm1fXglC/BM3f2pFA40BaSSv3E5lyHteEawVKLP+8TwiY1DMNb3A=="],
 
-    "@types/node": ["@types/node@25.2.0", "", { "dependencies": { "undici-types": "~7.16.0" } }, "sha512-DZ8VwRFUNzuqJ5khrvwMXHmvPe+zGayJhr2CDNiKB1WBE1ST8Djl00D0IC4vvNmHMdj6DlbYRIaFE7WHjlDl5w=="],
+    "@types/node": ["@types/node@25.2.1", "", { "dependencies": { "undici-types": "~7.16.0" } }, "sha512-CPrnr8voK8vC6eEtyRzvMpgp3VyVRhgclonE7qYi6P9sXwYb59ucfrnmFBTaP0yUi8Gk4yZg/LlTJULGxvTNsg=="],
 
     "@types/nodemailer": ["@types/nodemailer@7.0.9", "", { "dependencies": { "@types/node": "*" } }, "sha512-vI8oF1M+8JvQhsId0Pc38BdUP2evenIIys7c7p+9OZXSPOH5c1dyINP1jT8xQ2xPuBUXmIC87s+91IZMDjH8Ow=="],
 
