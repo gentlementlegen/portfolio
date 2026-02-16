@@ -20,7 +20,7 @@
         "clsx": "2.1.1",
         "framer-motion": "12.34.0",
         "graphql": "16.12.0",
-        "i18next": "25.8.8",
+        "i18next": "25.8.10",
         "i18next-browser-languagedetector": "8.2.1",
         "i18next-resources-to-backend": "1.2.1",
         "next": "16.1.6",
@@ -872,7 +872,7 @@
 
     "html-tokenize": ["html-tokenize@2.0.1", "", { "dependencies": { "buffer-from": "~0.1.1", "inherits": "~2.0.1", "minimist": "~1.2.5", "readable-stream": "~1.0.27-1", "through2": "~0.4.1" }, "bin": { "html-tokenize": "bin/cmd.js" } }, "sha512-QY6S+hZ0f5m1WT8WffYN+Hg+xm/w5I8XeUcAq/ZYP5wVC8xbKi4Whhru3FtrAebD5EhBW8rmFzkDI6eCAuFe2w=="],
 
-    "i18next": ["i18next@25.8.8", "", { "dependencies": { "@babel/runtime": "^7.28.4" }, "peerDependencies": { "typescript": "^5" }, "optionalPeers": ["typescript"] }, "sha512-gNTWXMBe9JBr6LAl2tqRfa6fn2EjrQJ3JBeH2jR+yIckwaJYdI7UfMQrnxzFjuFBb2FHy9Yn4gJB2BwLuC8/ZQ=="],
+    "i18next": ["i18next@25.8.10", "", { "dependencies": { "@babel/runtime": "^7.28.4" }, "peerDependencies": { "typescript": "^5" }, "optionalPeers": ["typescript"] }, "sha512-CtPJLMAz1G8sxo+mIzfBjGgLxWs7d6WqIjlmmv9BTsOat4pJIfwZ8cm07n3kFS6bP9c6YwsYutYrwsEeJVBo2g=="],
 
     "i18next-browser-languagedetector": ["i18next-browser-languagedetector@8.2.1", "", { "dependencies": { "@babel/runtime": "^7.23.2" } }, "sha512-bZg8+4bdmaOiApD7N7BPT9W8MLZG+nPTOFlLiJiT8uzKXFjhxw4v2ierCXOwB5sFDMtuA5G4kgYZ0AznZxQ/cw=="],
 
