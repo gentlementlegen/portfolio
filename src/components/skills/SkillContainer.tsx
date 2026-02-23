@@ -136,7 +136,7 @@ const SkillContainer = (props: SkillContainerProps): JSX.Element => {
         {sections.map((section) => (
           <Grid key={section.category} size={{ xs: 12, md: 6 }} component={motion.div} variants={cardVariant}>
             <Paper variant={'outlined'} sx={styles.card}>
-              <Typography variant={'h5'} sx={styles.cardTitle}>
+              <Typography variant={'h5'} component={'h3'} sx={styles.cardTitle}>
                 {section.title}
               </Typography>
               <Box sx={styles.chipWrap}>
