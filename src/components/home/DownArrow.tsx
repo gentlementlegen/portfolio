@@ -1,13 +1,11 @@
 'use client'
 
 import React, { useEffect, useState } from 'react'
-import AnchorLink, { AnchorLinkProps } from 'react-anchor-link-smooth-scroll'
+import AnchorLink from 'react-anchor-link-smooth-scroll'
 import { Box, IconButton } from '@mui/material'
 import { KeyboardArrowDownRounded } from '@mui/icons-material'
 
-interface DownArrowProps extends AnchorLinkProps {}
-
-export default function DownArrow(props: DownArrowProps) {
+export default function DownArrow() {
   const [hidden, setHidden] = useState(false)
 
   useEffect(() => {
@@ -24,12 +22,11 @@ export default function DownArrow(props: DownArrowProps) {
   }, [])
 
   return (
-    /*We ignore this error because it is due to the new children type in React and this lib is not up-to-date*/
-    /*@ts-ignore*/
     <Box
       component={AnchorLink}
       href={'#about'}
       offset={100}
+      aria-label={'Scroll to about section'}
       tabIndex={hidden ? -1 : 0}
       aria-hidden={hidden}
       sx={{
@@ -41,9 +38,7 @@ export default function DownArrow(props: DownArrowProps) {
         transition: 'opacity 0.35s ease',
       }}
     >
-      {/*We ignore this error because it is due to the new children type in React and this lib is not up-to-date*/}
-      {/*@ts-ignore*/}
-      <IconButton size={'large'} color={'secondary'}>
+      <IconButton size={'large'} color={'secondary'} component={'span'} tabIndex={-1} aria-hidden>
         <KeyboardArrowDownRounded />
       </IconButton>
     </Box>

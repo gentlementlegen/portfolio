@@ -31,7 +31,6 @@ const LinkElement = ({ children, href, offset }: PropsWithChildren<Omit<AnchorLi
       {children}
     </Link>
   ) : (
-    // @ts-ignore
     <AnchorLink href={href} offset={offset}>
       {children as string}
     </AnchorLink>
@@ -85,6 +84,7 @@ const NavBar = ({ lang }: NavBarProps) => {
                 sx={{ marginRight: 1, borderColor: 'transparent', backgroundColor: 'transparent' }}
                 size="small"
                 onClick={toggleDrawer(true)}
+                aria-label={'open navigation menu'}
               >
                 <Menu />
               </IconButton>

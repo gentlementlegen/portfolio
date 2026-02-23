@@ -1,12 +1,9 @@
 import { Box, Container, Grid, Paper, SxProps, Theme } from '@mui/material'
 import apolloClient from 'apolloClient'
-import AboutSection from 'components/about/AboutSection'
-import ContactForm from 'components/contact/ContactForm'
 import Background from 'components/home/Background'
 import DownArrow from 'components/home/DownArrow'
+import LazyHomeSections from 'components/home/LazyHomeSections'
 import WelcomeMessage from 'components/home/WelcomeMessage'
-import ProjectContainer from 'components/project/ProjectContainer'
-import SkillContainer from 'components/skills/SkillContainer'
 import { graphql } from 'generated'
 
 interface HomePageProps {
@@ -44,11 +41,9 @@ const style: Record<'hero' | 'scrollCue' | 'contentPaper', SxProps<Theme>> = {
 const QUERY_PROJECTS = graphql(/* GraphQL */ `
   query ProjectsAndSkills {
     projects(first: 100, orderBy: createdAt_DESC) {
-      id
       ...projectElement
     }
     skills(first: 100) {
-      id
       ...skillElement
     }
     cvs(first: 1, orderBy: createdAt_DESC) {
@@ -85,10 +80,7 @@ async function HomePage({ params }: HomePageProps) {
       </Box>
       <Paper square variant={'outlined'} sx={style.contentPaper}>
         <Container sx={{ paddingBottom: 6, paddingTop: { xs: 0, md: 10 }, '& > *': { paddingBottom: 12 } }}>
-          <AboutSection lang={lang} />
-          <SkillContainer skills={skills} lang={lang} />
-          <ProjectContainer projects={projects} lang={lang} />
-          <ContactForm lang={lang} />
+          <LazyHomeSections lang={lang} skills={skills} projects={projects} />
         </Container>
       </Paper>
     </>

@@ -1,6 +1,6 @@
 'use client'
 
-import { useMutation } from '@apollo/client/react'
+import { ApolloProvider, useMutation } from '@apollo/client/react'
 import { SendRounded } from '@mui/icons-material'
 import {
   Box,
@@ -16,6 +16,7 @@ import {
   Typography,
 } from '@mui/material'
 import { alpha } from '@mui/material/styles'
+import apolloClient from 'apolloClient'
 import Success from 'components/animated/Success'
 import { useTranslation } from 'components/i18n/client'
 import { motion, useAnimationControls } from 'framer-motion'
@@ -114,7 +115,7 @@ const styles: Record<
   }),
 }
 
-const ContactForm = ({ lang }: ContactFormProps) => {
+const ContactFormContent = ({ lang }: ContactFormProps) => {
   const {
     handleSubmit,
     register,
@@ -259,4 +260,10 @@ const ContactForm = ({ lang }: ContactFormProps) => {
   )
 }
 
-export default ContactForm
+export default function ContactForm(props: ContactFormProps) {
+  return (
+    <ApolloProvider client={apolloClient}>
+      <ContactFormContent {...props} />
+    </ApolloProvider>
+  )
+}

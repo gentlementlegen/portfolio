@@ -9,6 +9,14 @@ import { languages } from 'components/i18n/settings'
 import { CookiesProvider } from 'next-client-cookies/server'
 import { Analytics } from '@vercel/analytics/next'
 import { SpeedInsights } from '@vercel/speed-insights/next'
+import { Manrope } from 'next/font/google'
+
+const manrope = Manrope({
+  subsets: ['latin'],
+  weight: ['400', '500', '600', '700'],
+  display: 'swap',
+  variable: '--font-manrope',
+})
 
 //         <link rel="manifest" href="/site.webmanifest" />
 //         <meta property="og:image" content={`https://${process.env.NEXT_PUBLIC_VERCEL_URL}/background.png`} />
@@ -56,7 +64,7 @@ export default async function RootLayout({
 }) {
   const { lang } = await params
   return (
-    <html lang={lang} dir={dir(lang)}>
+    <html lang={lang} dir={dir(lang)} className={manrope.variable}>
       <body>
         <CookiesProvider>
           <CommonTheme>

@@ -16,26 +16,28 @@ declare module '@mui/material/Chip' {
 }
 
 const makeTheme = (mode: 'light' | 'dark') => {
+  const manropeStack = ['var(--font-manrope)', '"Segoe UI"', '"Helvetica Neue"', 'Arial', 'sans-serif'].join(',')
+
   let theme = responsiveFontSizes(
     createTheme({
       typography: {
-        fontFamily: ['"Manrope"', '"Segoe UI"', '"Helvetica Neue"', 'Arial', 'sans-serif'].join(','),
+        fontFamily: manropeStack,
         h1: {
-          fontFamily: ['"Space Grotesk"', '"Manrope"', '"Segoe UI"', 'Arial', 'sans-serif'].join(','),
+          fontFamily: manropeStack,
           fontWeight: 600,
           letterSpacing: '-0.02em',
         },
         h2: {
-          fontFamily: ['"Space Grotesk"', '"Manrope"', '"Segoe UI"', 'Arial', 'sans-serif'].join(','),
+          fontFamily: manropeStack,
           fontWeight: 600,
           letterSpacing: '-0.015em',
         },
         h3: {
-          fontFamily: ['"Space Grotesk"', '"Manrope"', '"Segoe UI"', 'Arial', 'sans-serif'].join(','),
+          fontFamily: manropeStack,
           fontWeight: 600,
         },
         h4: {
-          fontFamily: ['"Space Grotesk"', '"Manrope"', '"Segoe UI"', 'Arial', 'sans-serif'].join(','),
+          fontFamily: manropeStack,
           fontWeight: 600,
         },
         button: {
@@ -121,7 +123,6 @@ const makeTheme = (mode: 'light' | 'dark') => {
     components: {
       MuiCssBaseline: {
         styleOverrides: `
-          @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap');
           *::selection { background: ${theme.palette.link.main}; }
           html {
             scroll-behavior: smooth;

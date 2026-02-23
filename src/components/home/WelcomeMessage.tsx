@@ -78,7 +78,7 @@ export default function WelcomeMessage({ lang, cvUrl }: WelcomeMessageProps) {
             <Typography variant={'h2'} component={'h1'} gutterBottom>
               {t('h1')}
             </Typography>
-            <Typography variant={'subtitle1'} color={'text.secondary'}>
+            <Typography variant={'subtitle1'} component={'p'} color={'text.secondary'}>
               <Trans i18nKey={'h2'} ns="common">
                 I am <em>Fernand</em>, a full-stack / Web3 dev lead. Passionate about video-games, I currently work
                 with Next.js, Node.js, Typescript & GraphQL.
@@ -113,6 +113,7 @@ export default function WelcomeMessage({ lang, cvUrl }: WelcomeMessageProps) {
               href={'https://github.com/gentlementlegen'}
               target={'_blank'}
               rel={'noreferrer'}
+              aria-label={'Open GitHub profile'}
             >
               <GitHub fontSize={'small'} />
             </IconButton>
@@ -121,6 +122,7 @@ export default function WelcomeMessage({ lang, cvUrl }: WelcomeMessageProps) {
               href={'https://www.linkedin.com/in/fernand-veyrier/'}
               target={'_blank'}
               rel={'noreferrer'}
+              aria-label={'Open LinkedIn profile'}
             >
               <LinkedIn fontSize={'small'} />
             </IconButton>
@@ -129,6 +131,7 @@ export default function WelcomeMessage({ lang, cvUrl }: WelcomeMessageProps) {
               href={'https://stackoverflow.com/users/10346405/mentlegen'}
               target={'_blank'}
               rel={'noreferrer'}
+              aria-label={'Open Stack Overflow profile'}
             >
               <BsStackOverflow size={20} />
             </IconButton>
@@ -137,10 +140,11 @@ export default function WelcomeMessage({ lang, cvUrl }: WelcomeMessageProps) {
               href={'https://www.rocketpunch.com/@fernandveyrier96'}
               target={'_blank'}
               rel={'noreferrer'}
+              aria-label={'Open Rocketpunch profile'}
             >
               <AiFillRocket size={20} />
             </IconButton>
-            <IconButton component={'a'} href={'#contact'}>
+            <IconButton component={'a'} href={'#contact'} aria-label={'Go to contact section'}>
               <MailOutline fontSize={'small'} />
             </IconButton>
           </Stack>
