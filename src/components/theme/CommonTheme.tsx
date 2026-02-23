@@ -6,9 +6,7 @@ import { ApolloProvider } from '@apollo/client/react'
 import apolloClient from 'apolloClient'
 import ToggleColorMode from 'components/context/ColorModeContext'
 
-interface CommonThemeProps {}
-
-export default function CommonTheme({ children }: PropsWithChildren<CommonThemeProps>) {
+export default function CommonTheme({ children }: PropsWithChildren) {
   return (
     <ToggleColorMode>
       <ApolloProvider client={apolloClient}>

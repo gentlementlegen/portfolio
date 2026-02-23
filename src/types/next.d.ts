@@ -3,13 +3,13 @@ import { AppPropsType } from 'next/dist/shared/lib/utils'
 import { Router } from 'next/router'
 
 declare module 'next/app' {
-  export declare type AppProps<P = any> = AppPropsType<Router, P> & {
-    Component: NextComponentType<NextPageContext, any, any> & { hideMainLayout?: boolean }
+  export type AppProps<P = Record<string, unknown>> = AppPropsType<Router, P> & {
+    Component: NextComponentType<NextPageContext, unknown, P> & { hideMainLayout?: boolean }
   }
 }
 
 declare module 'next' {
-  export declare type NextPage<P = {}, IP = P> = NextComponentType<NextPageContext, IP, P> & {
+  export type NextPage<P = Record<string, unknown>, IP = P> = NextComponentType<NextPageContext, IP, P> & {
     hideMainLayout?: boolean
   }
 }
