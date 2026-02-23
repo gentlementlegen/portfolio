@@ -44,11 +44,9 @@ const style: Record<'hero' | 'scrollCue' | 'contentPaper', SxProps<Theme>> = {
 const QUERY_PROJECTS = graphql(/* GraphQL */ `
   query ProjectsAndSkills {
     projects(first: 100, orderBy: createdAt_DESC) {
-      id
       ...projectElement
     }
     skills(first: 100) {
-      id
       ...skillElement
     }
     cvs(first: 1, orderBy: createdAt_DESC) {
