@@ -80,8 +80,8 @@ export default function WelcomeMessage({ lang, cvUrl }: WelcomeMessageProps) {
             </Typography>
             <Typography variant={'subtitle1'} color={'text.secondary'}>
               <Trans i18nKey={'h2'} ns="common">
-                I am <em>Fernand</em>, a dev lead in South Korea. Passionate about video-games, I currently work with
-                React.js, Node.js, Typescript & GraphQl.
+                I am <em>Fernand</em>, a full-stack / Web3 dev lead. Passionate about video-games, I currently work
+                with Next.js, Node.js, Typescript & GraphQL.
               </Trans>
             </Typography>
           </Box>
