@@ -120,7 +120,7 @@ const AboutSection = ({ lang }: AboutSectionProps) => {
                   <Box sx={styles.icon}>
                     <Icon fontSize={'medium'} />
                   </Box>
-                  <Typography variant={'h5'} sx={styles.cardTitle}>
+                  <Typography variant={'h5'} component={'h3'} sx={styles.cardTitle}>
                     {card.title}
                   </Typography>
                   <Typography variant={'body2'} sx={styles.cardBody}>

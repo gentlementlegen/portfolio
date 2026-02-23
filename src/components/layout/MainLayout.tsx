@@ -2,10 +2,11 @@ import React, { JSX, PropsWithChildren } from 'react'
 import { Box, BoxProps } from '@mui/material'
 
 const MainLayout = (props: PropsWithChildren<BoxProps>): JSX.Element => {
-  const { children, sx, ...rest } = props
+  const { children, sx, component = 'main', ...rest } = props
 
   return (
     <Box
+      component={component}
       sx={[
         {
           minHeight: '100vh',

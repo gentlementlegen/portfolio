@@ -145,7 +145,7 @@ const ProjectCard = (props: ProjectCardProps): JSX.Element => {
             flexGrow: 1,
           }}
         >
-          <Typography variant={'h5'} sx={{ fontWeight: 600 }}>
+          <Typography variant={'h5'} component={'h3'} sx={{ fontWeight: 600 }}>
             {project.title}
           </Typography>
           {description && (

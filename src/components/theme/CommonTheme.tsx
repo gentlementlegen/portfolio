@@ -2,17 +2,13 @@
 
 import React, { PropsWithChildren } from 'react'
 import { CssBaseline } from '@mui/material'
-import { ApolloProvider } from '@apollo/client/react'
-import apolloClient from 'apolloClient'
 import ToggleColorMode from 'components/context/ColorModeContext'
 
 export default function CommonTheme({ children }: PropsWithChildren) {
   return (
     <ToggleColorMode>
-      <ApolloProvider client={apolloClient}>
-        <CssBaseline />
-        {children}
-      </ApolloProvider>
+      <CssBaseline />
+      {children}
     </ToggleColorMode>
   )
 }
