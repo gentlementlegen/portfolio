@@ -26,6 +26,7 @@ export default function DownArrow() {
       component={AnchorLink}
       href={'#about'}
       offset={100}
+      aria-label={'Scroll to about section'}
       tabIndex={hidden ? -1 : 0}
       aria-hidden={hidden}
       sx={{
@@ -37,7 +38,7 @@ export default function DownArrow() {
         transition: 'opacity 0.35s ease',
       }}
     >
-      <IconButton size={'large'} color={'secondary'}>
+      <IconButton size={'large'} color={'secondary'} component={'span'} tabIndex={-1} aria-hidden>
         <KeyboardArrowDownRounded />
       </IconButton>
     </Box>
