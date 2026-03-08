@@ -6,7 +6,6 @@ import Footer from 'components/layout/Footer'
 import ReactGA from 'react-ga4'
 import { dir } from 'i18next'
 import { languages } from 'components/i18n/settings'
-import { CookiesProvider } from 'next-client-cookies/server'
 import { Analytics } from '@vercel/analytics/next'
 import { SpeedInsights } from '@vercel/speed-insights/next'
 import { Manrope } from 'next/font/google'
@@ -66,13 +65,11 @@ export default async function RootLayout({
   return (
     <html lang={lang} dir={dir(lang)} className={manrope.variable}>
       <body>
-        <CookiesProvider>
-          <CommonTheme>
-            <NavBar lang={lang} />
-            <MainLayout>{children}</MainLayout>
-            <Footer />
-          </CommonTheme>
-        </CookiesProvider>
+        <CommonTheme>
+          <NavBar lang={lang} />
+          <MainLayout>{children}</MainLayout>
+          <Footer />
+        </CommonTheme>
         <Analytics />
         <SpeedInsights />
       </body>

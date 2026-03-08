@@ -3,15 +3,13 @@
 import { Box, BoxProps, Grid, SxProps, Theme, Typography } from '@mui/material'
 import { cardVariant, container } from 'components/animations/cardsReveal'
 import { useTranslation } from 'components/i18n/client'
-import { ProjectElement } from 'components/project/project.operations'
 import ProjectCard from 'components/project/ProjectCard'
 import { motion, Variants } from 'framer-motion'
-import { FragmentType, getFragmentData } from 'generated'
-import { Category } from 'generated/graphql'
+import { Category, ProjectElementFragment } from 'generated/graphql'
 import React, { JSX } from 'react'
 
 interface ProjectContainerProps extends BoxProps {
-  projects: FragmentType<typeof ProjectElement>[]
+  projects: ProjectElementFragment[]
   lang?: string
   showHeader?: boolean
 }
@@ -138,7 +136,7 @@ const projectCardVariants: Variants = {
 }
 
 const ProjectContainer = (props: ProjectContainerProps): JSX.Element => {
-  const { projects: projectsFragment, sx, lang = 'en', showHeader = true, ...rest } = props
+  const { projects: inputProjects, sx, lang = 'en', showHeader = true, ...rest } = props
   const { t } = useTranslation(lang, 'common')
   const [selectedCategory, setSelectedCategory] = React.useState<Category>(Category.Projects)
 
@@ -149,8 +147,7 @@ const ProjectContainer = (props: ProjectContainerProps): JSX.Element => {
   }
 
   const projects = React.useMemo(() => {
-    const data = getFragmentData(ProjectElement, projectsFragment)
-    return data.slice().sort((a, b) => {
+    return inputProjects.slice().sort((a, b) => {
       const aSelected = a.categories.includes(selectedCategory)
       const bSelected = b.categories.includes(selectedCategory)
       if (aSelected !== bSelected) {
@@ -158,7 +155,7 @@ const ProjectContainer = (props: ProjectContainerProps): JSX.Element => {
       }
       return b.id.localeCompare(a.id)
     })
-  }, [projectsFragment, selectedCategory])
+  }, [inputProjects, selectedCategory])
 
   const categoryOrder = [Category.Projects, Category.Games, Category.Others]
 

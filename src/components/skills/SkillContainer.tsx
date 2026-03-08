@@ -4,14 +4,12 @@ import { Box, Grid, Paper, SxProps, Theme, Typography } from '@mui/material'
 import { alpha } from '@mui/material/styles'
 import { cardVariant, container } from 'components/animations/cardsReveal'
 import { useTranslation } from 'components/i18n/client'
-import { SkillElement } from 'components/project/project.operations'
 import { motion } from 'framer-motion'
-import { FragmentType, getFragmentData } from 'generated'
-import { SkillCategory } from 'generated/graphql'
+import { SkillCategory, SkillElementFragment } from 'generated/graphql'
 import { JSX } from 'react'
 
 interface SkillContainerProps {
-  skills: FragmentType<typeof SkillElement>[]
+  skills: SkillElementFragment[]
   lang: string
 }
 
@@ -81,8 +79,7 @@ const categoryOrder: SkillCategory[] = [
 ]
 
 const SkillContainer = (props: SkillContainerProps): JSX.Element => {
-  const { skills: skillsFragment, lang } = props
-  const skills = getFragmentData(SkillElement, skillsFragment)
+  const { skills, lang } = props
   const { t } = useTranslation(lang, 'common')
 
   const categoryLabels: Record<SkillCategory, string> = {

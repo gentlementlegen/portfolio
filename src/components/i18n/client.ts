@@ -6,9 +6,33 @@ import { initReactI18next, useTranslation as useTranslationOrg, UseTranslationOp
 import resourcesToBackend from 'i18next-resources-to-backend'
 import LanguageDetector from 'i18next-browser-languagedetector'
 import { cookieName, defaultNS, getOptions, languages } from 'components/i18n/settings'
-import { useCookies } from 'next-client-cookies'
 
 const runsOnServerSide = typeof window === 'undefined'
+
+function getCookieValue(name: string): string | null {
+  if (typeof document === 'undefined') {
+    return null
+  }
+
+  const parts = document.cookie.split('; ')
+  const rawCookie = parts.find((entry) => entry.startsWith(`${name}=`))
+
+  if (!rawCookie) {
+    return null
+  }
+
+  const rawValue = rawCookie.slice(name.length + 1)
+  return decodeURIComponent(rawValue)
+}
+
+function setCookieValue(name: string, value: string): void {
+  if (typeof document === 'undefined') {
+    return
+  }
+
+  const oneYearInSeconds = 60 * 60 * 24 * 365
+  document.cookie = `${name}=${encodeURIComponent(value)}; path=/; max-age=${oneYearInSeconds}; SameSite=Lax`
+}
 
 i18next
   .use(initReactI18next)
@@ -25,7 +49,6 @@ i18next
 
 export function useTranslation(lng: string, ns = defaultNS, options?: UseTranslationOptions<undefined>) {
   const ret = useTranslationOrg(ns, options)
-  const cookies = useCookies()
 
   const { i18n } = ret
   if (runsOnServerSide && lng && i18n.resolvedLanguage !== lng) {
@@ -45,9 +68,9 @@ export function useTranslation(lng: string, ns = defaultNS, options?: UseTransla
     }, [lng, i18n])
     // eslint-disable-next-line react-hooks/rules-of-hooks
     useEffect(() => {
-      if (cookies.get('i18next') === lng) return
-      cookies.set(cookieName, lng, { path: '/' })
-    }, [cookies, lng])
+      if (getCookieValue(cookieName) === lng) return
+      setCookieValue(cookieName, lng)
+    }, [lng])
   }
   return ret
 }

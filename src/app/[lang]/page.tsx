@@ -1,10 +1,11 @@
 import { Box, Container, Grid, Paper, SxProps, Theme } from '@mui/material'
-import apolloClient from 'apolloClient'
 import Background from 'components/home/Background'
 import DownArrow from 'components/home/DownArrow'
 import LazyHomeSections from 'components/home/LazyHomeSections'
 import WelcomeMessage from 'components/home/WelcomeMessage'
-import { graphql } from 'generated'
+import { getHomeCriticalData } from 'lib/homeData'
+
+export const revalidate = 1800
 
 interface HomePageProps {
   params: Promise<{
@@ -38,29 +39,8 @@ const style: Record<'hero' | 'scrollCue' | 'contentPaper', SxProps<Theme>> = {
   },
 }
 
-const QUERY_PROJECTS = graphql(/* GraphQL */ `
-  query ProjectsAndSkills {
-    projects(first: 100, orderBy: createdAt_DESC) {
-      ...projectElement
-    }
-    skills(first: 100) {
-      ...skillElement
-    }
-    cvs(first: 1, orderBy: createdAt_DESC) {
-      id
-      document {
-        id
-        url
-      }
-    }
-  }
-`)
-
 async function HomePage({ params }: HomePageProps) {
-  const { data } = await apolloClient.query({ query: QUERY_PROJECTS })
-  const projects = data?.projects ?? []
-  const skills = data?.skills ?? []
-  const cvUrl = data?.cvs?.[0]?.document?.url ?? ''
+  const { cvUrl } = await getHomeCriticalData()
   const { lang } = await params
 
   return (
@@ -80,7 +60,7 @@ async function HomePage({ params }: HomePageProps) {
       </Box>
       <Paper square variant={'outlined'} sx={style.contentPaper}>
         <Container sx={{ paddingBottom: 6, paddingTop: { xs: 0, md: 10 }, '& > *': { paddingBottom: 12 } }}>
-          <LazyHomeSections lang={lang} skills={skills} projects={projects} />
+          <LazyHomeSections lang={lang} />
         </Container>
       </Paper>
     </>
