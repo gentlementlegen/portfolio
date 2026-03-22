@@ -21,7 +21,7 @@
         "clsx": "2.1.1",
         "framer-motion": "12.38.0",
         "graphql": "16.13.1",
-        "i18next": "25.10.3",
+        "i18next": "25.10.4",
         "i18next-browser-languagedetector": "8.2.1",
         "i18next-resources-to-backend": "1.2.1",
         "next": "16.2.1",
@@ -1491,7 +1491,7 @@
 
     "human-signals": ["human-signals@5.0.0", "", {}, "sha512-AXcZb6vzzrFAUE61HnN4mpLqd/cSIwNQjtNWR0euPm6y0iqx3G4gOXaIDdtdDwZmhwe82LA6+zinmW4UBWVePQ=="],
 
-    "i18next": ["i18next@25.10.3", "", { "dependencies": { "@babel/runtime": "^7.29.2" }, "peerDependencies": { "typescript": "^5" }, "optionalPeers": ["typescript"] }, "sha512-9XCjFgF7q4wNdmy7RFcDBIx1ndSXU3QwtbmqPjOdUxYxU9gbovJzZUY5Mb3ejWmDhxMl6Wmr2OenWOU3uyy6VQ=="],
+    "i18next": ["i18next@25.10.4", "", { "dependencies": { "@babel/runtime": "^7.29.2" }, "peerDependencies": { "typescript": "^5" }, "optionalPeers": ["typescript"] }, "sha512-XsE/6eawy090meuFU0BTY9BtmWr1m9NSwLr0NK7/A04LA58wdAvDsi9WNOJ40Qb1E9NIPbvnVLZEN2fWDd3/3Q=="],
 
     "i18next-browser-languagedetector": ["i18next-browser-languagedetector@8.2.1", "", { "dependencies": { "@babel/runtime": "^7.23.2" } }, "sha512-bZg8+4bdmaOiApD7N7BPT9W8MLZG+nPTOFlLiJiT8uzKXFjhxw4v2ierCXOwB5sFDMtuA5G4kgYZ0AznZxQ/cw=="],
 
