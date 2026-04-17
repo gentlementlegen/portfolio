@@ -1,6 +1,6 @@
 'use client'
 
-import { CodeRounded, DownloadRounded, GitHub, LinkedIn, MailOutline } from '@mui/icons-material'
+import { CodeRounded, DownloadRounded, EmailOutlined, GitHub, LinkedIn } from '@mui/icons-material'
 import { Box, Button, IconButton, Paper, Stack, Typography } from '@mui/material'
 import { useTranslation } from 'components/i18n/client'
 import { motion } from 'framer-motion'
@@ -46,7 +46,7 @@ export default function WelcomeMessage({ lang, cvUrl }: WelcomeMessageProps) {
           boxShadow: '0 24px 60px rgba(2, 6, 23, 0.45)',
         }}
       >
-        <Stack spacing={3} alignItems={'center'}>
+        <Stack spacing={3} sx={{ alignItems: 'center' }}>
           <Box
             sx={{
               width: 96,
@@ -80,8 +80,8 @@ export default function WelcomeMessage({ lang, cvUrl }: WelcomeMessageProps) {
             </Typography>
             <Typography variant={'subtitle1'} component={'p'} color={'text.secondary'}>
               <Trans i18nKey={'h2'} ns="common">
-                I am <em>Fernand</em>, a full-stack / Web3 dev lead. Passionate about video-games, I currently work
-                with Next.js, Node.js, Typescript & GraphQL.
+                I am <em>Fernand</em>, a full-stack / Web3 dev lead. Passionate about video-games, I currently work with
+                Next.js, Node.js, Typescript & GraphQL.
               </Trans>
             </Typography>
           </Box>
@@ -99,7 +99,7 @@ export default function WelcomeMessage({ lang, cvUrl }: WelcomeMessageProps) {
             </Button>
             <Button
               variant={'outlined'}
-              startIcon={<MailOutline />}
+              startIcon={<EmailOutlined />}
               component={'a'}
               href={'#contact'}
               onClick={handleContactClick}
@@ -145,7 +145,7 @@ export default function WelcomeMessage({ lang, cvUrl }: WelcomeMessageProps) {
               <AiFillRocket size={20} />
             </IconButton>
             <IconButton component={'a'} href={'#contact'} aria-label={'Go to contact section'}>
-              <MailOutline fontSize={'small'} />
+              <EmailOutlined fontSize={'small'} />
             </IconButton>
           </Stack>
         </Stack>
