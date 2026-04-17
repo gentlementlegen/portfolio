@@ -35,6 +35,7 @@ const styles = {
   }),
   grid: {
     marginTop: { xs: 2, md: 3 },
+    justifyContent: 'center',
   },
   toggleWrap: {
     display: 'flex',
@@ -216,7 +217,6 @@ const ProjectContainer = (props: ProjectContainerProps): JSX.Element => {
       <Grid
         component={motion.div}
         container
-        justifyContent={'center'}
         spacing={{ xs: 2.5, md: 3 }}
         variants={container}
         initial="hidden"

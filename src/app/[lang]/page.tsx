@@ -68,7 +68,7 @@ async function HomePage({ params }: HomePageProps) {
       <Background />
       <Box id={'home'} sx={style.hero}>
         <Container maxWidth={'md'}>
-          <Grid container alignItems={'center'} justifyContent={'center'}>
+          <Grid container sx={{ alignItems: 'center', justifyContent: 'center' }}>
             <Grid size={{ xs: 12 }}>
               <WelcomeMessage lang={lang} cvUrl={cvUrl} />
             </Grid>
