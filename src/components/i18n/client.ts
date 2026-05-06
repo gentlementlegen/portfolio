@@ -3,11 +3,23 @@
 import { useEffect, useState } from 'react'
 import i18next from 'i18next'
 import { initReactI18next, useTranslation as useTranslationOrg, UseTranslationOptions } from 'react-i18next'
-import resourcesToBackend from 'i18next-resources-to-backend'
-import LanguageDetector from 'i18next-browser-languagedetector'
-import { cookieName, defaultNS, getOptions, languages } from 'components/i18n/settings'
+import { cookieName, defaultNS, fallbackLng, getOptions, languages } from 'components/i18n/settings'
+import enCommon from '../../../public/locales/en/common.json'
+import frCommon from '../../../public/locales/fr/common.json'
+import koCommon from '../../../public/locales/ko/common.json'
 
 const runsOnServerSide = typeof window === 'undefined'
+const supportedLanguages = new Set<string>(languages)
+const resources = {
+  en: { common: enCommon },
+  fr: { common: frCommon },
+  ko: { common: koCommon },
+}
+
+function normalizeLanguage(value?: string | null): string | null {
+  const normalizedLanguage = value?.toLowerCase().split('-')[0]
+  return normalizedLanguage && supportedLanguages.has(normalizedLanguage) ? normalizedLanguage : null
+}
 
 function getCookieValue(name: string): string | null {
   if (typeof document === 'undefined') {
@@ -34,18 +46,25 @@ function setCookieValue(name: string, value: string): void {
   document.cookie = `${name}=${encodeURIComponent(value)}; path=/; max-age=${oneYearInSeconds}; SameSite=Lax`
 }
 
-i18next
-  .use(initReactI18next)
-  .use(LanguageDetector)
-  .use(resourcesToBackend((language, namespace) => import(`../../../public/locales/${language}/${namespace}.json`)))
-  .init({
-    ...getOptions(),
-    lng: undefined, // let detect the language on client side
-    detection: {
-      order: ['path', 'htmlTag', 'cookie', 'navigator'],
-    },
-    preload: runsOnServerSide ? languages : [],
-  })
+function getInitialLanguage(): string {
+  if (runsOnServerSide) {
+    return fallbackLng
+  }
+
+  const pathLanguage = normalizeLanguage(window.location.pathname.split('/')[1])
+  const htmlLanguage = normalizeLanguage(document.documentElement.lang)
+  const cookieLanguage = normalizeLanguage(getCookieValue(cookieName))
+  const navigatorLanguage = (navigator.languages ?? [navigator.language]).map(normalizeLanguage).find(Boolean)
+
+  return pathLanguage ?? htmlLanguage ?? cookieLanguage ?? navigatorLanguage ?? fallbackLng
+}
+
+i18next.use(initReactI18next).init({
+  ...getOptions(getInitialLanguage()),
+  resources,
+  initAsync: false,
+  preload: runsOnServerSide ? languages : [],
+})
 
 export function useTranslation(lng: string, ns = defaultNS, options?: UseTranslationOptions<undefined>) {
   const ret = useTranslationOrg(ns, options)
