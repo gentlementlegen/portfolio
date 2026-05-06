@@ -20,7 +20,7 @@ type HomeContentQueryData = {
   skills: SkillElementFragment[]
 }
 
-const HOME_CRITICAL_QUERY = `
+const HOME_CRITICAL_QUERY = /* GraphQL */ `
   query HomeCriticalData {
     cvs(first: 1, orderBy: createdAt_DESC) {
       document {
@@ -30,7 +30,7 @@ const HOME_CRITICAL_QUERY = `
   }
 `
 
-const HOME_CONTENT_QUERY = `
+const HOME_CONTENT_QUERY = /* GraphQL */ `
   query HomeContentData {
     projects(first: 100, orderBy: createdAt_DESC) {
       id
