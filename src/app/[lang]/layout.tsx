@@ -8,7 +8,9 @@ import { dir } from 'i18next'
 import { languages } from 'components/i18n/settings'
 import { Analytics } from '@vercel/analytics/next'
 import { SpeedInsights } from '@vercel/speed-insights/next'
+import { Metadata } from 'next'
 import { Manrope } from 'next/font/google'
+import { getSiteUrl } from 'lib/siteUrl'
 
 const manrope = Manrope({
   subsets: ['latin'],
@@ -24,25 +26,33 @@ const manrope = Manrope({
 //         <meta property="og:image:width" content="1024" />
 //         <meta property="og:image:height" content="576" />
 
-export const metadata = {
-  metadataBase: new URL(`https://${process.env.NEXT_PUBLIC_VERCEL_URL}`),
-  alternates: {
-    canonical: '/',
-    languages: {
-      en: 'en',
-      fr: 'fr',
-      ko: 'ko',
+const metadataBase = new URL(getSiteUrl())
+const metadataTitle = 'Fernand Veyrier'
+const metadataDescription =
+  'I am Fernand Veyrier, fullstack and Web3 programmer. This portfolio mostly focuses on video games and personal projects.'
+const isVercelDeployment = Boolean(process.env.VERCEL || process.env.NEXT_PUBLIC_VERCEL_URL)
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ lang: string }>
+}): Promise<Metadata> {
+  const { lang } = await params
+
+  return {
+    metadataBase,
+    alternates: {
+      canonical: `/${lang}/`,
+      languages: Object.fromEntries(languages.map((language) => [language, `/${language}/`])),
     },
-  },
-  title: 'Fernand Veyrier',
-  description:
-    'I am Fernand Veyrier, fullstack and Web3 programmer. This portfolio mostly focuses on video games and personal projects.',
-  openGraph: {
-    title: 'Fernand Veyrier',
-    description:
-      'I am Fernand Veyrier, fullstack and Web3 programmer. This portfolio mostly focuses on video games and personal projects.',
-    images: '/background.png',
-  },
+    title: metadataTitle,
+    description: metadataDescription,
+    openGraph: {
+      title: metadataTitle,
+      description: metadataDescription,
+      images: '/background.png',
+    },
+  }
 }
 
 export async function generateStaticParams() {
@@ -70,8 +80,8 @@ export default async function RootLayout({
           <MainLayout>{children}</MainLayout>
           <Footer />
         </CommonTheme>
-        <Analytics />
-        <SpeedInsights />
+        {isVercelDeployment ? <Analytics /> : null}
+        {isVercelDeployment ? <SpeedInsights /> : null}
       </body>
     </html>
   )

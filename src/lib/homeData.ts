@@ -2,8 +2,6 @@ import 'server-only'
 
 import { ProjectElementFragment, SkillElementFragment } from 'generated/graphql'
 
-export const HOME_REVALIDATE_SECONDS = 1800
-
 type GraphQlResponse<TData> = {
   data?: TData
   errors?: Array<{ message?: string }>
@@ -74,9 +72,6 @@ async function requestGraphql<TData>(query: string): Promise<TData> {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({ query }),
-    next: {
-      revalidate: HOME_REVALIDATE_SECONDS,
-    },
   })
 
   if (!response.ok) {

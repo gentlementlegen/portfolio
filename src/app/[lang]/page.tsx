@@ -1,11 +1,9 @@
 import { Box, Container, Grid, Paper, SxProps, Theme } from '@mui/material'
 import Background from 'components/home/Background'
 import DownArrow from 'components/home/DownArrow'
-import LazyHomeSections from 'components/home/LazyHomeSections'
+import HomeSections from 'components/home/HomeSections'
 import WelcomeMessage from 'components/home/WelcomeMessage'
-import { getHomeCriticalData } from 'lib/homeData'
-
-export const revalidate = 1800
+import { getHomeContentData, getHomeCriticalData } from 'lib/homeData'
 
 interface HomePageProps {
   params: Promise<{
@@ -40,7 +38,7 @@ const style: Record<'hero' | 'scrollCue' | 'contentPaper', SxProps<Theme>> = {
 }
 
 async function HomePage({ params }: HomePageProps) {
-  const { cvUrl } = await getHomeCriticalData()
+  const [{ cvUrl }, { projects, skills }] = await Promise.all([getHomeCriticalData(), getHomeContentData()])
   const { lang } = await params
 
   return (
@@ -60,7 +58,7 @@ async function HomePage({ params }: HomePageProps) {
       </Box>
       <Paper square variant={'outlined'} sx={style.contentPaper}>
         <Container sx={{ paddingBottom: 6, paddingTop: { xs: 0, md: 10 }, '& > *': { paddingBottom: 12 } }}>
-          <LazyHomeSections lang={lang} />
+          <HomeSections lang={lang} projects={projects} skills={skills} />
         </Container>
       </Paper>
     </>

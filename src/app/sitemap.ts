@@ -1,11 +1,15 @@
 import { MetadataRoute } from 'next'
-export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const siteUrl = process.env.SITE_URL ? `https://${process.env.SITE_URL}` : 'https://www.fernand-veyrier.xyz'
+import { languages } from 'components/i18n/settings'
+import { getSiteUrl } from 'lib/siteUrl'
 
-  return [
-    {
-      url: siteUrl,
-      lastModified: new Date(),
-    },
-  ]
+export const dynamic = 'force-static'
+
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  const siteUrl = getSiteUrl()
+  const lastModified = new Date()
+
+  return languages.map((lang) => ({
+    url: `${siteUrl}/${lang}/`,
+    lastModified,
+  }))
 }
