@@ -3,6 +3,7 @@
   "private": true,
   "version": "1.1.0",
   "scripts": {
+    "prepare": "husky",
     "predev": "bun run generate",
     "prebuild": "bun run generate",
     "dev": "next dev",
@@ -49,6 +50,8 @@
     "react-icons": "5.6.0"
   },
   "devDependencies": {
+    "@commitlint/cli": "^21.0.1",
+    "@commitlint/config-conventional": "^21.0.1",
     "@formatjs/intl-localematcher": "0.8.6",
     "@graphql-codegen/cli": "6.3.1",
     "@graphql-codegen/client-preset": "5.3.0",
@@ -64,6 +67,7 @@
     "dotenv-cli": "11.0.0",
     "eslint": "^9.0.0",
     "eslint-config-next": "16.2.4",
+    "husky": "^9.1.7",
     "prettier": "3.8.3",
     "ts-node": "10.9.2",
     "typescript": "6.0.3"
