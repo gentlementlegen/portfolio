@@ -38,7 +38,7 @@
         "react-icons": "5.6.0",
       },
       "devDependencies": {
-        "@formatjs/intl-localematcher": "0.8.6",
+        "@formatjs/intl-localematcher": "0.8.7",
         "@graphql-codegen/cli": "6.3.1",
         "@graphql-codegen/client-preset": "5.3.0",
         "@playwright/test": "1.60.0",
@@ -249,9 +249,9 @@
 
     "@fastify/busboy": ["@fastify/busboy@3.1.1", "", {}, "sha512-5DGmA8FTdB2XbDeEwc/5ZXBl6UbBAyBOOLlPuBnZ/N1SwdH9Ii+cOX3tBROlDgcTXxjOYnLMVoKk9+FXAw0CJw=="],
 
-    "@formatjs/fast-memoize": ["@formatjs/fast-memoize@3.1.4", "", {}, "sha512-Lbke1aOrsygKKR09Ux0NrZgbTqpDmiwXOgzyDOJ8Owr1zd5qOKTauf62hH+Seeku3ju77rHWH9I5SfX2CN0vuA=="],
+    "@formatjs/fast-memoize": ["@formatjs/fast-memoize@3.1.5", "", {}, "sha512-KLi3fan6WnCHmigd9pmEEN8Hid0v4wiFBW576M/d07KMWYecf1CvyMI3n34vCmHT4AoVqG2n702kiHbXjzZX2A=="],
 
-    "@formatjs/intl-localematcher": ["@formatjs/intl-localematcher@0.8.6", "", { "dependencies": { "@formatjs/fast-memoize": "3.1.4" } }, "sha512-AZRgUxj0q93lyF7Z5lFS85bLINXuBLX4R3tCKicO6fSWo6cvh9GQfoR3B1WlsqQwefZ1QORTivhInx7gM6HUzQ=="],
+    "@formatjs/intl-localematcher": ["@formatjs/intl-localematcher@0.8.7", "", { "dependencies": { "@formatjs/fast-memoize": "3.1.5" } }, "sha512-1R/ljfRKG1fUhKG4F0lUmrEKPkr/PlHqbgQ8xeYQYYunXu5/0+vbQeeVgGAgydp13Tq+S1X5Qjn6L90hijXjHg=="],
 
     "@graphql-codegen/add": ["@graphql-codegen/add@6.0.1", "", { "dependencies": { "@graphql-codegen/plugin-helpers": "^6.3.0", "tslib": "^2.8.0" }, "peerDependencies": { "graphql": "^0.8.0 || ^0.9.0 || ^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0" } }, "sha512-MSylSekjpVWbOBw2A/2ssk1fPY54sYb6Qk2C4AX5u7s2R+2pMQ9ws7DTXo8VU9qwTgWwVp6vGfdQ0AMpAn4Iug=="],
 
