@@ -18,6 +18,9 @@ const Link = styled(MuiLink)(
 )
 
 const styles = {
+  grid: {
+    justifyContent: 'center',
+  },
   centered: {
     display: 'flex',
     justifyContent: 'center',
@@ -38,13 +41,13 @@ const ContactSection = ({ lang }: ContactSectionProps) => {
       </Typography>
       <Grid
         container
-        justifyContent={'center'}
         spacing={4}
         component={motion.div}
         variants={container}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true }}
+        sx={styles.grid}
       >
         <Grid size={{ xs: 6, sm: 2 }} sx={styles.centered} component={motion.div} layout variants={cardVariant}>
           <Link

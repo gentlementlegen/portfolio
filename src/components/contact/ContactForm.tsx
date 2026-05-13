@@ -38,7 +38,7 @@ export interface ContactFormProps {
 }
 
 const styles: Record<
-  'section' | 'header' | 'title' | 'subtitle' | 'card' | 'formControl' | 'label' | 'field' | 'button',
+  'section' | 'header' | 'title' | 'subtitle' | 'card' | 'formGrid' | 'formControl' | 'label' | 'field' | 'button',
   SxProps<Theme>
 > = {
   section: {
@@ -67,6 +67,9 @@ const styles: Record<
     boxShadow: `0 24px 60px ${alpha(theme.palette.common.black, theme.palette.mode === 'dark' ? 0.4 : 0.18)}`,
     backdropFilter: 'blur(12px)',
   }),
+  formGrid: {
+    justifyContent: 'center',
+  },
   formControl: {
     width: '100%',
     alignItems: 'flex-start',
@@ -176,7 +179,7 @@ const ContactFormContent = ({ lang }: ContactFormProps) => {
         </Box>
         <Paper variant={'outlined'} sx={styles.card}>
           <form onSubmit={handleSubmit(submitForm, handleFormError)}>
-            <Grid container spacing={3} justifyContent={'center'}>
+            <Grid container spacing={3} sx={styles.formGrid}>
               <Grid size={12} component={motion.div} custom={'name'} transition={{ duration: 0.3 }} animate={controls}>
                 <FormControl fullWidth sx={styles.formControl}>
                   <InputLabel shrink htmlFor="contact-name" sx={styles.label}>

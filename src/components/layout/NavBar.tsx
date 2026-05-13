@@ -79,7 +79,7 @@ const NavBar = ({ lang }: NavBarProps) => {
           }}
         >
           <Toolbar disableGutters sx={{ minHeight: { xs: 56, md: 64 } }}>
-            <Box display={{ xs: 'flex', md: 'none' }}>
+            <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
               <IconButton
                 sx={{ marginRight: 1, borderColor: 'transparent', backgroundColor: 'transparent' }}
                 size="small"
@@ -92,12 +92,14 @@ const NavBar = ({ lang }: NavBarProps) => {
                 open={openDrawer}
                 onClose={toggleDrawer(false)}
                 onOpen={toggleDrawer(true)}
-                PaperProps={{
-                  sx: {
-                    backgroundColor: 'background.paper',
-                    border: '1px solid',
-                    borderColor: 'divider',
-                    minWidth: 240,
+                slotProps={{
+                  paper: {
+                    sx: {
+                      backgroundColor: 'background.paper',
+                      border: '1px solid',
+                      borderColor: 'divider',
+                      minWidth: 240,
+                    },
                   },
                 }}
               >
@@ -116,7 +118,7 @@ const NavBar = ({ lang }: NavBarProps) => {
                 </Box>
               </SwipeableDrawer>
             </Box>
-            <Link href={'/'} passHref onClick={onHomeClick}>
+            <Link href={`/${lang}/`} passHref onClick={onHomeClick}>
               <Typography
                 variant={'h6'}
                 sx={{
@@ -128,8 +130,8 @@ const NavBar = ({ lang }: NavBarProps) => {
                 {'<Fernand />'}
               </Typography>
             </Link>
-            <Box flexGrow={1} />
-            <Box display={{ xs: 'none', md: 'flex' }} alignItems={'center'} gap={1}>
+            <Box sx={{ flexGrow: 1 }} />
+            <Box sx={{ display: { xs: 'none', md: 'flex' }, alignItems: 'center', gap: 1 }}>
               {navLinks.map((link) => (
                 <LinkElement key={link.href} href={link.href} offset={96}>
                   <Button
