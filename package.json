@@ -33,7 +33,7 @@
     "accept-language": "3.0.20",
     "apollo-upload-client": "19.0.0",
     "clsx": "2.1.1",
-    "framer-motion": "12.39.0",
+    "framer-motion": "12.40.0",
     "graphql": "16.14.0",
     "i18next": "26.2.0",
     "i18next-resources-to-backend": "1.2.1",
