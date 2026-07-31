@@ -59,7 +59,7 @@
     "@types/apollo-upload-client": "19.0.0",
     "@types/negotiator": "0.6.4",
     "@types/node": "26.1.2",
-    "@types/react": "19.2.17",
+    "@types/react": "19.2.18",
     "@types/react-anchor-link-smooth-scroll": "1.0.5",
     "@typescript-eslint/eslint-plugin": "8.65.0",
     "@typescript-eslint/parser": "8.65.0",
