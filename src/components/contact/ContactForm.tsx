@@ -21,7 +21,7 @@ import Success from '@/components/animated/Success'
 import { useTranslation } from '@/components/i18n/client'
 import { motion, useAnimationControls } from 'framer-motion'
 import { graphql } from '@/generated'
-import { MutationCreateMessageArgs } from '@/generated/graphql'
+import { CreateMessageMutationVariables } from '@/generated/graphql'
 import { useState } from 'react'
 import { FieldError, useForm } from 'react-hook-form'
 
@@ -124,7 +124,7 @@ const ContactFormContent = ({ lang }: ContactFormProps) => {
     register,
     setError,
     formState: { errors },
-  } = useForm<MutationCreateMessageArgs>()
+  } = useForm<CreateMessageMutationVariables>()
   const [sendEmail, { loading }] = useMutation(MUTATION_SEND_EMAIL)
   const [sent, setSent] = useState(false)
   const { t } = useTranslation(lang, 'common')
@@ -137,7 +137,7 @@ const ContactFormContent = ({ lang }: ContactFormProps) => {
       .catch((e) => console.error(e))
   }
 
-  const submitForm = async (form: MutationCreateMessageArgs) => {
+  const submitForm = async (form: CreateMessageMutationVariables) => {
     const {
       data: { message, ...rest },
     } = form

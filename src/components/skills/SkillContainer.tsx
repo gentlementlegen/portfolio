@@ -70,24 +70,18 @@ const styles: Record<
   }),
 }
 
-const categoryOrder: SkillCategory[] = [
-  SkillCategory.Frontend,
-  SkillCategory.Backend,
-  SkillCategory.Web3,
-  SkillCategory.ToolsAndDevops,
-  SkillCategory.Language,
-]
+const categoryOrder: SkillCategory[] = ['frontend', 'backend', 'web3', 'toolsAndDevops', 'language']
 
 const SkillContainer = (props: SkillContainerProps): JSX.Element => {
   const { skills, lang } = props
   const { t } = useTranslation(lang, 'common')
 
   const categoryLabels: Record<SkillCategory, string> = {
-    [SkillCategory.Frontend]: t('skills category frontend'),
-    [SkillCategory.Backend]: t('skills category backend'),
-    [SkillCategory.Web3]: t('skills category web3'),
-    [SkillCategory.ToolsAndDevops]: t('skills category tools'),
-    [SkillCategory.Language]: t('language category tools'),
+    frontend: t('skills category frontend'),
+    backend: t('skills category backend'),
+    web3: t('skills category web3'),
+    toolsAndDevops: t('skills category tools'),
+    language: t('language category tools'),
   }
 
   const groupedSkills = skills.reduce(
