@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Fernand Veyrier</title>
+    <meta name="robots" content="noindex, follow" />
+    <link rel="canonical" href="/en/" />
+    <noscript>
+      <meta http-equiv="refresh" content="0; url=/en/" />
+    </noscript>
+    <script>
+      ;(() => {
+        const supported = ['en', 'fr', 'ko']
+        const fallback = 'en'
+        const cookieMatch = document.cookie.match(/(?:^|; )i18next=([^;]+)/)
+        const cookieLang = cookieMatch ? decodeURIComponent(cookieMatch[1]).toLowerCase().split('-')[0] : ''
+        const browserLang = (navigator.languages || [navigator.language || fallback])
+          .map((lang) => lang.toLowerCase().split('-')[0])
+          .find((lang) => supported.includes(lang))
+        const lang = supported.includes(cookieLang) ? cookieLang : browserLang || fallback
+        window.location.replace(`/${lang}/`)
+      })()
+    </script>
+  </head>
+  <body>
+    <a href="/en/">Continue to Fernand Veyrier</a>
+  </body>
+</html>

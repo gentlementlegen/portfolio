@@ -118,7 +118,7 @@ const NavBar = ({ lang }: NavBarProps) => {
                 </Box>
               </SwipeableDrawer>
             </Box>
-            <Link href={'/'} passHref onClick={onHomeClick}>
+            <Link href={`/${lang}/`} passHref onClick={onHomeClick}>
               <Typography
                 variant={'h6'}
                 sx={{
