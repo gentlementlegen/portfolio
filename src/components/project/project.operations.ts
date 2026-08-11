@@ -1,4 +1,4 @@
-import { graphql } from 'generated'
+import { graphql } from '@/generated'
 
 export const QUERY_PROJECT = graphql(/* GraphQL */ `
   query Project($where: ProjectWhereUniqueInput!) {

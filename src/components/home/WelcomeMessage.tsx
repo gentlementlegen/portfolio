@@ -2,7 +2,7 @@
 
 import { CodeRounded, DownloadRounded, EmailOutlined, GitHub, LinkedIn } from '@mui/icons-material'
 import { Box, Button, IconButton, Paper, Stack, Typography } from '@mui/material'
-import { useTranslation } from 'components/i18n/client'
+import { useTranslation } from '@/components/i18n/client'
 import { motion } from 'framer-motion'
 import React from 'react'
 import { Trans } from 'react-i18next'

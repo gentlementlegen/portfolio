@@ -1,11 +1,11 @@
 'use client'
 
 import { Box, BoxProps, Grid, SxProps, Theme, Typography } from '@mui/material'
-import { cardVariant, container } from 'components/animations/cardsReveal'
-import { useTranslation } from 'components/i18n/client'
-import ProjectCard from 'components/project/ProjectCard'
+import { cardVariant, container } from '@/components/animations/cardsReveal'
+import { useTranslation } from '@/components/i18n/client'
+import ProjectCard from '@/components/project/ProjectCard'
 import { motion, Variants } from 'framer-motion'
-import { Category, ProjectElementFragment } from 'generated/graphql'
+import { Category, ProjectElementFragment } from '@/generated/graphql'
 import React, { JSX } from 'react'
 
 interface ProjectContainerProps extends BoxProps {
