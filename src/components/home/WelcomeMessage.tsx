@@ -4,8 +4,8 @@ import { CodeRounded, DownloadRounded, EmailOutlined, GitHub, LinkedIn } from '@
 import { Box, Button, IconButton, Paper, Stack, Typography } from '@mui/material'
 import { useTranslation } from 'components/i18n/client'
 import { motion } from 'framer-motion'
-import { Trans } from 'next-i18next'
 import React from 'react'
+import { Trans } from 'react-i18next'
 import { AiFillRocket } from 'react-icons/ai'
 import { BsStackOverflow } from 'react-icons/bs'
 
