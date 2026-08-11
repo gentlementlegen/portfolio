@@ -16,12 +16,12 @@ import {
   Typography,
 } from '@mui/material'
 import { alpha } from '@mui/material/styles'
-import apolloClient from 'apolloClient'
-import Success from 'components/animated/Success'
-import { useTranslation } from 'components/i18n/client'
+import apolloClient from '@/apolloClient'
+import Success from '@/components/animated/Success'
+import { useTranslation } from '@/components/i18n/client'
 import { motion, useAnimationControls } from 'framer-motion'
-import { graphql } from 'generated'
-import { MutationCreateMessageArgs } from 'generated/graphql'
+import { graphql } from '@/generated'
+import { MutationCreateMessageArgs } from '@/generated/graphql'
 import { useState } from 'react'
 import { FieldError, useForm } from 'react-hook-form'
 

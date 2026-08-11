@@ -2,10 +2,10 @@
 
 import { Box, Grid, Paper, SxProps, Theme, Typography } from '@mui/material'
 import { alpha } from '@mui/material/styles'
-import { cardVariant, container } from 'components/animations/cardsReveal'
-import { useTranslation } from 'components/i18n/client'
+import { cardVariant, container } from '@/components/animations/cardsReveal'
+import { useTranslation } from '@/components/i18n/client'
 import { motion } from 'framer-motion'
-import { SkillCategory, SkillElementFragment } from 'generated/graphql'
+import { SkillCategory, SkillElementFragment } from '@/generated/graphql'
 import { JSX } from 'react'
 
 interface SkillContainerProps {
