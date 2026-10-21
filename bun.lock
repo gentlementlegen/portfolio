@@ -24,7 +24,7 @@
         "i18next-resources-to-backend": "1.2.3",
         "motion": "14.4.0",
         "next": "16.4.2",
-        "next-client-cookies": "2.1.2",
+        "next-client-cookies": "2.1.3",
         "next-i18next": "16.4.1",
         "react": "19.3.1",
         "react-anchor-link-smooth-scroll": "1.0.12",
@@ -1857,7 +1857,7 @@
 
     "next": ["next@16.4.2", "", { "dependencies": { "@next/env": "16.4.2", "@swc/helpers": "0.5.23", "baseline-browser-mapping": "^2.9.19", "caniuse-lite": "^1.0.30001579", "postcss": "8.5.23", "styled-jsx": "5.1.6" }, "optionalDependencies": { "@next/swc-darwin-arm64": "16.4.2", "@next/swc-darwin-x64": "16.4.2", "@next/swc-linux-arm64-gnu": "16.4.2", "@next/swc-linux-arm64-musl": "16.4.2", "@next/swc-linux-x64-gnu": "16.4.2", "@next/swc-linux-x64-musl": "16.4.2", "@next/swc-win32-arm64-msvc": "16.4.2", "@next/swc-win32-x64-msvc": "16.4.2", "sharp": "^0.35.5" }, "peerDependencies": { "@opentelemetry/api": "^1.1.0", "@playwright/test": "^1.51.1", "babel-plugin-react-compiler": "*", "react": "^18.2.0 || 19.0.0-rc-de68d2f4-20241204 || ^19.0.0", "react-dom": "^18.2.0 || 19.0.0-rc-de68d2f4-20241204 || ^19.0.0", "sass": "^1.3.0" }, "optionalPeers": ["@opentelemetry/api", "@playwright/test", "babel-plugin-react-compiler", "sass"], "bin": { "next": "dist/bin/next" } }, "sha512-r+oBJojfefUjOiWkBhXgLS+igxX/7BWyK59uHnyOyplMSLtBZ+QLP3okrdYTbrfrbrmNTVWLBPaHDX9KRaIt3w=="],
 
-    "next-client-cookies": ["next-client-cookies@2.1.2", "", { "dependencies": { "js-cookie": "^3.0.5" }, "peerDependencies": { "next": ">= 15.0.0", "react": ">= 16.8.0" } }, "sha512-f5XvIrOuO9koiCHZsKdRO60qMC6IQCpsHfIjQ0O/witwYewPQrNf+0XG2r0EiYVeiiRaImSBiqxNvadoUDCmhA=="],
+    "next-client-cookies": ["next-client-cookies@2.1.3", "", { "dependencies": { "js-cookie": "^3.0.5" }, "peerDependencies": { "next": ">= 15.0.0", "react": ">= 16.8.0" } }, "sha512-5G82jEPTekTsrg1z7EMBlx+ktzSP2gKrpWOnLsVdDNHb0JNaEzc5bkPMgnPT7Wy0Lph0o27Y5EIK62VFd0cLpw=="],
 
     "next-i18next": ["next-i18next@16.4.1", "", { "dependencies": { "@types/hoist-non-react-statics": "^3.3.7", "hoist-non-react-statics": "^3.3.2", "i18next-resources-to-backend": "^1.2.3" }, "peerDependencies": { "i18next": ">= 23.7.13", "i18next-icu": ">= 2.0.0", "i18next-mf2": ">= 1.0.0", "next": ">= 14.1.0", "react": ">= 18.0.0", "react-i18next": ">= 14.0.0" }, "optionalPeers": ["i18next-icu", "i18next-mf2"] }, "sha512-SEFE1aL10DXBI2CNYLRxDRio+el2YmiKELEwhAGj3JA7cJxiliK6YKBMWTsOC7hJWRTeWFpiHrAe3pFyqweBEw=="],
 
