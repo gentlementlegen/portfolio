@@ -15,13 +15,13 @@ import {
   Typography,
 } from '@mui/material'
 import { useTheme } from '@mui/material/styles'
-import { useColorMode } from 'components/context/ColorModeContext'
-import { useTranslation } from 'components/i18n/client'
+import { useColorMode } from '@/components/context/ColorModeContext'
+import { useTranslation } from '@/components/i18n/client'
 import Link from 'next/link'
 import { useParams } from 'next/navigation'
 import React, { PropsWithChildren, useState } from 'react'
 import AnchorLink, { AnchorLinkProps } from 'react-anchor-link-smooth-scroll'
-import { useScrollToTopOnHomeClick } from 'components/hooks/scrollToTopHook'
+import { useScrollToTopOnHomeClick } from '@/components/hooks/scrollToTopHook'
 
 const LinkElement = ({ children, href, offset }: PropsWithChildren<Omit<AnchorLinkProps, 'children'>>) => {
   const { category } = useParams()

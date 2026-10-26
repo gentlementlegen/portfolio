@@ -1,9 +1,9 @@
 import { Box, Container, Grid, Paper, SxProps, Theme } from '@mui/material'
-import Background from 'components/home/Background'
-import DownArrow from 'components/home/DownArrow'
-import HomeSections from 'components/home/HomeSections'
-import WelcomeMessage from 'components/home/WelcomeMessage'
-import { getHomeContentData, getHomeCriticalData } from 'lib/homeData'
+import DownArrow from '@/components/home/DownArrow'
+import HomeSections from '@/components/home/HomeSections'
+import WelcomeMessage from '@/components/home/WelcomeMessage'
+import { getHomeContentData, getHomeCriticalData } from '@/lib/homeData'
+import Background from '@/components/home/Background'
 
 interface HomePageProps {
   params: Promise<{

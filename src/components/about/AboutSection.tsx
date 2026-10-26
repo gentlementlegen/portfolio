@@ -4,9 +4,9 @@ import React from 'react'
 import { Box, Grid, Paper, SxProps, Theme, Typography } from '@mui/material'
 import { CodeRounded, GridViewRounded, RocketLaunchRounded } from '@mui/icons-material'
 import { alpha } from '@mui/material/styles'
-import { useTranslation } from 'components/i18n/client'
+import { useTranslation } from '@/components/i18n/client'
 import { motion } from 'framer-motion'
-import { cardVariant, container } from 'components/animations/cardsReveal'
+import { cardVariant, container } from '@/components/animations/cardsReveal'
 
 export interface AboutSectionProps {
   lang: string

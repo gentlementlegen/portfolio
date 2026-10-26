@@ -1,5 +1,5 @@
 import React, { JSX } from 'react'
-import style from 'components/animated/Success.module.css'
+import style from '@/components/animated/Success.module.css'
 import { clsx } from 'clsx'
 
 const Success = (): JSX.Element => {

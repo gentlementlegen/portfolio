@@ -1,6 +1,6 @@
 import 'server-only'
 
-import { ProjectElementFragment, SkillElementFragment } from 'generated/graphql'
+import { ProjectElementFragment, SkillElementFragment } from '@/generated/graphql'
 
 type GraphQlResponse<TData> = {
   data?: TData
@@ -81,7 +81,10 @@ async function requestGraphql<TData>(query: string): Promise<TData> {
   const payload = (await response.json()) as GraphQlResponse<TData>
 
   if (payload.errors?.length) {
-    const errorMessage = payload.errors.map((error) => error.message).filter(Boolean).join('; ')
+    const errorMessage = payload.errors
+      .map((error) => error.message)
+      .filter(Boolean)
+      .join('; ')
     throw new Error(errorMessage || 'GraphQL request failed')
   }
 

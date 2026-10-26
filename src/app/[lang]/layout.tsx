@@ -1,16 +1,16 @@
 import React from 'react'
-import MainLayout from 'components/layout/MainLayout'
-import CommonTheme from 'components/theme/CommonTheme'
-import NavBar from 'components/layout/NavBar'
-import Footer from 'components/layout/Footer'
+import MainLayout from '@/components/layout/MainLayout'
+import CommonTheme from '@/components/theme/CommonTheme'
+import NavBar from '@/components/layout/NavBar'
+import Footer from '@/components/layout/Footer'
 import ReactGA from 'react-ga4'
 import { dir } from 'i18next'
-import { languages } from 'components/i18n/settings'
+import { languages } from '@/components/i18n/settings'
 import { Analytics } from '@vercel/analytics/next'
 import { SpeedInsights } from '@vercel/speed-insights/next'
 import { Metadata } from 'next'
 import { Manrope } from 'next/font/google'
-import { getSiteUrl } from 'lib/siteUrl'
+import { getSiteUrl } from '@/lib/siteUrl'
 
 const manrope = Manrope({
   subsets: ['latin'],
@@ -32,11 +32,7 @@ const metadataDescription =
   'I am Fernand Veyrier, fullstack and Web3 programmer. This portfolio mostly focuses on video games and personal projects.'
 const isVercelDeployment = Boolean(process.env.VERCEL || process.env.NEXT_PUBLIC_VERCEL_URL)
 
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ lang: string }>
-}): Promise<Metadata> {
+export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }): Promise<Metadata> {
   const { lang } = await params
 
   return {

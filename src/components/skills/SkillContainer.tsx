@@ -2,10 +2,10 @@
 
 import { Box, Grid, Paper, SxProps, Theme, Typography } from '@mui/material'
 import { alpha } from '@mui/material/styles'
-import { cardVariant, container } from 'components/animations/cardsReveal'
-import { useTranslation } from 'components/i18n/client'
+import { cardVariant, container } from '@/components/animations/cardsReveal'
+import { useTranslation } from '@/components/i18n/client'
 import { motion } from 'framer-motion'
-import { SkillCategory, SkillElementFragment } from 'generated/graphql'
+import { SkillCategory, SkillElementFragment } from '@/generated/graphql'
 import { JSX } from 'react'
 
 interface SkillContainerProps {
@@ -70,24 +70,18 @@ const styles: Record<
   }),
 }
 
-const categoryOrder: SkillCategory[] = [
-  SkillCategory.Frontend,
-  SkillCategory.Backend,
-  SkillCategory.Web3,
-  SkillCategory.ToolsAndDevops,
-  SkillCategory.Language,
-]
+const categoryOrder: SkillCategory[] = ['frontend', 'backend', 'web3', 'toolsAndDevops', 'language']
 
 const SkillContainer = (props: SkillContainerProps): JSX.Element => {
   const { skills, lang } = props
   const { t } = useTranslation(lang, 'common')
 
   const categoryLabels: Record<SkillCategory, string> = {
-    [SkillCategory.Frontend]: t('skills category frontend'),
-    [SkillCategory.Backend]: t('skills category backend'),
-    [SkillCategory.Web3]: t('skills category web3'),
-    [SkillCategory.ToolsAndDevops]: t('skills category tools'),
-    [SkillCategory.Language]: t('language category tools'),
+    frontend: t('skills category frontend'),
+    backend: t('skills category backend'),
+    web3: t('skills category web3'),
+    toolsAndDevops: t('skills category tools'),
+    language: t('language category tools'),
   }
 
   const groupedSkills = skills.reduce(

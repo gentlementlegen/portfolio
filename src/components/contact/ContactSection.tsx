@@ -2,8 +2,8 @@
 
 import { Grid, styled, Typography } from '@mui/material'
 import MuiLink from '@mui/material/Link'
-import { cardVariant, container } from 'components/animations/cardsReveal'
-import { useTranslation } from 'components/i18n/client'
+import { cardVariant, container } from '@/components/animations/cardsReveal'
+import { useTranslation } from '@/components/i18n/client'
 import { motion } from 'framer-motion'
 import { AiFillRocket } from 'react-icons/ai'
 import { BsGithub, BsLinkedin, BsStackOverflow } from 'react-icons/bs'

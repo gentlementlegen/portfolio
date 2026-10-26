@@ -1,11 +1,11 @@
 'use client'
 
 import { Box, BoxProps, Grid, SxProps, Theme, Typography } from '@mui/material'
-import { cardVariant, container } from 'components/animations/cardsReveal'
-import { useTranslation } from 'components/i18n/client'
-import ProjectCard from 'components/project/ProjectCard'
+import { cardVariant, container } from '@/components/animations/cardsReveal'
+import { useTranslation } from '@/components/i18n/client'
+import ProjectCard from '@/components/project/ProjectCard'
 import { motion, Variants } from 'framer-motion'
-import { Category, ProjectElementFragment } from 'generated/graphql'
+import { Category, ProjectElementFragment } from '@/generated/graphql'
 import React, { JSX } from 'react'
 
 interface ProjectContainerProps extends BoxProps {
@@ -139,12 +139,12 @@ const projectCardVariants: Variants = {
 const ProjectContainer = (props: ProjectContainerProps): JSX.Element => {
   const { projects: inputProjects, sx, lang = 'en', showHeader = true, ...rest } = props
   const { t } = useTranslation(lang, 'common')
-  const [selectedCategory, setSelectedCategory] = React.useState<Category>(Category.Projects)
+  const [selectedCategory, setSelectedCategory] = React.useState<Category>('projects')
 
   const categoryLabels: Record<Category, string> = {
-    [Category.Projects]: t('projects category projects'),
-    [Category.Games]: t('projects category games'),
-    [Category.Others]: t('projects category others'),
+    projects: t('projects category projects'),
+    games: t('projects category games'),
+    others: t('projects category others'),
   }
 
   const projects = React.useMemo(() => {
@@ -158,7 +158,7 @@ const ProjectContainer = (props: ProjectContainerProps): JSX.Element => {
     })
   }, [inputProjects, selectedCategory])
 
-  const categoryOrder = [Category.Projects, Category.Games, Category.Others]
+  const categoryOrder: Category[] = ['projects', 'games', 'others']
 
   return (
     <Box

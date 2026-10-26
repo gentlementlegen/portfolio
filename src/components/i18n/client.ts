@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react'
 import i18next from 'i18next'
 import { initReactI18next, useTranslation as useTranslationOrg, UseTranslationOptions } from 'react-i18next'
-import { cookieName, defaultNS, fallbackLng, getOptions, languages } from 'components/i18n/settings'
+import { cookieName, defaultNS, fallbackLng, getOptions, languages } from '@/components/i18n/settings'
 import enCommon from '../../../public/locales/en/common.json'
 import frCommon from '../../../public/locales/fr/common.json'
 import koCommon from '../../../public/locales/ko/common.json'

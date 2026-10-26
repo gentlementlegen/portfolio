@@ -1,7 +1,7 @@
 'use client'
 
 import React, { PropsWithChildren } from 'react'
-import makeTheme from 'theme'
+import makeTheme from '@/theme'
 import { ThemeProvider } from '@mui/material/styles'
 
 const ColorModeContext = React.createContext({

@@ -2,7 +2,7 @@ import { GitHub, LaunchRounded } from '@mui/icons-material'
 import { Box, Card, CardContent, CardProps, Typography } from '@mui/material'
 import { alpha } from '@mui/material/styles'
 import { motion } from 'framer-motion'
-import { ProjectElementFragment } from 'generated/graphql'
+import { ProjectElementFragment } from '@/generated/graphql'
 import Image from 'next/image'
 import { JSX } from 'react'
 
