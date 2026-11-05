@@ -35,7 +35,7 @@
     "clsx": "2.1.1",
     "motion": "14.9.1",
     "graphql": "17.1.0",
-    "i18next": "26.7.1",
+    "i18next": "26.7.2",
     "i18next-resources-to-backend": "1.2.4",
     "next": "16.4.5",
     "next-client-cookies": "2.1.3",
