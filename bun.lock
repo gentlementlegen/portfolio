@@ -38,7 +38,7 @@
       "devDependencies": {
         "@commitlint/cli": "^21.0.1",
         "@commitlint/config-conventional": "^21.0.1",
-        "@formatjs/intl-localematcher": "0.10.1",
+        "@formatjs/intl-localematcher": "0.10.2",
         "@graphql-codegen/cli": "8.0.0",
         "@graphql-codegen/client-preset": "7.0.0",
         "@playwright/test": "1.65.1",
@@ -277,9 +277,9 @@
 
     "@fastify/busboy": ["@fastify/busboy@3.1.1", "", {}, "sha512-5DGmA8FTdB2XbDeEwc/5ZXBl6UbBAyBOOLlPuBnZ/N1SwdH9Ii+cOX3tBROlDgcTXxjOYnLMVoKk9+FXAw0CJw=="],
 
-    "@formatjs/fast-memoize": ["@formatjs/fast-memoize@3.1.7", "", {}, "sha512-zXfhLpvA6T7+efdt9JLbBwZ00tT7NsBMDVnDu8rpHeNNv8KfRZAMo2gkG0k9lK/Nzc//3kJ9pImsfuJxk3KhUA=="],
+    "@formatjs/fast-memoize": ["@formatjs/fast-memoize@3.1.8", "", {}, "sha512-Y9YFFfeBDkAWmLWD3LVNHbHlyELsP2lYRNoY6+QhtPh1/ujCiX5QYBzAqe0cWdkCxKVezHLt0qjWz1veEUV7UA=="],
 
-    "@formatjs/intl-localematcher": ["@formatjs/intl-localematcher@0.10.1", "", { "dependencies": { "@formatjs/fast-memoize": "3.1.7" } }, "sha512-gBqglQK9rXuHsLmM8wzTMBy4Xo4d0jamirIVKuEL8F1rwbskWdpMA1kZarSkny+uvr5q/K6GSzE0Rcq1wZLl3g=="],
+    "@formatjs/intl-localematcher": ["@formatjs/intl-localematcher@0.10.2", "", { "dependencies": { "@formatjs/fast-memoize": "3.1.8" } }, "sha512-KvXcVOPLYRQ5s6O0MrHePLIIhkSUm5bZbsEHGmKI3xXoy7hvGxUoagaobAIi8/hc9YabgHvLDFeeqbrjPNIKwg=="],
 
     "@graphql-codegen/add": ["@graphql-codegen/add@8.0.0", "", { "dependencies": { "@graphql-codegen/plugin-helpers": "^8.0.0", "tslib": "^2.8.0" }, "peerDependencies": { "graphql": "^16.0.0 || ^17.0.0" } }, "sha512-V6P890QPPvafeKM+uU+3u4NAqpGmtcWE5tHYl7KPjvlUKul4g5Ou4uKvTrlVchM3aR2E4LgX4dR7K9lPxDJntQ=="],
 
