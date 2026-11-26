@@ -52,7 +52,7 @@
   "devDependencies": {
     "@commitlint/cli": "^21.0.1",
     "@commitlint/config-conventional": "^21.0.1",
-    "@formatjs/intl-localematcher": "0.10.2",
+    "@formatjs/intl-localematcher": "0.10.3",
     "@graphql-codegen/cli": "8.0.0",
     "@graphql-codegen/client-preset": "7.0.0",
     "@playwright/test": "1.65.1",
